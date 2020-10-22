@@ -1,6 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {AppLoading} from 'expo'
+// import {connect} from 'react-redux'
+// import {AppLoading} from 'expo'
 import {
     StyleSheet,
     Text,
@@ -9,18 +9,23 @@ import {
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';
-  import logo from '../../assets/logo.png'
+  import {red, lightBlue, white} from '../ui/colors'
+  import Header from '../Header/Header'
 
   export default LandingPage = () => {
     
     
     return(
-      <View>
-        <Image source={logo} style={{width: 305, height: 159}} resizeMode='contain'/>
-        <Text>Remember less, experience more</Text>
+      <View style={styles.container}>
+        <Header />
       </View>
     )
-
-
-
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: white,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+  }
+})
