@@ -1,19 +1,14 @@
 import React from 'react'
-// import {connect} from 'react-redux'
-// import {AppLoading} from 'expo'
 import {
     StyleSheet,
     Text,
     View,
     Image,
-    TouchableOpacity,
-    ImageBackground,
   } from 'react-native';
   import logo from '../../assets/logo.png'
   import {red, lightBlue, white} from '../ui/colors'
 
   export default Header = () => {
-    
     
     return(
       <View style={styles.container}>
