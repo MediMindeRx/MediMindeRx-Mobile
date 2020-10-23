@@ -15,7 +15,7 @@ import LandingPage from './src/LandingPage/LandingPage'
 export default function App() {
   return (
     <View style={styles.container}>
-      <LandingPage />
+      {/* <LandingPage /> */}
       <StatusBar style="auto" />
     </View>
   );
