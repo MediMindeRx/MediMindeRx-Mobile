@@ -10,12 +10,13 @@ import {
   } from 'react-native';
   import {lightBlue, white, red, inputText} from '../ui/colors'
   import Header from '../Header/Header'
-  import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
+  import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat'
 
 
   export default Profile= () => {
     const [fontsLoaded] = useFonts({
-      Montserrat_700Bold
+      Montserrat_700Bold, 
+      Montserrat_600SemiBold
     })
 
     if (!fontsLoaded) {
@@ -25,8 +26,10 @@ import {
       <View style={styles.container}>
         <Header />
         <Text style={styles.welcomeText}>Hey there, Joe!</Text> 
-        <Text style={styles.welcomeText}>Existing Reminders</Text> 
-        
+        <Text style={styles.headerText}>Existing Reminders</Text> 
+        <Text style={styles.bodyText}>Tennis Practice || 5pm || TTH</Text> 
+        <Text style={styles.bodyText}>Elbow wrap, Inhaler, Water Bottle</Text> 
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.buttonText}>Add Reminder</Text>
@@ -51,18 +54,27 @@ import {
 
     welcomeText: {
       color: lightBlue,
-      fontSize: 30,
+      fontSize: 35,
       fontFamily: "Montserrat_700Bold",
+      textAlign: "center"
     },
 
-    inputText: {
-      color: red,
-      fontSize: 38,
+    headerText: {
+      color: lightBlue,
+      fontSize: 25,
       fontFamily: "Montserrat_700Bold",
-      borderBottomWidth: 1,
-      borderBottomColor: red,
-      width: "70%"      
+      marginTop: 15
     },
+
+    bodyText: {
+      color: lightBlue,
+      fontSize: 20,
+      fontFamily: "Montserrat_700SemiBold",
+      marginTop: 5,
+      marginLeft: 10
+    },
+
+
 
     buttonText: {
       color: white,
