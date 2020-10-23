@@ -6,7 +6,8 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    KeyboardAvoidingView
 } from 'react-native';
 import {lightBlue, white, red} from '../ui/colors'
 import Header from '../Header/Header'
@@ -21,16 +22,20 @@ export default ReminderSettingPage = () => {
     return <AppLoading />
   } else {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <KeyboardAvoidingView 
+        style={styles.container}
+        behavior="padding"
+      >
         <Header />
         <View>
+          <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
           <View style={styles.inputField}>
-            <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
-            <TextInput style={styles.inputText} placeholder='Name of your reminder'></TextInput>
+            <Text style={styles.subheaderText}>What should it be called?</Text>
+            <TextInput style={styles.inputText} placeholder='Enter its name here'></TextInput>
           </View>
           <View style={styles.inputField2}>
-            <Text style={styles.sectionHeaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} placeholder='List them here!'></TextInput>
+            <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
+            <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
           </View>
           <View>
             <TouchableOpacity style={styles.buttonStyle}>
@@ -38,7 +43,7 @@ export default ReminderSettingPage = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -47,13 +52,22 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: white,
     // alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-end'
   },
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center"
   },
   sectionHeaderText: {
+    color: lightBlue,
+    fontSize: 28,
+    fontFamily: "Montserrat_700Bold",
+    width: 300,
+    marginLeft: 20,
+    marginBottom: 40,
+    marginTop: 10
+  },
+  subheaderText: {
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
@@ -64,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
     marginTop: 40,
-    textAlign: "center",
+    textAlign: "left",
     paddingBottom: 5
   },
   inputField: {
