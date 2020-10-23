@@ -26,8 +26,8 @@ import {
         <Header />
         <Text style={styles.welcomeText}>Hey there!</Text> 
         <Text style={styles.welcomeText}>What's your name?</Text>
-        <TextInput style={styles.inputText} placeholder='Tap & Type'></TextInput>
-        <View>
+        <View style={styles.buttonContainer}>
+         <TextInput style={styles.inputText} placeholder='Name'></TextInput>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
@@ -36,41 +36,47 @@ import {
     )
   }
 }
+
   const styles = StyleSheet.create({
     container: {
       backgroundColor: white,
-      // alignItems: 'center',
       justifyContent: 'flex-start',
     },
+
     buttonContainer: {
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      marginTop: 20,
     },
+
     welcomeText: {
       color: lightBlue,
-      fontSize: 26,
+      fontSize: 30,
       fontFamily: "Montserrat_700Bold",
     },
+
     inputText: {
       color: red,
       fontSize: 38,
       fontFamily: "Montserrat_700Bold",
-      marginTop: 40,
-      textAlign: "center",
-      // borderBottom: red      
+      borderBottomWidth: 1,
+      borderBottomColor: red,
+      width: "70%"      
     },
+
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
       fontSize: 20,
       textAlign: "center"
     },
+
     buttonStyle: {
       backgroundColor: red,
       padding: 13,
       borderRadius: 10,
-      marginTop: 20,
       width: "60%",
+      marginTop: 20
     }
 
 })
