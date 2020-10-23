@@ -24,7 +24,7 @@ import {
         <View style={styles.container}>
           <Image source={logo} style={{width: 350, height: 75, marginTop: 50}} resizeMode='contain'/>
           <Text>
-            <Text style={styles.blueText}>Remember less,</Text>  
+            <Text style={styles.blueText}>Worry less,</Text>  
             <Text style={styles.redText}> experience more.</Text>
           </Text>
         </View>

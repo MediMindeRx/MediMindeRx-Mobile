@@ -63,7 +63,8 @@ import {
       padding: 10,
       borderRadius: 10,
       marginTop: 20,
-      width: "75%"
+      width: "75%",
+      alignItems: "center"
     }
 
 })
