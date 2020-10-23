@@ -1,6 +1,8 @@
-import React from 'react'
-// import {connect} from 'react-redux'
-import {AppLoading} from 'expo'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AppLoading } from 'expo'
 import {
     StyleSheet,
     Text,
@@ -15,8 +17,7 @@ import {
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 
-
-  export default LandingPage = () => {
+  export default LandingPage = ({ navigation }) => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
@@ -32,8 +33,14 @@ import {
           <Text style={styles.welcomeText}>What's your name?</Text>
         </View>
         <View style={styles.buttonContainer}>
-         <TextInput style={styles.inputText} placeholder='Name'></TextInput>
-          <TouchableOpacity style={styles.buttonStyle}>
+          <TextInput 
+            style={styles.inputText} 
+            placeholder='Name'
+          />
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => navigation.navigate('ReminderSettingPage')}
+          >
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
         </View>
@@ -93,5 +100,4 @@ import {
       shadowOpacity: 0.5,
       shadowRadius: 3,
     }
-
 })

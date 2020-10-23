@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
     StyleSheet,
     Text,
@@ -15,7 +17,7 @@ import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed
 import {AppLoading} from 'expo';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default FrequencyPage = () => {
+export default FrequencyPage = ({ navigation }) => {
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -31,10 +33,11 @@ export default FrequencyPage = () => {
     const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const daysJSX = sevenDays.map(day => {
       return (
-              <View style={styles.frequencySwitch}>
-                <Text style={styles.dateLabel}>{day}</Text>
-                <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
-              </View>)
+        <View style={styles.frequencySwitch}>
+          <Text style={styles.dateLabel}>{day}</Text>
+          <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
+        </View>
+      )
     })
     return daysJSX
   }
@@ -42,7 +45,6 @@ export default FrequencyPage = () => {
   // write method to connect global store to here?
   // if workweek is true, send ['Monday', 'Tuesday'.....] to server for days, etc
   // also, only one switch can be true at once for workday, custom, everyday. within custom, you can have multiple days be true. 
-
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
@@ -56,7 +58,7 @@ export default FrequencyPage = () => {
       <View style={styles.container}>
         <Header />
           <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-         <View style={{height: 370}}>
+          <View style={{height: 370}}>
         <ScrollView>
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Frequency</Text>
@@ -85,7 +87,11 @@ export default FrequencyPage = () => {
         </ScrollView>
         </View> 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonStyle}>
+            <TouchableOpacity 
+              style={styles.buttonStyle}
+              style={styles.buttonStyle}
+              onPress={() => navigation.navigate('ProfilePage')}
+            >
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>

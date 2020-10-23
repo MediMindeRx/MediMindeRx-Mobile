@@ -1,4 +1,6 @@
 import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import {AppLoading} from 'expo'
 import {
     StyleSheet,
@@ -16,7 +18,7 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
 
 
-export default ReminderSettingPage = () => {
+export default ReminderSettingPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold
   })
@@ -44,7 +46,11 @@ export default ReminderSettingPage = () => {
           </View>
 
           <View>
-            <TouchableOpacity style={styles.buttonStyle}>
+            <TouchableOpacity 
+              style={styles.buttonStyle}
+              style={styles.buttonStyle}
+              onPress={() => navigation.navigate('FrequencyPage')}
+            >
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>
