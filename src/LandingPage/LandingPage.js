@@ -7,8 +7,11 @@ import {
     View,
     TextInput,
     TouchableOpacity,
+    Dimensions
   } from 'react-native';
-  import {lightBlue, white, red, inputText} from '../ui/colors'
+
+  //ui
+  import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 
@@ -40,6 +43,7 @@ import {
   const styles = StyleSheet.create({
     container: {
       justifyContent: 'flex-start',
+      height: 700
     },
 
     buttonContainer: {

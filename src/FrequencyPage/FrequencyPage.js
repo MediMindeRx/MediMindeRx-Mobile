@@ -11,7 +11,7 @@ import {
 import Header from '../Header/Header';
 import {lightBlue, white, red} from '../ui/colors';
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
-import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
+import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
 import {AppLoading} from 'expo';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -50,6 +50,7 @@ export default FrequencyPage = () => {
                 <Switch trackColor={{false: white, true: red}} value={switch3} onValueChange={() => changeSwitch3(!switch3)}/>
             </View>
           </View>
+          
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
             <DateTimePicker value={Date.now()} mode="time"/>

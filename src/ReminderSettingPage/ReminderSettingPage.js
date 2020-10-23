@@ -6,12 +6,15 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    ScrollView,
     KeyboardAvoidingView
 } from 'react-native';
+
+// ui
 import {lightBlue, white, red} from '../ui/colors'
 import Header from '../Header/Header'
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
+import {LinearGradient} from 'expo-linear-gradient'
+
 
 export default ReminderSettingPage = () => {
   const [fontsLoaded] = useFonts({
@@ -27,21 +30,25 @@ export default ReminderSettingPage = () => {
         behavior="padding"
       >
         <Header />
+
         <View>
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
             <TextInput style={styles.inputText} placeholder='Enter its name here'></TextInput>
           </View>
+
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
             <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
           </View>
+
           <View>
             <TouchableOpacity style={styles.buttonStyle}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>
+
         </View>
       </KeyboardAvoidingView>
     )
@@ -50,7 +57,8 @@ export default ReminderSettingPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'flex-end'
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 
   buttonContainer: {
@@ -76,7 +84,6 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
-    // color: red,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
     marginTop: 40,

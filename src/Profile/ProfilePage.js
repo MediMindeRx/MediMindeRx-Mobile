@@ -30,7 +30,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
     } else {
     return(
       <View style={styles.container}>
-        <LinearGradient colors={["#fff", "#fff", "#E0EAFC"]} style={styles.linearGradient} >
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
         <Text style={styles.welcomeText}>Joe's Reminders</Text> 
         <View style={{height: 390}}>
@@ -38,17 +38,17 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
             <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
-            <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/>
+            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
 
             <Text style={styles.subHeaderText}>Work</Text> 
             <Text style={styles.bodyTextDetails}>8am | Everyday</Text> 
             <Text style={styles.bodyTextDetails}>Inhaler, Water Bottle, Claritin</Text> 
-            <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/>
+            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
 
             <Text style={styles.subHeaderText}>Visit Parents</Text> 
             <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
             <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
-            <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/> 
+            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/> 
           </ScrollView>
         </View>
         
@@ -66,6 +66,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
   const styles = StyleSheet.create({
     container: {
+      flex: 1,
       justifyContent: 'flex-start',
     },
 
@@ -100,14 +101,12 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       fontSize: 25,
       fontFamily: "OpenSansCondensed_700Bold",
       marginTop: 10,
-      marginLeft: 15,
     },
 
     bodyTextDetails: {
       color: black,
-      fontSize: 25,
+      fontSize: 23,
       fontFamily: "OpenSansCondensed_300Light",
-      marginLeft: 25
     },
 
 

@@ -14,8 +14,6 @@ import ProfilePage from './src/Profile/ProfilePage'
 import ReminderSettingPage from './src/ReminderSettingPage/ReminderSettingPage'
 import FrequencyPage from './src/FrequencyPage/FrequencyPage'
 
-{/* <LandingPage /> */}
-
 
 
 export default function App() {
@@ -29,7 +27,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    flex: 1,
   },
 });
