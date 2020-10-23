@@ -11,6 +11,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import User from './src/User/user'
 import LandingPage from './src/LandingPage/LandingPage'
 import Profile from './src/Profile/Profile'
+import ReminderSettingPage from './src/ReminderSettingPage/ReminderSettingPage'
+import FrequencyPage from './src/FrequencyPage/FrequencyPage'
 
 {/* <LandingPage /> */}
 
@@ -18,6 +20,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Profile />
+      <ReminderSettingPage />
+      <LandingPage />
+      <FrequencyPage />
       <StatusBar style="auto" />
     </View>
   );
