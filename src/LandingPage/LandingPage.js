@@ -27,9 +27,11 @@ import {
         <Text style={styles.welcomeText}>Hey there!</Text> 
         <Text style={styles.welcomeText}>What's your name?</Text>
         <TextInput style={styles.inputText} placeholder='Tap & Type'></TextInput>
-        <TouchableOpacity style={styles.buttonStyle}>
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -39,6 +41,10 @@ import {
       backgroundColor: white,
       // alignItems: 'center',
       justifyContent: 'flex-start',
+    },
+    buttonContainer: {
+      alignItems: "center",
+      justifyContent: "center"
     },
     welcomeText: {
       color: lightBlue,
@@ -50,7 +56,8 @@ import {
       fontSize: 38,
       fontFamily: "Montserrat_700Bold",
       marginTop: 40,
-      textAlign: "center"      
+      textAlign: "center",
+      // borderBottom: red      
     },
     buttonText: {
       color: white,
@@ -60,11 +67,10 @@ import {
     },
     buttonStyle: {
       backgroundColor: red,
-      padding: 10,
+      padding: 13,
       borderRadius: 10,
       marginTop: 20,
-      width: "75%",
-      alignItems: "center"
+      width: "60%",
     }
 
 })
