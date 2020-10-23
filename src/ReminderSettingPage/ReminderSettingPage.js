@@ -104,13 +104,12 @@ const styles = StyleSheet.create({
     backgroundColor: red,
     padding: 13,
     borderRadius: 10,
-    marginTop: 20,
     width: "60%",
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 3,
     marginLeft: 70,
-    marginTop: 100
+    marginTop: 40
   }
 })

@@ -47,7 +47,7 @@ import {
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 40,
+      marginTop: 20,
     },
 
     welcomeText: {
@@ -61,7 +61,7 @@ import {
       color: red,
       fontSize: 38,
       fontFamily: "Montserrat_700Bold",
-      borderBottomWidth: 1,
+      borderBottomWidth: 2,
       borderBottomColor: red,
       width: "70%"      
     },
@@ -78,7 +78,6 @@ import {
       padding: 13,
       borderRadius: 10,
       width: "60%",
-      marginTop: 25,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.5,

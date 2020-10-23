@@ -14,7 +14,7 @@ import {
   import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
 
 
-  export default Profile= () => {
+  export default ProfilePage = () => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       OpenSansCondensed_300Light,
@@ -30,17 +30,17 @@ import {
         <Text style={styles.welcomeText}>Joe's Reminders</Text> 
 
         <ScrollView>
-          <Text style={styles.bodyText}>Tennis Practice</Text> 
+          <Text style={styles.subHeaderText}>Tennis Practice</Text> 
           <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
           <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
           <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
 
-          <Text style={styles.bodyText}>Work</Text> 
+          <Text style={styles.subHeaderText}>Work</Text> 
           <Text style={styles.bodyTextDetails}>8am | Everyday</Text> 
           <Text style={styles.bodyTextDetails}>Inhaler, Water Bottle, Claritin</Text> 
           <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
 
-          <Text style={styles.bodyText}>Visit Parents</Text> 
+          <Text style={styles.subHeaderText}>Visit Parents</Text> 
           <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
           <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
           <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/> 
@@ -84,7 +84,7 @@ import {
       
     },
 
-    bodyText: {
+    subHeaderText: {
       color: lightBlue,
       fontSize: 25,
       fontFamily: "OpenSansCondensed_700Bold",
