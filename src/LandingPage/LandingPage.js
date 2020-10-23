@@ -7,7 +7,10 @@ import {
     View,
     TextInput,
     TouchableOpacity,
+    Dimensions
   } from 'react-native';
+
+  //ui
   import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
@@ -24,10 +27,12 @@ import {
     return(
       <View style={styles.container}>
         <Header />
-        <Text style={styles.welcomeText}>Hey there!</Text> 
-        <Text style={styles.welcomeText}>What's your name?</Text>
-        <TextInput style={styles.inputText} placeholder='Tap & Type'></TextInput>
-        <View>
+        <View style={styles.welcomeTexts}>
+          <Text style={styles.welcomeText}>Hey there!</Text> 
+          <Text style={styles.welcomeText}>What's your name?</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+         <TextInput style={styles.inputText} placeholder='Name'></TextInput>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
@@ -36,42 +41,57 @@ import {
     )
   }
 }
+
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: white,
-      // alignItems: 'center',
       justifyContent: 'flex-start',
+      height: 700
     },
+
     buttonContainer: {
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      marginTop: 20,
     },
+
+    welcomeTexts: {
+      marginLeft: 30,
+      marginTop: 70
+    },
+    
     welcomeText: {
       color: lightBlue,
-      fontSize: 26,
+      fontSize: 24,
       fontFamily: "Montserrat_700Bold",
-      marginLeft: 10
     },
+
     inputText: {
       color: red,
-      fontSize: 38,
+      fontSize: 26,
       fontFamily: "Montserrat_700Bold",
-      marginTop: 40,
-      textAlign: "center",
-      // borderBottom: red      
+      borderBottomWidth: 2,
+      borderBottomColor: red,
+      width: "70%",
+      paddingBottom: 5,
+      marginBottom: 30      
     },
+
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
       fontSize: 20,
-      textAlign: "center"
+      textAlign: "center",
     },
+
     buttonStyle: {
       backgroundColor: red,
       padding: 13,
       borderRadius: 10,
-      marginTop: 20,
       width: "60%",
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.5,
+      shadowRadius: 3,
     }
 
 })
