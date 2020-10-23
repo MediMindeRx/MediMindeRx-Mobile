@@ -7,7 +7,6 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    ImageBackground,
   } from 'react-native';
   import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
@@ -28,7 +27,9 @@ import {
         <Text style={styles.welcomeText}>Hey there!</Text> 
         <Text style={styles.welcomeText}>What's your name?</Text>
         <TextInput style={styles.inputText} placeholder='Tap & Type'></TextInput>
-        
+        <TouchableOpacity style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -50,6 +51,19 @@ import {
       fontFamily: "Montserrat_700Bold",
       marginTop: 40,
       textAlign: "center"      
+    },
+    buttonText: {
+      color: white,
+      fontFamily: "Montserrat_700Bold",
+      fontSize: 20,
+      textAlign: "center"
+    },
+    buttonStyle: {
+      backgroundColor: red,
+      padding: 10,
+      borderRadius: 10,
+      marginTop: 20,
+      width: "75%"
     }
 
 })
