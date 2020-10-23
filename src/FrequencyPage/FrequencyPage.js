@@ -32,12 +32,17 @@ export default FrequencyPage = () => {
     const daysJSX = sevenDays.map(day => {
       return (
               <View style={styles.frequencySwitch}>
-                <Text style={styles.dateLabel}>{day.charAt(0).toUpperCase() + day.slice(1)}</Text>
+                <Text style={styles.dateLabel}>{day}</Text>
                 <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
               </View>)
     })
     return daysJSX
   }
+
+  // write method to connect global store to here?
+  // if workweek is true, send ['Monday', 'Tuesday'.....] to server for days, etc
+  // also, only one switch can be true at once for workday, custom, everyday. within custom, you can have multiple days be true. 
+
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
@@ -51,7 +56,7 @@ export default FrequencyPage = () => {
       <View style={styles.container}>
         <Header />
           <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-         <View style={{height: 375}}>
+         <View style={{height: 370}}>
         <ScrollView>
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Frequency</Text>
