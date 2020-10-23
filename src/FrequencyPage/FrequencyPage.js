@@ -11,6 +11,7 @@ import Header from '../Header/Header';
 import {lightBlue, white, red} from '../ui/colors';
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
 import {AppLoading} from 'expo';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default FrequencyPage = () => {
   const [fontsLoaded] = useFonts({
@@ -35,7 +36,7 @@ export default FrequencyPage = () => {
         </View>
         <View style={styles.frequencyBox}>
           <Text style={styles.welcomeText}>Time</Text>
-          <TextInput placeholder="datepicker" style={styles.inputText}></TextInput>
+          <DateTimePicker value={Date.now()} mode="time"/>
         </View>
         <TouchableOpacity style={styles.buttonStyle}>
           <Text style={styles.buttonText}>Next</Text>
