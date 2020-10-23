@@ -34,8 +34,7 @@ import {
 
   const styles = StyleSheet.create({
     container: {
-      justifyContent: "flex-start",
-      alignItems: "center"  
+      alignItems: "center",
     }, 
     blueText: {
       color: lightBlue,
