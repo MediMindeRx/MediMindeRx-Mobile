@@ -8,7 +8,7 @@ import {
     TextInput,
     TouchableOpacity,
   } from 'react-native';
-  import {lightBlue, white, red} from '../ui/colors'
+  import {lightBlue, white, red, inputText} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 
@@ -46,7 +46,7 @@ import {
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 20,
+      marginTop: 40,
     },
 
     welcomeText: {
@@ -67,7 +67,7 @@ import {
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
-      fontSize: 20,
+      fontSize: 25,
       textAlign: "center"
     },
 
@@ -76,7 +76,7 @@ import {
       padding: 13,
       borderRadius: 10,
       width: "60%",
-      marginTop: 20
+      marginTop: 25
     }
 
 })
