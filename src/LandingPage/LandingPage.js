@@ -50,6 +50,7 @@ import {
       color: lightBlue,
       fontSize: 26,
       fontFamily: "Montserrat_700Bold",
+      marginLeft: 10
     },
     inputText: {
       color: red,

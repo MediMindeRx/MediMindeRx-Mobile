@@ -10,11 +10,13 @@ import { StyleSheet, Text, View } from 'react-native';
 // App Imports
 import User from './src/User/user'
 import LandingPage from './src/LandingPage/LandingPage'
+import ReminderSettingPage from './src/ReminderSettingPage/ReminderSettingPage'
 
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <ReminderSettingPage />
       {/* <LandingPage /> */}
       <StatusBar style="auto" />
     </View>
