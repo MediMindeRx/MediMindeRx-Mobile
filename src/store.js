@@ -5,9 +5,8 @@ import {
   applyMiddleware,
 } from 'redux';
 import thunk from 'redux-thunk';
-import user from './LandingPage/api/reducers'
 
-// export const rootReducer = combineReducers({})
+export const rootReducer = combineReducers({})
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
