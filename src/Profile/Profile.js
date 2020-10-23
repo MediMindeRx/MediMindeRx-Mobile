@@ -5,18 +5,20 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
     TouchableOpacity,
+    ScrollView,
   } from 'react-native';
-  import {lightBlue, white, red, inputText} from '../ui/colors'
+  import {lightBlue, white, red, black} from '../ui/colors'
   import Header from '../Header/Header'
-  import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat'
+  import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
+  import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
 
 
   export default Profile= () => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
-      Montserrat_600SemiBold
+      OpenSansCondensed_300Light,
+      OpenSansCondensed_700Bold
     })
 
     if (!fontsLoaded) {
@@ -25,17 +27,32 @@ import {
     return(
       <View style={styles.container}>
         <Header />
-        <Text style={styles.welcomeText}>Hey there, Joe!</Text> 
-        <Text style={styles.headerText}>Existing Reminders</Text> 
-        <Text style={styles.bodyText}>Tennis Practice || 5pm || TTH</Text> 
-        <Text style={styles.bodyText}>Elbow wrap, Inhaler, Water Bottle</Text> 
+        <Text style={styles.welcomeText}>Joe's Reminders</Text> 
 
+        <ScrollView>
+          <Text style={styles.bodyText}>Tennis Practice</Text> 
+          <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
+          <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
+
+          <Text style={styles.bodyText}>Work</Text> 
+          <Text style={styles.bodyTextDetails}>8am | Everyday</Text> 
+          <Text style={styles.bodyTextDetails}>Inhaler, Water Bottle, Claritin</Text> 
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
+
+          <Text style={styles.bodyText}>Visit Parents</Text> 
+          <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
+          <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/> 
+        </ScrollView>
+        
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.buttonText}>Add Reminder</Text>
           </TouchableOpacity>
         </View>
       </View>
+
     )
   }
 }
@@ -49,31 +66,38 @@ import {
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 40,
     },
 
     welcomeText: {
       color: lightBlue,
       fontSize: 35,
       fontFamily: "Montserrat_700Bold",
-      textAlign: "center"
+      textAlign: "center",
     },
 
     headerText: {
       color: lightBlue,
       fontSize: 25,
       fontFamily: "Montserrat_700Bold",
-      marginTop: 15
+      marginTop: 15,
+      marginLeft: 5,
+      
     },
 
     bodyText: {
       color: lightBlue,
-      fontSize: 20,
-      fontFamily: "Montserrat_700SemiBold",
-      marginTop: 5,
-      marginLeft: 10
+      fontSize: 25,
+      fontFamily: "OpenSansCondensed_700Bold",
+      marginTop: 10,
+      marginLeft: 15,
     },
 
+    bodyTextDetails: {
+      color: black,
+      fontSize: 25,
+      fontFamily: "OpenSansCondensed_300Light",
+      marginLeft: 25
+    },
 
 
     buttonText: {
@@ -81,7 +105,6 @@ import {
       fontFamily: "Montserrat_700Bold",
       fontSize: 18,
       textAlign: "center",
-    
     },
 
     buttonStyle: {
@@ -89,7 +112,6 @@ import {
       padding: 13,
       borderRadius: 10,
       width: "60%",
-      marginTop: 25,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.5,

@@ -35,7 +35,7 @@ import {
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
-      marginBottom: 50
+      marginBottom: 20
     }, 
     blueText: {
       color: lightBlue,

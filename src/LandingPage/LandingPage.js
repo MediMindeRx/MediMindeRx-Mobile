@@ -41,6 +41,7 @@ import {
     container: {
       backgroundColor: white,
       justifyContent: 'flex-start',
+      marginTop: 30
     },
 
     buttonContainer: {
@@ -70,7 +71,6 @@ import {
       fontFamily: "Montserrat_700Bold",
       fontSize: 25,
       textAlign: "center",
-    
     },
 
     buttonStyle: {
