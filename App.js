@@ -10,12 +10,14 @@ import { StyleSheet, Text, View } from 'react-native';
 // App Imports
 import User from './src/User/user'
 import LandingPage from './src/LandingPage/LandingPage'
+import Profile from './src/Profile/Profile'
 
+{/* <LandingPage /> */}
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <LandingPage />
+      <Profile />
       <StatusBar style="auto" />
     </View>
   );

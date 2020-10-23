@@ -13,7 +13,7 @@ import {
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 
 
-  export default LandingPage = () => {
+  export default Profile= () => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
@@ -24,12 +24,12 @@ import {
     return(
       <View style={styles.container}>
         <Header />
-        <Text style={styles.welcomeText}>Hey there!</Text> 
-        <Text style={styles.welcomeText}>What's your name?</Text>
+        <Text style={styles.welcomeText}>Hey there, Joe!</Text> 
+        <Text style={styles.welcomeText}>Existing Reminders</Text> 
+        
         <View style={styles.buttonContainer}>
-         <TextInput style={styles.inputText} placeholder='Name'></TextInput>
           <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Add Reminder</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -53,7 +53,6 @@ import {
       color: lightBlue,
       fontSize: 30,
       fontFamily: "Montserrat_700Bold",
-      marginLeft: 10
     },
 
     inputText: {
@@ -68,7 +67,7 @@ import {
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
-      fontSize: 25,
+      fontSize: 18,
       textAlign: "center",
     
     },
