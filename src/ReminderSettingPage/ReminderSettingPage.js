@@ -50,8 +50,6 @@ export default ReminderSettingPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: white,
-    // alignItems: 'center',
     justifyContent: 'flex-end'
   },
 
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_700Bold",
     width: 300
   },
-  
+
   inputText: {
     // color: red,
     fontSize: 20,

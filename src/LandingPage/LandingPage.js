@@ -39,7 +39,6 @@ import {
 
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: white,
       justifyContent: 'flex-start',
     },
 
