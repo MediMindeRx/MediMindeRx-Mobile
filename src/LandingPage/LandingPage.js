@@ -32,7 +32,7 @@ import {
           <Text style={styles.welcomeText}>What's your name?</Text>
         </View>
         <View style={styles.buttonContainer}>
-         <TextInput style={styles.inputText} placeholder='Name'></TextInput>
+        <TextInput style={styles.inputText} placeholder='Name'></TextInput>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
