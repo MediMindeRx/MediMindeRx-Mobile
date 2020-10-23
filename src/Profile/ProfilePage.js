@@ -32,7 +32,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       <View style={styles.container}>
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
-        <Text style={styles.welcomeText}>Joe's Reminders</Text> 
+        <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
         <View style={{height: 390}}>
           <ScrollView>
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
@@ -83,9 +83,8 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
     welcomeText: {
       color: lightBlue,
-      fontSize: 35,
+      fontSize: 28,
       fontFamily: "Montserrat_700Bold",
-      textAlign: "center",
     },
 
     headerText: {

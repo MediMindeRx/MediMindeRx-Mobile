@@ -31,7 +31,7 @@ export default ReminderSettingPage = () => {
       >
         <Header />
 
-        <View>
+        <View style={{marginLeft: 30}}>
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
@@ -58,7 +58,7 @@ export default ReminderSettingPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
 
   buttonContainer: {
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
     width: 300,
-    marginLeft: 20,
     marginBottom: 40,
     marginTop: 10
   },
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
     borderBottomColor: red,
     borderBottomWidth: 2,
     width: 300,
-    marginLeft: 20
   },
 
   inputField2: {
@@ -103,7 +101,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: 300,
     marginTop: 30,
-    marginLeft: 20
   },
 
   buttonText: {

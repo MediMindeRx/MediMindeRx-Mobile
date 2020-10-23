@@ -27,8 +27,10 @@ import {
     return(
       <View style={styles.container}>
         <Header />
-        <Text style={styles.welcomeText}>Hey there!</Text> 
-        <Text style={styles.welcomeText}>What's your name?</Text>
+        <View style={styles.welcomeTexts}>
+          <Text style={styles.welcomeText}>Hey there!</Text> 
+          <Text style={styles.welcomeText}>What's your name?</Text>
+        </View>
         <View style={styles.buttonContainer}>
          <TextInput style={styles.inputText} placeholder='Name'></TextInput>
           <TouchableOpacity style={styles.buttonStyle}>
@@ -52,28 +54,32 @@ import {
       marginTop: 20,
     },
 
+    welcomeTexts: {
+      marginLeft: 30,
+      marginTop: 70
+    },
+    
     welcomeText: {
       color: lightBlue,
-      fontSize: 30,
+      fontSize: 24,
       fontFamily: "Montserrat_700Bold",
-      marginLeft: 10,
-      marginTop: 5 
     },
 
     inputText: {
       color: red,
-      fontSize: 38,
+      fontSize: 26,
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,
       borderBottomColor: red,
       width: "70%",
+      paddingBottom: 5,
       marginBottom: 30      
     },
 
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
-      fontSize: 25,
+      fontSize: 20,
       textAlign: "center",
     },
 

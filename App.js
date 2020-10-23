@@ -19,7 +19,7 @@ import FrequencyPage from './src/FrequencyPage/FrequencyPage'
 export default function App() {
   return (
     <View style={styles.container}>
-      <ProfilePage />
+      <LandingPage />
       <StatusBar style="auto" />
     </View>
   );

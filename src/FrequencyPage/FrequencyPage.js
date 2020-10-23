@@ -50,7 +50,7 @@ export default FrequencyPage = () => {
                 <Switch trackColor={{false: white, true: red}} value={switch3} onValueChange={() => changeSwitch3(!switch3)}/>
             </View>
           </View>
-          
+
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
             <DateTimePicker value={Date.now()} mode="time"/>
@@ -70,8 +70,8 @@ export default FrequencyPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: white,
     justifyContent: 'flex-start',
+    flex: 1
   },
 
   buttonContainer: {
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 26,
     fontFamily: "Montserrat_700Bold",
-    marginLeft: 10, 
+    marginLeft: 30, 
+    width: "80%"
   },
 
   headerText: {
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
 
   frequencyBox: {
     marginTop: 20,
-    marginLeft: 10
+    marginLeft: 30,
+    width: "85%"
   },
 
   dateLabel: {
