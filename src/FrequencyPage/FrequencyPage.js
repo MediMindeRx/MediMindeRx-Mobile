@@ -27,12 +27,9 @@ export default FrequencyPage = () => {
         <Text style={styles.welcomeText}>When should I send your reminder?</Text>
         <View style={styles.frequencyBox}>
           <Text style={styles.welcomeText}>Frequency</Text>
-          <Text style={styles.dateLabel}>Monday through Friday</Text>
-          <Switch></Switch>
-          <Text style={styles.dateLabel}>Every Day</Text>
-          <Switch></Switch>
-          <Text style={styles.dateLabel}>Custom</Text>
-          <Switch></Switch>
+          <View style={styles.spaceBetween}><Text style={styles.dateLabel}>Monday through Friday <Switch style={styles.switchStyle}></Switch></Text></View>
+          <View style={styles.spaceBetween}><Text style={styles.dateLabel}>Every Day <Switch style={styles.switchStyle}></Switch></Text></View>
+          <Text style={styles.dateLabel}>Custom <Switch style={styles.switchStyle}></Switch></Text>
         </View>
         <View style={styles.frequencyBox}>
           <Text style={styles.welcomeText}>Time</Text>
@@ -90,8 +87,18 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   dateLabel: {
-    fontSize: 16,
-    marginTop: 10
+    fontSize: 26,
+    marginTop: 10,
+    justifyContent: "space-between"
+  },
+  spaceBetween: {
+    display: "flex",
+    justifyContent: "space-between"
   }
+  // switchStyle: {
+  //   textAlign: "right",
+  //   alignContent: "flex-end",
+  //   justifyContent: "flex-end"
+  // }
 
 })
