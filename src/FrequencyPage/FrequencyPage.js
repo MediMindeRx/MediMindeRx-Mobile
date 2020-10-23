@@ -33,10 +33,11 @@ export default FrequencyPage = ({ navigation }) => {
     const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const daysJSX = sevenDays.map(day => {
       return (
-              <View style={styles.frequencySwitch}>
-                <Text style={styles.dateLabel}>{day}</Text>
-                <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
-              </View>)
+        <View style={styles.frequencySwitch}>
+          <Text style={styles.dateLabel}>{day}</Text>
+          <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
+        </View>
+      )
     })
     return daysJSX
   }
