@@ -58,7 +58,7 @@ export default FrequencyPage = ({ navigation }) => {
       <View style={styles.container}>
         <Header />
           <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-          <View style={{height: 370}}>
+          <View style={{height: "50%"}}>
         <ScrollView>
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Frequency</Text>

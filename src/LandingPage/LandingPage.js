@@ -16,6 +16,8 @@ import {
   import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
+  import {LinearGradient} from 'expo-linear-gradient'
+
 
   export default LandingPage = ({ navigation }) => {
     const [fontsLoaded] = useFonts({
@@ -27,11 +29,15 @@ import {
     } else {
     return(
       <View style={styles.container}>
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
+
         <Header />
+
         <View style={styles.welcomeTexts}>
           <Text style={styles.welcomeText}>Hey there!</Text> 
           <Text style={styles.welcomeText}>What's your name?</Text>
         </View>
+
         <View style={styles.buttonContainer}>
           <TextInput 
             style={styles.inputText} 
@@ -44,6 +50,8 @@ import {
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
         </View>
+
+        </LinearGradient>
       </View>
     )
   }
@@ -51,8 +59,15 @@ import {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 1,
       justifyContent: 'flex-start',
       height: 700
+    },
+
+     linearGradient: {
+    flex: 1,
+    paddingLeft: 35,
+    paddingRight: 35,
     },
 
     buttonContainer: {

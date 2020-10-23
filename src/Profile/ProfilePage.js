@@ -57,7 +57,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
         <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
 
-        <View style={{height: 350}}>
+        <View style={{height: "50%"}}>
           <ScrollView>
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
