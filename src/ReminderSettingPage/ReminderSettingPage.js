@@ -23,7 +23,8 @@ export default ReminderSettingPage = () => {
       <View style={styles.container}>
         <Header />
         <View>
-          <Text style={styles.subheaderText}>How would you like to be reminded?</Text>
+          <Text style={styles.sectionHeaderText}>How would you like to be reminded?</Text>
+          
         </View>
       </View>
     )
@@ -40,19 +41,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  subheaderText: {
+  sectionHeaderText: {
     color: lightBlue,
-    fontSize: 26,
+    fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-
+    marginLeft: 38
   },
   inputText: {
     color: red,
     fontSize: 38,
     fontFamily: "Montserrat_700Bold",
     marginTop: 40,
-    textAlign: "center",
-    // borderBottom: red      
+    textAlign: "center"    
   },
   buttonText: {
     color: white,
