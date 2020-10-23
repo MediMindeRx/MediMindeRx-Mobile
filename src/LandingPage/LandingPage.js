@@ -68,7 +68,8 @@ import {
       color: white,
       fontFamily: "Montserrat_700Bold",
       fontSize: 25,
-      textAlign: "center"
+      textAlign: "center",
+    
     },
 
     buttonStyle: {
@@ -76,7 +77,11 @@ import {
       padding: 13,
       borderRadius: 10,
       width: "60%",
-      marginTop: 25
+      marginTop: 25,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.5,
+      shadowRadius: 3,
     }
 
 })
