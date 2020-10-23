@@ -54,10 +54,12 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'flex-end'
   },
+
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center"
   },
+
   sectionHeaderText: {
     color: lightBlue,
     fontSize: 28,
@@ -67,12 +69,14 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 10
   },
+
   subheaderText: {
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
     width: 300
   },
+  
   inputText: {
     // color: red,
     fontSize: 20,
@@ -81,12 +85,14 @@ const styles = StyleSheet.create({
     textAlign: "left",
     paddingBottom: 5
   },
+
   inputField: {
     borderBottomColor: red,
     borderBottomWidth: 2,
     width: 300,
     marginLeft: 20
   },
+
   inputField2: {
     borderBottomColor: red,
     borderBottomWidth: 2,
@@ -94,12 +100,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: 20
   },
+
   buttonText: {
     color: white,
     fontFamily: "Montserrat_700Bold",
     fontSize: 20,
     textAlign: "center"
   },
+
   buttonStyle: {
     backgroundColor: red,
     padding: 13,

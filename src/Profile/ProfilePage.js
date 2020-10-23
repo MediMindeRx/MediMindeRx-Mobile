@@ -28,23 +28,24 @@ import {
       <View style={styles.container}>
         <Header />
         <Text style={styles.welcomeText}>Joe's Reminders</Text> 
-
+      <View style={{height: 390}}>
         <ScrollView>
           <Text style={styles.subHeaderText}>Tennis Practice</Text> 
           <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
           <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
-          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/>
 
           <Text style={styles.subHeaderText}>Work</Text> 
           <Text style={styles.bodyTextDetails}>8am | Everyday</Text> 
           <Text style={styles.bodyTextDetails}>Inhaler, Water Bottle, Claritin</Text> 
-          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/>
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/>
 
           <Text style={styles.subHeaderText}>Visit Parents</Text> 
           <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
           <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
-          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 5}}/> 
+          <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}/> 
         </ScrollView>
+      </View>
         
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.buttonStyle}>
@@ -81,7 +82,6 @@ import {
       fontFamily: "Montserrat_700Bold",
       marginTop: 15,
       marginLeft: 5,
-      
     },
 
     subHeaderText: {

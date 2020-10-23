@@ -22,7 +22,7 @@ import {
     } else {
       return(
         <View style={styles.container}>
-          <Image source={logo} style={{width: 350, height: 75, marginTop: 50}} resizeMode='contain'/>
+          <Image source={logo} style={{width: 350, height: 75, marginTop: 30}} resizeMode='contain'/>
           <Text>
             <Text style={styles.blueText}>Worry less,</Text>  
             <Text style={styles.redText}> experience more.</Text>
@@ -40,7 +40,6 @@ import {
     blueText: {
       color: lightBlue,
       fontSize: 20,
-      fontStyle: 'italic', 
       fontFamily: 'Montserrat_400Regular_Italic'
     },
     redText: {

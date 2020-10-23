@@ -41,7 +41,6 @@ import {
     container: {
       backgroundColor: white,
       justifyContent: 'flex-start',
-      marginTop: 30
     },
 
     buttonContainer: {
@@ -54,7 +53,8 @@ import {
       color: lightBlue,
       fontSize: 30,
       fontFamily: "Montserrat_700Bold",
-      marginLeft: 10
+      marginLeft: 10,
+      marginTop: 5 
     },
 
     inputText: {
@@ -63,7 +63,8 @@ import {
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,
       borderBottomColor: red,
-      width: "70%"      
+      width: "70%",
+      marginBottom: 30      
     },
 
     buttonText: {
