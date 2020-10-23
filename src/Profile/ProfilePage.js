@@ -25,6 +25,28 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       OpenSansCondensed_700Bold
     })
 
+    // if 0 reminders, prompt user to add new reminder in welcomeText (conditional)
+    // const greeting = () => {
+        // return user.reminders.length > 0 ? 
+          //"Here are your reminders, Joe:": "Looks like we'll need to add some reminders."
+    // }
+
+    // const remindersJSX = () => {
+        // if (user.reminders.length > 0) {
+            // return user.reminders.map(reminder => {
+              //  <Text style={styles.subHeaderText}>{reminder.title}</Text> 
+                // <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text>{[...reminder.days]}</Text> </Text>
+                // <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
+              // <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
+            // })
+        // }
+      // })
+
+
+
+
+
+
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
@@ -32,8 +54,10 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       <View style={styles.container}>
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
+
         <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
-        <View style={{height: 390}}>
+
+        <View style={{height: 350}}>
           <ScrollView>
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
@@ -49,6 +73,11 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
             <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
             <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
             <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/> 
+
+            <Text style={styles.subHeaderText}>Visit Parents</Text> 
+            <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
+            <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
+            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
           </ScrollView>
         </View>
         
@@ -79,6 +108,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
+      marginTop: 15
     },
 
     welcomeText: {

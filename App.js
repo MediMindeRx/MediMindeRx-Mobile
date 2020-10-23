@@ -19,7 +19,7 @@ import ProfilePage from './src/Profile/ProfilePage'
 export default function App() {
   return (
     <View style={styles.container}>
-      <FrequencyPage />
+      <ProfilePage />
       <StatusBar style="auto" />
     </View>
   );
