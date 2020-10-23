@@ -6,6 +6,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import {lightBlue, white, red} from '../ui/colors'
 import Header from '../Header/Header'
@@ -20,7 +21,7 @@ export default ReminderSettingPage = () => {
     return <AppLoading />
   } else {
     return (
-      <View style={styles.inputField}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Header />
         <View>
           <View style={styles.inputField}>
@@ -31,8 +32,13 @@ export default ReminderSettingPage = () => {
             <Text style={styles.sectionHeaderText}>What medication or supplies will you need?</Text>
             <TextInput style={styles.inputText} placeholder='List them here!'></TextInput>
           </View>
+          <View>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: white,
     // alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
   },
   buttonContainer: {
     alignItems: "center",
@@ -51,8 +57,7 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    marginLeft: 50,
-    marginRight: 25
+    width: 300
   },
   inputText: {
     // color: red,
@@ -64,12 +69,16 @@ const styles = StyleSheet.create({
   },
   inputField: {
     borderBottomColor: red,
-    borderBottomWidth: 2
+    borderBottomWidth: 2,
+    width: 300,
+    marginLeft: 20
   },
   inputField2: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    marginTop: 30
+    width: 300,
+    marginTop: 30,
+    marginLeft: 20
   },
   buttonText: {
     color: white,
@@ -86,6 +95,8 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
-    shadowRadius: 3
+    shadowRadius: 3,
+    marginLeft: 70,
+    marginTop: 100
   }
 })
