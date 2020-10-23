@@ -2,30 +2,34 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import {store} from './src/store'
-// import {NavigationContainer} from '@react-navigation/native'
-// import {createStackNavigator} from '@react-navigation/stack'
-import { StyleSheet, Text, View } from 'react-native';
+import {Provider} from 'react-redux'
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
 
 
 // App Imports
 import User from './src/User/user'
 import LandingPage from './src/LandingPage/LandingPage'
 
+const Stack = createStackNavigator()
 
-export default function App() {
+class App extends Component {
+
+  render() {
+
   return (
-    <View style={styles.container}>
-      <LandingPage />
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen
+            name='Home'
+            component={LandingPage}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-});
+export default App

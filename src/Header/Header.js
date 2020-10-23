@@ -23,7 +23,7 @@ import {
       return(
         <View style={styles.container}>
           <Image source={logo} style={{width: 305, height: 159}} resizeMode='contain'/>
-          <Text style={{margin: 0}}>
+          <Text>
             <Text style={styles.blueText}>Remember less,</Text>  
             <Text style={styles.redText}> experience more.</Text>
           </Text>

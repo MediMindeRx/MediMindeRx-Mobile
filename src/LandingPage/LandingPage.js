@@ -32,6 +32,7 @@ import {
 }
   const styles = StyleSheet.create({
     container: {
+      
       backgroundColor: white,
       // alignItems: 'center',
       justifyContent: 'flex-start',
