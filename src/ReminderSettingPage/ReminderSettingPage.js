@@ -20,11 +20,17 @@ export default ReminderSettingPage = () => {
     return <AppLoading />
   } else {
     return (
-      <View style={styles.container}>
+      <View style={styles.inputField}>
         <Header />
         <View>
-          <Text style={styles.sectionHeaderText}>How would you like to be reminded?</Text>
-          
+          <View style={styles.inputField}>
+            <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
+            <TextInput style={styles.inputText} placeholder='Name of your reminder'></TextInput>
+          </View>
+          <View style={styles.inputField2}>
+            <Text style={styles.sectionHeaderText}>What medication or supplies will you need?</Text>
+            <TextInput style={styles.inputText} placeholder='List them here!'></TextInput>
+          </View>
         </View>
       </View>
     )
@@ -45,14 +51,25 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    marginLeft: 38
+    marginLeft: 50,
+    marginRight: 25
   },
   inputText: {
-    color: red,
-    fontSize: 38,
+    // color: red,
+    fontSize: 20,
     fontFamily: "Montserrat_700Bold",
     marginTop: 40,
-    textAlign: "center"    
+    textAlign: "center",
+    paddingBottom: 5
+  },
+  inputField: {
+    borderBottomColor: red,
+    borderBottomWidth: 2
+  },
+  inputField2: {
+    borderBottomColor: red,
+    borderBottomWidth: 2,
+    marginTop: 30
   },
   buttonText: {
     color: white,
