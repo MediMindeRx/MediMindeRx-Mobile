@@ -5,10 +5,11 @@ import {
     StyleSheet,
     Text,
     View,
+    TextInput,
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';
-  import {lightBlue, white} from '../ui/colors'
+  import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 
@@ -26,6 +27,8 @@ import {
         <Header />
         <Text style={styles.welcomeText}>Hey there!</Text> 
         <Text style={styles.welcomeText}>What's your name?</Text>
+        <TextInput style={styles.inputText} placeholder='Tap & Type'></TextInput>
+        
       </View>
     )
   }
@@ -40,6 +43,13 @@ import {
       color: lightBlue,
       fontSize: 26,
       fontFamily: "Montserrat_700Bold",
+    },
+    inputText: {
+      color: red,
+      fontSize: 38,
+      fontFamily: "Montserrat_700Bold",
+      marginTop: 40,
+      textAlign: "center"      
     }
 
 })
