@@ -52,6 +52,9 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
                   <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> 
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
+                <TouchableOpacity style={styles.deleteButtonStyle}>
+                  <Text style={styles.deleteButtonText}>Delete</Text>
+                </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
             })
@@ -158,6 +161,25 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       borderRadius: 10,
       width: "60%",
       shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.5,
+      shadowRadius: 3,
+    },
+
+    deleteButtonText: {
+      color: white,
+      fontFamily: "Montserrat_700Bold",
+      fontSize: 16,
+      textAlign: "center",
+    },
+
+    deleteButtonStyle : {
+      backgroundColor: red,
+      padding: 10,
+      borderRadius: 10,
+      width: "25%",
+      shadowColor: '#000',
+      marginTop: "2%",
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.5,
       shadowRadius: 3,
