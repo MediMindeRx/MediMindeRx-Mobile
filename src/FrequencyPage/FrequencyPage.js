@@ -5,21 +5,25 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
     TouchableOpacity,
     Switch,
     ScrollView
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment'
 
+
+//ui
 import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
-import {lightBlue, white, red} from '../ui/colors';
-import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
+import {lightBlue, white, red, grey} from '../ui/colors';
+import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
 import {AppLoading} from 'expo';
 
-export default FrequencyPage = ({ navigation }) => {
+export default FrequencyPage = ({ navigation, route }) => {
+  const {user} = route.params
+
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -30,27 +34,124 @@ export default FrequencyPage = ({ navigation }) => {
   const [thursday, toggleThursday] = useState(false)
   const [friday, toggleFriday] = useState(false)
   const [saturday, toggleSaturday] = useState(false)
+  const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  
+  const toggleCustomDays = (day) => {
+    user.currentReminder.days.includes(day) ? 
+          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1) 
+          : user.currentReminder.days.push(day)
+  }
 
-  const days = () => {
-    const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    const daysJSX = sevenDays.map(day => {
+  const toggleDay = (day) => {
+    toggleCustomDays(day)
+    switch(day) {
+      case "Monday":
+        toggleMonday(!monday)
+        break
+      case "Tuesday":
+        toggleTuesday(!tuesday)
+        break 
+      case "Wednesday":
+      toggleWednesday(!wednesday)
+        break 
+      case "Thursday":
+      toggleThursday(!thursday)
+        break  
+      case "Friday":
+        toggleFriday(!friday)
+        break
+      case "Saturday":
+        toggleSaturday(!saturday)
+        break 
+      case "Sunday":
+      toggleSunday(!sunday)
+        break      
+    }
+  }
+
+
+  const daysList = () => {
+    const daysJSX = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((day, i) => {
       return (
-        <View style={styles.frequencySwitch}>
-          <Text style={styles.dateLabel}>{day}</Text>
-          <Switch trackColor={{false: white, true: red}} value={day.charAt(0).toLowerCase() + day.slice(1)} onChange={() => toggleDay(!day)}/>
+        <View key={sevenDays[i]} style={styles.frequencySwitch}>
+          <Text style={styles.dateLabel}>{sevenDays[i]}</Text>
+          <Switch 
+            trackColor={{false: white, true: red}} 
+            value={day} 
+            onChange={() => toggleDay(sevenDays[i])}/>
         </View>
       )
     })
     return daysJSX
   }
 
+
+  const switchWorkweek = (switchName) => {
+    if (switchName === "workweek") {
+      const workingDays = sevenDays.slice(0, 5)
+      user.currentReminder.days.push(...workingDays)
+      toggleWorkweek(!workweek)
+      toggleEveryday(false)
+      toggleCustom(false)
+      if (workweek) {
+        user.currentReminder.days = []
+      }
+    }
+  }
+  
+  const switchEveryday = (switchName) => {
+    if (switchName === "everyday") {
+      user.currentReminder.days.push(...sevenDays)
+      toggleEveryday(!everyday)
+      toggleCustom(false)
+      toggleWorkweek(false)
+      if (everyday) {
+        user.currentReminder.days = []
+      }
+    }
+  }
+  
+  const switchCustom = (switchName) => {
+    if (switchName === "custom") {
+      toggleCustom(!custom)
+      toggleEveryday(false)
+      toggleWorkweek(false)
+    } 
+  }
+
+  const setUserDays = (switchName) => {
+    user.currentReminder.days = []
+    switchWorkweek(switchName)
+    switchEveryday(switchName)
+    switchCustom(switchName)
+  }
+
+  const timeChange = (event, date) => {
+    console.log(date)
+    // user.currentReminder.time = moment(date).format('LT')
+  }
+
+  //   if (custom) {
+  //   const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+  //   const selectedDays = sevenDays.filter((day, index) => {
+  //     return days[index]
+  //     }
+  //   )
+  //   user.currentReminder.days.push([...selectedDays])
+  // }
+
   // write method to connect global store to here?
-  // if workweek is true, send ['Monday', 'Tuesday'.....] to server for days, etc
-  // also, only one switch can be true at once for workday, custom, everyday. within custom, you can have multiple days be true. 
+
+  const saveData = () => {
+    user.reminders.push(user.currentReminder)
+    navigation.navigate('Profile', {user: user})
+    // send to server
+  }
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
-    OpenSansCondensed_300Light
+    OpenSansCondensed_300Light,
+    Montserrat_600SemiBold
   })
 
   if (!fontsLoaded) {
@@ -71,17 +172,17 @@ export default FrequencyPage = ({ navigation }) => {
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Monday through Friday 
               </Text>
-                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => toggleWorkweek(!workweek)}/>
+                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Everyday</Text>
-                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => toggleEveryday(!everyday)}/>
+                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
-                <Switch trackColor={{false: white, true: red}} value={custom} onChange={() => toggleCustom(!custom)}/>
+                <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
               </View>
-              {custom ? <View>{days()}</View> : null}
+              {custom ? <View>{daysList()}</View> : null}
                 
           </View>
 
@@ -95,8 +196,7 @@ export default FrequencyPage = ({ navigation }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              style={styles.buttonStyle}
-              onPress={() => navigation.navigate('Profile')}
+              onPress={saveData}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
@@ -163,9 +263,10 @@ const styles = StyleSheet.create({
   },
 
   dateLabel: {
-    fontSize: 28,
-    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 20,
+    fontFamily: 'Montserrat_600SemiBold',
     alignItems: 'center',
+    color: grey
   },
   
   frequencySwitch: {

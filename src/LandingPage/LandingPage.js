@@ -12,7 +12,7 @@ import {
   } from 'react-native';
 
   //ui
-  import {lightBlue, white, red} from '../ui/colors'
+  import {lightBlue, white, red, grey} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
   import {LinearGradient} from 'expo-linear-gradient'
@@ -20,7 +20,11 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    // let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
+    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
+
+    const handleChange = (text) => {
+      user.name = text.trim()
+    }
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
@@ -44,10 +48,12 @@ import {
           <TextInput 
             style={styles.inputText} 
             placeholder='Name'
+            maxLength={15}
+            onChangeText={(text) => handleChange(text)}
           />
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={() => navigation.navigate('Create Reminder')}
+            onPress={() => navigation.navigate('Create Reminder', {user: user })}
           >
             <Text style={styles.buttonText}>Create Reminder</Text>
           </TouchableOpacity>
@@ -87,7 +93,7 @@ import {
     },
 
     inputText: {
-      color: red,
+      color: grey,
       fontSize: 26,
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,

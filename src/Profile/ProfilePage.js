@@ -1,5 +1,4 @@
 import React from 'react'
-// import {connect} from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -14,79 +13,82 @@ import {
 import Header from '../Header/Header'
 
 // ui
-import {lightBlue, white, red, black} from '../ui/colors'
+import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
-import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
-import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
+import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat'
 
 
-  export default ProfilePage = ({navigation}) => {
+  export default ProfilePage = ({navigation, route}) => {
+    const {user} = route.params
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
-      OpenSansCondensed_300Light,
-      OpenSansCondensed_700Bold
+      Montserrat_600SemiBold,
     })
 
-    // if 0 reminders, prompt user to add new reminder in welcomeText (conditional)
-    // const greeting = () => {
-        // return user.reminders.length > 0 ? 
-          //"Here are your reminders, Joe:": "Looks like we'll need to add some reminders."
-    // }
+    const greeting = () => {
+        return user.reminders.length > 0 ? 
+          `Here are your reminders, ${user.name}:`: 
+            "Let's schedule some reminders."
+    }
 
-    // const remindersJSX = () => {
-        // if (user.reminders.length > 0) {
-            // return user.reminders.map(reminder => {
-              //  <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-                // <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text>{[...reminder.days]}</Text> </Text>
-                // <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
-              // <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
-            // })
-        // }
-      // })
+    const dayRender = (days) => {
+      return days.map(day => {
+        if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
+          return day.charAt(0) + day.charAt(1) + " "
+        } else {
+          return day.charAt(0) + " "
+        }
+      })
+    }
+
+    // buggy, if 2 different reminders in array, will render same one twice
+    const remindersJSX = () => {
+      console.log(user)
+        if (user.reminders.length > 0) {
+            return user.reminders.map(reminder => {
+             return (<View style={{width: "100%"}}>
+                <Text style={styles.subHeaderText}>{reminder.title}</Text> 
+                <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> </Text>
+                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
+                <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
+              </View>)
+            })
+        } else {
+          return null
+        }
+      }
 
 
-
-
+      const addNewReminder = () => {
+        user.currentReminder.title = ''
+        user.currentReminder.supplies = ''
+        user.currentReminder.time = ''
+        user.currentReminder.days = []
+        navigation.navigate('Create Reminder', {user: user})
+      }
 
 
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
-    return(
+       return(
       <View style={styles.container}>
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
-        <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
+        <Text style={styles.welcomeText}>{greeting()}</Text> 
 
-        <View style={{height: "55%", alignItems: 'center'}}>
+        <View style={{height: "55%", marginTop: "2%", marginLeft: "6%", marginRight: "6%"}}>
           <ScrollView >
-            <Text style={styles.subHeaderText}>Tennis Practice</Text> 
-            <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
-            <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
-            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
-
-            <Text style={styles.subHeaderText}>Work</Text> 
-            <Text style={styles.bodyTextDetails}>8am | Everyday</Text> 
-            <Text style={styles.bodyTextDetails}>Inhaler, Water Bottle, Claritin</Text> 
-            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
-
-            <Text style={styles.subHeaderText}>Visit Parents</Text> 
-            <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
-            <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
-            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/> 
-
-            <Text style={styles.subHeaderText}>Visit Parents</Text> 
-            <Text style={styles.bodyTextDetails}>6pm | Sunday</Text> 
-            <Text style={styles.bodyTextDetails}>Inhaler, Claritin</Text>
-            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
+            {remindersJSX()}
           </ScrollView>
         </View>
         
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={() => navigation.navigate('Create Reminder')}
+            onPress={addNewReminder}
             >
             <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
@@ -115,22 +117,24 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
     welcomeText: {
       color: lightBlue,
-      fontSize: 24,
+      fontSize: 22,
       fontFamily: "Montserrat_700Bold",
-      marginLeft: "9%",
+      marginLeft: "6%",
+      marginRight: "6%"
     },
 
     subHeaderText: {
       color: lightBlue,
-      fontSize: 25,
-      fontFamily: "OpenSansCondensed_700Bold",
+      fontSize: 22,
+      fontFamily: "Montserrat_600SemiBold",
       marginTop: "5%",
     },
 
     bodyTextDetails: {
-      color: black,
-      fontSize: 23,
-      fontFamily: "OpenSansCondensed_300Light",
+      color: grey,
+      fontSize: 19,
+      fontFamily: "Montserrat_600SemiBold",
+      marginRight: "6%"
     },
 
     buttonText: {
