@@ -24,7 +24,6 @@ import {AppLoading} from 'expo';
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
 
-
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -37,7 +36,14 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [saturday, toggleSaturday] = useState(false)
   const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   
+  const toggleCustomDays = (day) => {
+    user.currentReminder.days.includes(day) ? 
+          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1) 
+          : user.currentReminder.days.push(day)
+  }
+
   const toggleDay = (day) => {
+    toggleCustomDays(day)
     switch(day) {
       case "Monday":
         toggleMonday(!monday)
@@ -60,8 +66,8 @@ export default FrequencyPage = ({ navigation, route }) => {
       case "Sunday":
       toggleSunday(!sunday)
         break      
+    }
   }
-}
 
 
   const daysList = () => {
@@ -72,8 +78,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           <Switch 
             trackColor={{false: white, true: red}} 
             value={day} 
-            onChange={
-              () => toggleDay(sevenDays[i])}/>
+            onChange={() => toggleDay(sevenDays[i])}/>
         </View>
       )
     })
@@ -81,7 +86,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
 
-  const switchWorkWeek = (switchName) => {
+  const switchWorkweek = (switchName) => {
     if (switchName === "workweek") {
       const workingDays = sevenDays.slice(0, 5)
       user.currentReminder.days.push(workingDays)
@@ -110,10 +115,9 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   const setUserDays = (switchName) => {
     user.currentReminder.days = []
-    switchWorkWeek(switchName)
+    switchWorkweek(switchName)
     switchEveryday(switchName)
     switchCustom(switchName)
-    console.log(user.currentReminder.days)
   }
 
   //   if (custom) {
@@ -124,7 +128,6 @@ export default FrequencyPage = ({ navigation, route }) => {
   //   )
   //   user.currentReminder.days.push([...selectedDays])
   // }
-
 
   // write method to connect global store to here?
 
