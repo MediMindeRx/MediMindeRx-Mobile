@@ -1,4 +1,5 @@
 # MediMindeRx-Mobile
+![logo](./assets/logo.png)</br>
 
 [Nick Hart]()
 [Leigh Larson]()
