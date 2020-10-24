@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
-## MediMindeRx Mobile
+# MediMindeRx Mobile
   
 ![logo](./assets/logo.png)</br>
 
@@ -11,18 +11,18 @@
 [Leigh Larson](https://github.com/leighlars) <br/>
 [Ben McClung](https://github.com/AurumValian) <br/>
 
-#### Abstract
+## Abstract
 Never forget your medical supplies again! This mobile app serves to track reminders for medical supplies and notify the user at a given time. 
 
-#### Set up 
+## Set up 
 Follow the steps below to get this project up and running on your local environment:
 
-##### Prerequisites
+### Prerequisites
 Install the Expo CLI npm install -g expo-cli <br/>
 Install the Expo client app on your iOS or Android phone and connect to the same wireless network as your computer. 
 On Android, use the Expo app to scan the QR code from your terminal to open your project. On iOS, use the built-in QR code scanner of the Camera app.
 
-##### Installation
+### Installation
 Clone down this repo <br/>
 CD into directory <br/>
 Install all dependencies: npm install <br/>
@@ -31,12 +31,12 @@ In the window that opens up in your browser, click run on IOS simulator <br/>
 Or download the Expo App from the apple store on your phone. If you are connected to the same network, you can scan the QR code to get started or open the Expo and select the Project. <br/>
 Browse the app.
 
-#### Tech Stack 
+## Tech Stack 
 - React Native
 - Redux
 - React Native Push Notifications
 
-#### Future Extentensions
+### Future Extentensions
 - Add user log-in
 
 
