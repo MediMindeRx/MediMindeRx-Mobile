@@ -61,13 +61,10 @@ import {
     container: {
       flex: 1,
       justifyContent: 'flex-start',
-      height: 700
     },
 
      linearGradient: {
-    flex: 1,
-    paddingLeft: 35,
-    paddingRight: 35,
+       flex: 1,
     },
 
     buttonContainer: {
@@ -77,8 +74,8 @@ import {
     },
 
     welcomeTexts: {
-      marginLeft: 30,
-      marginTop: 70
+      marginLeft: "10%",
+      marginTop: "30%"
     },
     
     welcomeText: {

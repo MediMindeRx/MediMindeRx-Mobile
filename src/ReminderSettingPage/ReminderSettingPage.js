@@ -31,6 +31,8 @@ export default ReminderSettingPage = ({ navigation }) => {
         style={styles.container}
         behavior="padding"
       >
+
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
         <View style={{marginLeft: 30}}>
@@ -45,9 +47,8 @@ export default ReminderSettingPage = ({ navigation }) => {
             <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
           </View>
 
-          <View>
+          <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
-              style={styles.buttonStyle}
               style={styles.buttonStyle}
               onPress={() => navigation.navigate('FrequencyPage')}
             >
@@ -56,6 +57,8 @@ export default ReminderSettingPage = ({ navigation }) => {
           </View>
 
         </View>
+
+        </LinearGradient>
       </KeyboardAvoidingView>
     )
   }
@@ -64,34 +67,36 @@ export default ReminderSettingPage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+  },
+
+  linearGradient: {
+    flex: 1,
   },
 
   buttonContainer: {
     alignItems: "center",
-    justifyContent: "center"
   },
 
   sectionHeaderText: {
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
-    width: 300,
-    marginBottom: 40,
-    marginTop: 10
+    width: "90%",
+    marginBottom: "10%",
+    marginTop: "2%"
   },
 
   subheaderText: {
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    width: 300
+    width: "90%"
   },
 
   inputText: {
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    marginTop: 40,
+    marginTop: "10%",
     textAlign: "left",
     paddingBottom: 5
   },
@@ -99,14 +104,14 @@ const styles = StyleSheet.create({
   inputField: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: 300,
+    width: "90%",
   },
 
   inputField2: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: 300,
-    marginTop: 30,
+    width: "90%",
+    marginTop: "10%",
   },
 
   buttonText: {
@@ -125,7 +130,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    marginLeft: 70,
-    marginTop: 40
+    marginTop: "10%"
   }
 })

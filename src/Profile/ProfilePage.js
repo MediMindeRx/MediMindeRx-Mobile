@@ -57,7 +57,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
         <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
 
-        <View style={{height: "50%"}}>
+        <View style={{height: "50%", width: "80%"}}>
           <ScrollView>
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
@@ -100,9 +100,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
     },
 
     linearGradient: {
-    flex: 1,
-    paddingLeft: 35,
-    paddingRight: 35,
+      flex: 1,
     },
 
     buttonContainer: {
@@ -137,7 +135,6 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       fontSize: 23,
       fontFamily: "OpenSansCondensed_300Light",
     },
-
 
     buttonText: {
       color: white,

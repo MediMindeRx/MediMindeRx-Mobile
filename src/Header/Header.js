@@ -22,7 +22,7 @@ import {
     } else {
       return(
         <View style={styles.container}>
-          <Image source={logo} style={{width: 350, height: 75, marginTop: 30}} resizeMode='contain'/>
+          <Image source={logo} style={{width: "100%", height: 75}} resizeMode='contain'/>
           <Text>
             <Text style={styles.blueText}>Worry less,</Text>  
             <Text style={styles.redText}> experience more.</Text>
@@ -35,6 +35,7 @@ import {
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
+      marginTop: "2%",
       marginBottom: 20
     }, 
     blueText: {
