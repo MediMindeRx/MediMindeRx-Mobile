@@ -93,6 +93,9 @@ export default FrequencyPage = ({ navigation, route }) => {
       toggleWorkweek(!workweek)
       toggleEveryday(false)
       toggleCustom(false)
+      if (workweek) {
+        user.currentReminder.days = []
+      }
     }
   }
   
@@ -102,6 +105,9 @@ export default FrequencyPage = ({ navigation, route }) => {
       toggleEveryday(!everyday)
       toggleCustom(false)
       toggleWorkweek(false)
+      if (everyday) {
+        user.currentReminder.days = []
+      }
     }
   }
   
@@ -118,6 +124,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     switchWorkweek(switchName)
     switchEveryday(switchName)
     switchCustom(switchName)
+    console.log(user.currentReminder.days)
   }
 
   //   if (custom) {
