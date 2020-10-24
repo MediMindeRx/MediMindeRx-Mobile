@@ -26,27 +26,32 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       Montserrat_600SemiBold,
     })
 
-    // if 0 reminders, prompt user to add new reminder in welcomeText (conditional)
     const greeting = () => {
         return user.reminders.length > 0 ? 
-          `Here are your reminders, ${user.name}:`: "Let's schedule some reminders."
+          `Here are your reminders, ${user.name}:`: 
+            "Let's schedule some reminders."
     }
 
     const dayRender = (days) => {
       return days.map(day => {
-        return day.charAt(0)
+        if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
+          return day.charAt(0) + day.charAt(1) + " "
+        } else {
+          return day.charAt(0) + " "
+        }
       })
     }
 
+    // buggy, if 2 different reminders in array, will render same one twice
     const remindersJSX = () => {
       console.log(user)
         if (user.reminders.length > 0) {
             return user.reminders.map(reminder => {
-             return (<View>
+             return (<View style={{width: "100%"}}>
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
                 <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
-                <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: 10}}/>
+                <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
             })
         } else {
@@ -64,18 +69,17 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       }
 
 
-
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
-    return(
+       return(
       <View style={styles.container}>
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
         <Text style={styles.welcomeText}>{greeting()}</Text> 
 
-        <View style={{height: "55%", alignItems: 'left', marginTop: "2%", marginLeft: "6%"}}>
+        <View style={{height: "55%", marginTop: "2%", marginLeft: "6%", marginRight: "6%"}}>
           <ScrollView >
             {remindersJSX()}
           </ScrollView>
@@ -130,6 +134,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       color: grey,
       fontSize: 19,
       fontFamily: "Montserrat_600SemiBold",
+      marginRight: "6%"
     },
 
     buttonText: {

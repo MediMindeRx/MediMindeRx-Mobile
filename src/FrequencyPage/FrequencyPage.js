@@ -126,9 +126,9 @@ export default FrequencyPage = ({ navigation, route }) => {
     switchCustom(switchName)
   }
 
-  const setUserTime = (date) => {
-    const timeStamp = moment(date).format('LT')
-    user.currentReminder.time = timeStamp
+  const timeChange = (event, date) => {
+    console.log(date)
+    // user.currentReminder.time = moment(date).format('LT')
   }
 
   //   if (custom) {
@@ -188,7 +188,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
-            <DateTimePicker value={Date.now()} mode="time" onValueChange={(event, date) => setUserTime(date)}/>
+            <DateTimePicker value={Date.now()} mode="time"/>
           </View>
 
         </ScrollView>
