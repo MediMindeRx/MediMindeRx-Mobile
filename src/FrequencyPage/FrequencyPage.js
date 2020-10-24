@@ -147,7 +147,7 @@ export default FrequencyPage = ({ navigation, route }) => {
    const alertUserDays = () =>
     Alert.alert(
       "No Days Selected",
-      "Please tell us the days to remind you",
+      "What days would you like to be reminded?",
       [
         {
           text: "Cancel",
@@ -162,7 +162,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     const alertUserTime = () =>
     Alert.alert(
       "No Time Selected",
-      "Please tell us the time to remind you",
+      "What time should we remind you?",
       [
         {
           text: "Cancel",
@@ -175,12 +175,15 @@ export default FrequencyPage = ({ navigation, route }) => {
     );
 
   const saveData = () => {
-    if (user.reminders.days === 0) {
+    if (alert.currentReminder.time === '' ) {
+      alertUserTime()
+    } else if (user.currentReminder.days.length === 0) {
       alertUserDays()
+    } else {
+      user.reminders.push(user.currentReminder)
+      navigation.navigate('Profile', {user: user})
+      // send to server
     }
-    user.reminders.push(user.currentReminder)
-    navigation.navigate('Profile', {user: user})
-    // send to server
   }
 
 

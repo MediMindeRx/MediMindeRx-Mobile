@@ -29,7 +29,7 @@ import {
 
     const alertUserName = () =>
       Alert.alert(
-        "No Name Selected",
+        "No Name Added",
         "Please tell us what name to call you.",
         [
           {
@@ -44,12 +44,7 @@ import {
 
 
     const goToCreateReminder = () => {
-      if (user.name) {
-        navigation.navigate('Create Reminder', {user: user })
-      } else {
-        alertUserName()
-      }
-
+      user.name ? navigation.navigate('Create Reminder', {user: user }) : alertUserName()
     }
 
     const [fontsLoaded] = useFonts({

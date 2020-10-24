@@ -8,7 +8,8 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Alert
 } from 'react-native';
 
 // ui
@@ -34,10 +35,48 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     user.currentReminder.supplies = text
   }
 
-  const goFreqPage = () => {
-    setTitle('')
-    setSupplies('')
-    navigation.navigate('Schedule Reminder', {user:user})
+  const alertUserSupplies = () =>
+    Alert.alert(
+      "Don't Forget What's Important",
+      "Please add medical supplies to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+  const alertUserTitle = () =>
+    Alert.alert(
+      "No Title Given",
+      "Stay organized! Please add a title to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+
+  const goToFreqPage = () => {
+    if (!user.currentReminder.supplies) {
+      alertUserSupplies()
+    } 
+    if (!user.currentReminder.title) {
+      alertUserTitle()
+    } else {
+      setTitle('')
+      setSupplies('')
+      navigation.navigate('Schedule Reminder', {user:user})
+    }
   }
 
   const [fontsLoaded] = useFonts({
@@ -74,7 +113,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={goFreqPage}
+              onPress={goToFreqPage}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
