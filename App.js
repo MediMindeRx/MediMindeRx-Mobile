@@ -16,6 +16,7 @@ import FrequencyPage from './src/FrequencyPage/FrequencyPage'
 import ProfilePage from './src/Profile/ProfilePage'
 
 const Stack = createStackNavigator();
+console.disableYellowBox = true;
 
 
 
