@@ -7,7 +7,8 @@ import {
     View,
     TouchableOpacity,
     Switch,
-    ScrollView
+    ScrollView,
+    Alert
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
@@ -142,11 +143,48 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   // write method to connect global store to here?
 
+
+   const alertUserDays = () =>
+    Alert.alert(
+      "No Days Selected",
+      "Please tell us the days to remind you",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+    const alertUserTime = () =>
+    Alert.alert(
+      "No Time Selected",
+      "Please tell us the time to remind you",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
   const saveData = () => {
+    if (user.reminders.days === 0) {
+      alertUserDays()
+    }
     user.reminders.push(user.currentReminder)
     navigation.navigate('Profile', {user: user})
     // send to server
   }
+
+
+
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
