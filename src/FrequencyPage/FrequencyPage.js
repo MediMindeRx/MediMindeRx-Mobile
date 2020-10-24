@@ -12,6 +12,8 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+
+//ui
 import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
 import {lightBlue, white, red} from '../ui/colors';
@@ -19,20 +21,23 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
 import {AppLoading} from 'expo';
 
-export default FrequencyPage = ({ navigation }) => {
+export default FrequencyPage = ({ navigation, route }) => {
+  const {user} = route.params
+
+
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
-  const [sunday, toggleSunday] = useState(false)
-  const [monday, toggleMonday] = useState(false)
-  const [tuesday, toggleTuesday] = useState(false)
-  const [wednesday, toggleWednesday] = useState(false)
-  const [thursday, toggleThursday] = useState(false)
-  const [friday, toggleFriday] = useState(false)
-  const [saturday, toggleSaturday] = useState(false)
-
+  // const [sunday, toggleSunday] = useState(false)
+  // const [monday, toggleMonday] = useState(false)
+  // const [tuesday, toggleTuesday] = useState(false)
+  // const [wednesday, toggleWednesday] = useState(false)
+  // const [thursday, toggleThursday] = useState(false)
+  // const [friday, toggleFriday] = useState(false)
+  // const [saturday, toggleSaturday] = useState(false)
+  const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  
   const days = () => {
-    const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const daysJSX = sevenDays.map(day => {
       return (
         <View style={styles.frequencySwitch}>
@@ -43,6 +48,32 @@ export default FrequencyPage = ({ navigation }) => {
     })
     return daysJSX
   }
+
+  const setUserDays = (switchName) => {
+    disableSwitches(switchName)
+    // `toggle${switchName.charAt(0).toUpperCase() + switchName.slice(1)}`(!switchName)
+    user.currentReminder.days = []
+    const workingDays = sevenDays.slice(0, 4)
+    if (everyday) user.currentReminder.days.push([...sevenDays])
+    if (workweek) user.currentReminder.days.push(workingDays)
+  }
+
+  const disableSwitches = (switchName) => {
+    if(switchName === "everyday") {
+      toggleEveryday(!everyday)
+      toggleCustom(false)
+      toggleWorkweek(false)
+    } else if (switchName === "custom") {
+      toggleCustom(!custom)
+      toggleEveryday(false)
+      toggleWorkweek(false)
+    } else if (switchName === "workweek") {
+      toggleWorkweek(!workweek)
+      toggleEveryday(false)
+      toggleCustom(false)
+    }
+  }
+
 
   // write method to connect global store to here?
   // if workweek is true, send ['Monday', 'Tuesday'.....] to server for days, etc
@@ -71,15 +102,15 @@ export default FrequencyPage = ({ navigation }) => {
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Monday through Friday 
               </Text>
-                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => toggleWorkweek(!workweek)}/>
+                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Everyday</Text>
-                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => toggleEveryday(!everyday)}/>
+                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
-                <Switch trackColor={{false: white, true: red}} value={custom} onChange={() => toggleCustom(!custom)}/>
+                <Switch trackColor={{false: white, true: red}} value={custom} onChange={() => setUserDays("custom")}/>
               </View>
               {custom ? <View>{days()}</View> : null}
                 

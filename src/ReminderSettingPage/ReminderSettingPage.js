@@ -12,13 +12,24 @@ import {
 } from 'react-native';
 
 // ui
-import {lightBlue, white, red} from '../ui/colors'
+import {lightBlue, white, red, grey} from '../ui/colors'
 import Header from '../Header/Header'
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
 
 
 export default ReminderSettingPage = ({ navigation, route }) => {
+
+  const {user} = route.params
+
+  const handleTitleChange = (text) => {
+    user.currentReminder.title = text
+  }
+
+  const handleSuppliesChange = (text) => {
+    user.currentReminder.supplies = text
+  }
+
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold
   })
@@ -35,18 +46,17 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
-        <View style={{ alignItems:'center' }}>
-          <Text style={styles.sectionHeaderText}>Hey!</Text> 
-          <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
+        <View style={{ alignItems:'center', justifyContent: 'center' }}>
+          <Text style={styles.sectionHeaderText}>Let's set up a reminder, {user.name}.</Text>
 
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
-            <TextInput style={styles.inputText} placeholder='Enter its name here'></TextInput>
+            <TextInput style={styles.inputText} onChangeText={(text) => handleTitleChange(text)} maxLength={30} placeholder='Enter its name here'/>
           </View>
 
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
+            <TextInput style={styles.inputText} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>
           </View>
 
         </View>
@@ -54,7 +64,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={() => navigation.navigate('Schedule Reminder')}
+              onPress={() => navigation.navigate('Schedule Reminder', {user:user})}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
@@ -83,7 +93,9 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
-    marginBottom: '2%'
+    marginBottom: '2%',
+    width: "90%",
+    marginLeft: "10%"
   },
 
   subheaderText: {
@@ -97,7 +109,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_700Bold",
     marginTop: "10%",
     textAlign: "left",
-    paddingBottom: 5
+    paddingBottom: 5,
+    color: grey
   },
 
   inputField: {
