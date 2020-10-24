@@ -1,9 +1,10 @@
-  <h3 align="center">MediMindeRx Mobile</h3> 
+  <h3 align="center">MediMindeRx Mobile</h3>
+  
 ![logo](./assets/logo.png)</br>
 
-[Nick Hart](https://github.com/nickhartdev)
-[Leigh Larson](https://github.com/leighlars)
-[Ben McClung](https://github.com/AurumValian)
+[Nick Hart](https://github.com/nickhartdev) <br/>
+[Leigh Larson](https://github.com/leighlars) <br/>
+[Ben McClung](https://github.com/AurumValian) <br/>
 
 #### Abstract
 Never forget your medical supplies again! This app serves to track reminders for medical supplies and notify the user at a given time. 
