@@ -18,7 +18,7 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
 
 
-export default ReminderSettingPage = ({ navigation }) => {
+export default ReminderSettingPage = ({ navigation, route }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold
   })
@@ -31,10 +31,14 @@ export default ReminderSettingPage = ({ navigation }) => {
         style={styles.container}
         behavior="padding"
       >
+
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
-        <View style={{marginLeft: 30}}>
+        <View style={{ alignItems:'center' }}>
+          <Text style={styles.sectionHeaderText}>Hey!</Text> 
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
+
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
             <TextInput style={styles.inputText} placeholder='Enter its name here'></TextInput>
@@ -45,17 +49,18 @@ export default ReminderSettingPage = ({ navigation }) => {
             <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
           </View>
 
-          <View>
+        </View>
+
+          <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              style={styles.buttonStyle}
-              onPress={() => navigation.navigate('FrequencyPage')}
+              onPress={() => navigation.navigate('Schedule Reminder')}
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
           </View>
 
-        </View>
+        </LinearGradient>
       </KeyboardAvoidingView>
     )
   }
@@ -64,34 +69,33 @@ export default ReminderSettingPage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+  },
+
+  linearGradient: {
+    flex: 1,
   },
 
   buttonContainer: {
     alignItems: "center",
-    justifyContent: "center"
   },
 
   sectionHeaderText: {
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
-    width: 300,
-    marginBottom: 40,
-    marginTop: 10
+    marginBottom: '2%'
   },
 
   subheaderText: {
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    width: 300
   },
 
   inputText: {
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    marginTop: 40,
+    marginTop: "10%",
     textAlign: "left",
     paddingBottom: 5
   },
@@ -99,14 +103,15 @@ const styles = StyleSheet.create({
   inputField: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: 300,
+    width: "80%",
+    marginTop: "5%"
   },
 
   inputField2: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: 300,
-    marginTop: 30,
+    width: "80%",
+    marginTop: "10%",
   },
 
   buttonText: {
@@ -125,7 +130,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    marginLeft: 70,
-    marginTop: 40
+    marginTop: "10%"
   }
 })

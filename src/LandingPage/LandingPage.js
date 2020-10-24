@@ -9,15 +9,19 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Dimensions
   } from 'react-native';
 
   //ui
   import {lightBlue, white, red} from '../ui/colors'
   import Header from '../Header/Header'
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
+  import {LinearGradient} from 'expo-linear-gradient'
+
 
   export default LandingPage = ({ navigation }) => {
+
+    // let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
@@ -27,11 +31,15 @@ import {
     } else {
     return(
       <View style={styles.container}>
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
+
         <Header />
+
         <View style={styles.welcomeTexts}>
           <Text style={styles.welcomeText}>Hey there!</Text> 
           <Text style={styles.welcomeText}>What's your name?</Text>
         </View>
+
         <View style={styles.buttonContainer}>
           <TextInput 
             style={styles.inputText} 
@@ -39,11 +47,13 @@ import {
           />
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={() => navigation.navigate('ReminderSettingPage')}
+            onPress={() => navigation.navigate('Create Reminder')}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Create Reminder</Text>
           </TouchableOpacity>
         </View>
+
+        </LinearGradient>
       </View>
     )
   }
@@ -51,24 +61,28 @@ import {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 1,
       justifyContent: 'flex-start',
-      height: 700
+    },
+
+     linearGradient: {
+       flex: 1,
     },
 
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 20,
+      marginTop: "10%",
     },
 
     welcomeTexts: {
-      marginLeft: 30,
-      marginTop: 70
+      marginLeft: "10%",
+      marginTop: "20%"
     },
     
     welcomeText: {
       color: lightBlue,
-      fontSize: 24,
+      fontSize: 26,
       fontFamily: "Montserrat_700Bold",
     },
 

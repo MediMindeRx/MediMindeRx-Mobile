@@ -1,5 +1,7 @@
 import React from 'react'
 // import {connect} from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import {AppLoading} from 'expo'
 import {
@@ -18,7 +20,7 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
 
 
-  export default ProfilePage = () => {
+  export default ProfilePage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       OpenSansCondensed_300Light,
@@ -57,8 +59,8 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
         <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
 
-        <View style={{height: 350}}>
-          <ScrollView>
+        <View style={{height: "55%", alignItems: 'center'}}>
+          <ScrollView >
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
             <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
@@ -82,8 +84,11 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
         </View>
         
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.buttonText}>Add Reminder</Text>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => navigation.navigate('Create Reminder')}
+            >
+            <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
         </View>
         </LinearGradient>
@@ -96,40 +101,30 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-start',
     },
 
     linearGradient: {
-    flex: 1,
-    paddingLeft: 35,
-    paddingRight: 35,
+      flex: 1,
     },
 
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 15
+      marginTop: "5%"
     },
 
     welcomeText: {
       color: lightBlue,
-      fontSize: 28,
+      fontSize: 24,
       fontFamily: "Montserrat_700Bold",
-    },
-
-    headerText: {
-      color: lightBlue,
-      fontSize: 25,
-      fontFamily: "Montserrat_700Bold",
-      marginTop: 15,
-      marginLeft: 5,
+      marginLeft: "9%",
     },
 
     subHeaderText: {
       color: lightBlue,
       fontSize: 25,
       fontFamily: "OpenSansCondensed_700Bold",
-      marginTop: 10,
+      marginTop: "5%",
     },
 
     bodyTextDetails: {
@@ -137,7 +132,6 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
       fontSize: 23,
       fontFamily: "OpenSansCondensed_300Light",
     },
-
 
     buttonText: {
       color: white,

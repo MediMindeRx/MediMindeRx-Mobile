@@ -10,12 +10,14 @@ import {
     Switch,
     ScrollView
   } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
 import {lightBlue, white, red} from '../ui/colors';
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
 import {AppLoading} from 'expo';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default FrequencyPage = ({ navigation }) => {
   const [workweek, toggleWorkweek] = useState(false)
@@ -56,9 +58,13 @@ export default FrequencyPage = ({ navigation }) => {
   } else {
     return (
       <View style={styles.container}>
+
+        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
+
+
         <Header />
           <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-          <View style={{height: 370}}>
+          <View style={{height: "50%"}}>
         <ScrollView>
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Frequency</Text>
@@ -90,12 +96,13 @@ export default FrequencyPage = ({ navigation }) => {
             <TouchableOpacity 
               style={styles.buttonStyle}
               style={styles.buttonStyle}
-              onPress={() => navigation.navigate('ProfilePage')}
+              onPress={() => navigation.navigate('Profile')}
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
           </View>
 
+      </LinearGradient>
       </View>
     )
   }
@@ -106,6 +113,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flex: 1
   },
+
+   linearGradient: {
+    flex: 1,
+    },
 
   buttonContainer: {
     alignItems: "center",

@@ -5,8 +5,11 @@ import {
   applyMiddleware,
 } from 'redux';
 import thunk from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form'
 
-export const rootReducer = combineReducers({})
+export const rootReducer = combineReducers({
+  form: formReducer
+})
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
