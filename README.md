@@ -42,11 +42,11 @@ Browse the app.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/leighlars/MediMindeRx-Mobile.svg?style=flat-square
-[contributors-url]: https://github.com/leighlars/MediMindeRx-Mobile/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/leighlars/MediMindeRx-Mobile.svg?style=flat-square
-[forks-url]: https://github.com/leighlars/MediMindeRx-Mobile/network/members
-[stars-shield]: https://img.shields.io/github/stars/leighlars/MediMindeRx-Mobile.svg?style=flat-square
-[stars-url]: https://github.com/leighlars/MediMindeRx-Mobile/stargazers
-[issues-shield]: https://img.shields.io/github/issues/leighlars/MediMindeRx-Mobile.svg?style=flat-square
-[issues-url]: https://github.com/leighlars/MediMindeRx-Mobile/issues
+[contributors-shield]: https://img.shields.io/github/contributors/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
+[contributors-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
+[forks-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/network/members
+[stars-shield]: https://img.shields.io/github/stars/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
+[stars-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/stargazers
+[issues-shield]: https://img.shields.io/github/issues/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
+[issues-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/issues
