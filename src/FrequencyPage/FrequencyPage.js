@@ -7,7 +7,8 @@ import {
     View,
     TouchableOpacity,
     Switch,
-    ScrollView
+    ScrollView,
+    Alert
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
@@ -142,10 +143,65 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   // write method to connect global store to here?
 
+
+   const alertMissingDays = () =>
+    Alert.alert(
+      "No Days Selected",
+      "What days would you like to be reminded?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+   const alertMissingTime = () =>
+      Alert.alert(
+        "No Time Selected",
+        "What time should we remind you?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+    );
+
+    const alertMissingTimeDays = () => 
+      Alert.alert(
+        "Add Date & Time",
+        "We can't schedule without your input! Select days and time to send reminder.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      )
+    
+ 
   const saveData = () => {
-    user.reminders.push(user.currentReminder)
-    navigation.navigate('Profile', {user: user})
-    // send to server
+    // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
+    //   alertMissingTimeDays()
+    // } else if (user.currentReminder.time === '' ) {
+    //   alertMissingTime()
+    // } else if (user.currentReminder.days.length === 0) {
+    //   alertMissingDays()
+    // } else {
+      user.reminders.push(user.currentReminder)
+      navigation.navigate('Profile', {user: user})
+      // send to server
+    // }
   }
 
   const [fontsLoaded] = useFonts({
@@ -164,35 +220,36 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
         <Header />
-          <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-          <View style={{height: "50%"}}>
-        <ScrollView>
-          <View style={styles.frequencyBox}>
-            <Text style={styles.headerText}>Frequency</Text>
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Monday through Friday 
-              </Text>
+        <Text style={styles.welcomeText}>When should I send your reminder?</Text>
+        <View style={{height: "50%"}}>
+          <ScrollView>
+            <View style={styles.frequencyBox}>
+              <Text style={styles.headerText}>Frequency</Text>
+
+              <View style={styles.frequencySwitch}>
+                <Text style={styles.dateLabel}>Monday through Friday </Text>
                 <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
-            </View>
+              </View>
+
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Everyday</Text>
-                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
+              <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
-                <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
-              </View>
-              {custom ? <View>{daysList()}</View> : null}
-                
-          </View>
+              <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
+            </View>
+            
+            {custom ? <View>{daysList()}</View> : null}
+            </View>
 
-          <View style={styles.frequencyBox}>
-            <Text style={styles.headerText}>Time</Text>
-            <DateTimePicker value={Date.now()} mode="time"/>
-          </View>
+            <View style={styles.frequencyBox}>
+              <Text style={styles.headerText}>Time</Text>
+              <DateTimePicker value={Date.now()} mode="time"/>
+            </View>
+          </ScrollView>
+          </View> 
 
-        </ScrollView>
-        </View> 
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
               style={styles.buttonStyle}
@@ -202,7 +259,7 @@ export default FrequencyPage = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
 
-      </LinearGradient>
+        </LinearGradient>
       </View>
     )
   }

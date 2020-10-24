@@ -42,14 +42,15 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       })
     }
 
-    // buggy, if 2 different reminders in array, will render same one twice
     const remindersJSX = () => {
-      console.log(user)
         if (user.reminders.length > 0) {
             return user.reminders.map(reminder => {
              return (<View style={{width: "100%"}}>
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-                <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> </Text>
+                <Text>
+                  <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
+                  <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> 
+                </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
@@ -79,7 +80,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
         <Text style={styles.welcomeText}>{greeting()}</Text> 
 
-        <View style={{height: "55%", marginTop: "2%", marginLeft: "6%", marginRight: "6%"}}>
+        <View style={styles.scrollContainer}>
           <ScrollView >
             {remindersJSX()}
           </ScrollView>
@@ -113,6 +114,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       alignItems: "center",
       justifyContent: "center",
       marginTop: "5%"
+    },
+
+    scrollContainer: {
+      height: "55%", 
+      marginTop: "2%", 
+      marginLeft: "6%", 
+      marginRight: "6%"
     },
 
     welcomeText: {

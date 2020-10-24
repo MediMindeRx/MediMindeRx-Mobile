@@ -8,7 +8,9 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Alert,
+    Switch
 } from 'react-native';
 
 // ui
@@ -21,6 +23,8 @@ import {LinearGradient} from 'expo-linear-gradient'
 export default ReminderSettingPage = ({ navigation, route }) => {
   const [title, setTitle] = useState('')
   const [supplies, setSupplies] = useState('')
+  const [showSupplies, setShowSupplies] = useState(false)
+
 
   const {user} = route.params
 
@@ -34,10 +38,70 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     user.currentReminder.supplies = text
   }
 
-  const goFreqPage = () => {
-    setTitle('')
-    setSupplies('')
-    navigation.navigate('Schedule Reminder', {user:user})
+  const toggleSupplies = () => {
+    user.currentReminder.showSupplies = !showSupplies
+    setShowSupplies(!showSupplies)
+    console.log(user.currentReminder.showSupplies)
+  }
+
+  const alertMissingSupplies = () =>
+    Alert.alert(
+      "Don't Forget What's Important",
+      "Please add medical supplies to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+  const alertMissingTitle = () =>
+    Alert.alert(
+      "No Title Given",
+      "Stay organized! Please add a title to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+    const alertMissingTitleSupplies = () =>
+      Alert.alert(
+        "What's This Reminder About?",
+        "Add a title and supplies to your reminder.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+
+  const goToSchedPage = () => {
+    if (!user.currentReminder.supplies && !user.currentReminder.title) {
+      alertMissingTitleSupplies()
+    } else if (!user.currentReminder.supplies) {
+      alertMissingSupplies()
+    } else if (!user.currentReminder.title) {
+      alertMissingTitle()
+    } else {
+      setTitle('')
+      setSupplies('')
+      setShowSupplies(false)
+      navigation.navigate('Schedule Reminder', {user:user})
+    }
   }
 
   const [fontsLoaded] = useFonts({
@@ -66,7 +130,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
 
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>
+            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
+          </View>
+
+          <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
+            <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
+            <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
           </View>
 
         </View>
@@ -74,7 +143,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={goFreqPage}
+              onPress={goToSchedPage}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
@@ -135,6 +204,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "80%",
     marginTop: "10%",
+  },
+
+  showSuppliesText: {
+    color: grey,
+    fontSize: 16,
+    fontFamily: "Montserrat_700Bold",
   },
 
   buttonText: {

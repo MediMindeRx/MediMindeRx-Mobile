@@ -9,6 +9,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
+    Alert
   } from 'react-native';
 
   //ui
@@ -20,15 +21,37 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
+    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
 
     const handleChange = (text) => {
       user.name = text.trim()
     }
 
+    const alertUserName = () =>
+      Alert.alert(
+        "No Name Added",
+        "Please tell us what name to call you.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+    );
+
+
+    const goToCreateReminder = () => {
+      user.name ? navigation.navigate('Create Reminder', {user: user }) : alertUserName()
+    }
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
+
+
 
     if (!fontsLoaded) {
       return <AppLoading/>
@@ -53,7 +76,7 @@ import {
           />
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={() => navigation.navigate('Create Reminder', {user: user })}
+            onPress={goToCreateReminder}
           >
             <Text style={styles.buttonText}>Create Reminder</Text>
           </TouchableOpacity>
