@@ -82,7 +82,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
         <Text style={styles.welcomeText}>{greeting()}</Text> 
 
-        <View style={{height: "55%", marginTop: "2%", marginLeft: "6%", marginRight: "6%"}}>
+        <View style={styles.scrollContainer}>
           <ScrollView >
             {remindersJSX()}
           </ScrollView>
@@ -116,6 +116,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       alignItems: "center",
       justifyContent: "center",
       marginTop: "5%"
+    },
+
+    scrollContainer: {
+      height: "55%", 
+      marginTop: "2%", 
+      marginLeft: "6%", 
+      marginRight: "6%"
     },
 
     welcomeText: {
