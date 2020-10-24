@@ -9,7 +9,8 @@ import {
     TextInput,
     TouchableOpacity,
     KeyboardAvoidingView,
-    Alert
+    Alert,
+    Switch
 } from 'react-native';
 
 // ui
@@ -22,6 +23,8 @@ import {LinearGradient} from 'expo-linear-gradient'
 export default ReminderSettingPage = ({ navigation, route }) => {
   const [title, setTitle] = useState('')
   const [supplies, setSupplies] = useState('')
+  const [showSupplies, setShowSupplies] = useState(false)
+
 
   const {user} = route.params
 
@@ -33,6 +36,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const handleSuppliesChange = (text) => {
     setSupplies(text)
     user.currentReminder.supplies = text
+  }
+
+  const toggleSupplies = () => {
+    user.currentReminder.showSupplies = !showSupplies
+    setShowSupplies(!showSupplies)
+    console.log(user.currentReminder.showSupplies)
   }
 
   const alertMissingSupplies = () =>
@@ -90,6 +99,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     } else {
       setTitle('')
       setSupplies('')
+      setToggleCheckBox(false)
       navigation.navigate('Schedule Reminder', {user:user})
     }
   }
@@ -120,7 +130,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
 
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>
+            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
+          </View>
+
+          <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
+            <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
+            <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
           </View>
 
         </View>
@@ -189,6 +204,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "80%",
     marginTop: "10%",
+  },
+
+  showSuppliesText: {
+    color: grey,
+    fontSize: 16,
+    fontFamily: "Montserrat_700Bold",
   },
 
   buttonText: {

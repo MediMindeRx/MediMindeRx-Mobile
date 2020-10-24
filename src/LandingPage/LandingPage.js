@@ -21,7 +21,7 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '' }}
+    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
 
     const handleChange = (text) => {
       user.name = text.trim()
