@@ -93,11 +93,11 @@ import {
     },
 
     inputText: {
-      color: red,
+      color: grey,
       fontSize: 26,
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,
-      borderBottomColor: grey,
+      borderBottomColor: red,
       width: "70%",
       paddingBottom: 5,
       marginBottom: 30      
