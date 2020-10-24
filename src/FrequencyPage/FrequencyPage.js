@@ -5,19 +5,19 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
     TouchableOpacity,
     Switch,
     ScrollView
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment'
 
 
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
-import {lightBlue, white, red} from '../ui/colors';
-import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
+import {lightBlue, white, red, grey} from '../ui/colors';
+import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
 import {AppLoading} from 'expo';
 
@@ -89,7 +89,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   const switchWorkweek = (switchName) => {
     if (switchName === "workweek") {
       const workingDays = sevenDays.slice(0, 5)
-      user.currentReminder.days.push(workingDays)
+      user.currentReminder.days.push(...workingDays)
       toggleWorkweek(!workweek)
       toggleEveryday(false)
       toggleCustom(false)
@@ -101,7 +101,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   
   const switchEveryday = (switchName) => {
     if (switchName === "everyday") {
-      user.currentReminder.days.push([...sevenDays])
+      user.currentReminder.days.push(...sevenDays)
       toggleEveryday(!everyday)
       toggleCustom(false)
       toggleWorkweek(false)
@@ -124,7 +124,11 @@ export default FrequencyPage = ({ navigation, route }) => {
     switchWorkweek(switchName)
     switchEveryday(switchName)
     switchCustom(switchName)
-    console.log(user.currentReminder.days)
+  }
+
+  const setUserTime = (date) => {
+    const timeStamp = moment(date).format('LT')
+    user.currentReminder.time = timeStamp
   }
 
   //   if (custom) {
@@ -138,9 +142,16 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   // write method to connect global store to here?
 
+  const saveData = () => {
+    user.reminders.push(user.currentReminder)
+    navigation.navigate('Profile', {user: user})
+    // send to server
+  }
+
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
-    OpenSansCondensed_300Light
+    OpenSansCondensed_300Light,
+    Montserrat_600SemiBold
   })
 
   if (!fontsLoaded) {
@@ -177,7 +188,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
-            <DateTimePicker value={Date.now()} mode="time"/>
+            <DateTimePicker value={Date.now()} mode="time" onValueChange={(event, date) => setUserTime(date)}/>
           </View>
 
         </ScrollView>
@@ -185,8 +196,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              style={styles.buttonStyle}
-              onPress={() => navigation.navigate('Profile')}
+              onPress={saveData}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
@@ -253,9 +263,10 @@ const styles = StyleSheet.create({
   },
 
   dateLabel: {
-    fontSize: 28,
-    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 20,
+    fontFamily: 'Montserrat_600SemiBold',
     alignItems: 'center',
+    color: grey
   },
   
   frequencySwitch: {

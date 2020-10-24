@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {AppLoading} from 'expo'
@@ -19,15 +19,25 @@ import {LinearGradient} from 'expo-linear-gradient'
 
 
 export default ReminderSettingPage = ({ navigation, route }) => {
+  const [title, setTitle] = useState('')
+  const [supplies, setSupplies] = useState('')
 
   const {user} = route.params
 
   const handleTitleChange = (text) => {
+    setTitle(text)
     user.currentReminder.title = text
   }
 
   const handleSuppliesChange = (text) => {
+    setSupplies(text)
     user.currentReminder.supplies = text
+  }
+
+  const goFreqPage = () => {
+    setTitle('')
+    setSupplies('')
+    navigation.navigate('Schedule Reminder', {user:user})
   }
 
   const [fontsLoaded] = useFonts({
@@ -51,12 +61,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
 
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
-            <TextInput style={styles.inputText} onChangeText={(text) => handleTitleChange(text)} maxLength={30} placeholder='Enter its name here'/>
+            <TextInput style={styles.inputText} value={title} onChangeText={(text) => handleTitleChange(text)} maxLength={25} placeholder='Enter its name here'/>
           </View>
 
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>
+            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>
           </View>
 
         </View>
@@ -64,7 +74,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={() => navigation.navigate('Schedule Reminder', {user:user})}
+              onPress={goFreqPage}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>

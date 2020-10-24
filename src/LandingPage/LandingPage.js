@@ -23,7 +23,7 @@ import {
     let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
 
     const handleChange = (text) => {
-      user.name = text
+      user.name = text.trim()
     }
 
     const [fontsLoaded] = useFonts({
