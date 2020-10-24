@@ -191,17 +191,17 @@ export default FrequencyPage = ({ navigation, route }) => {
     
  
   const saveData = () => {
-    if (alertTime.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
-      alertMissingTimeDays()
-    } else if (alert.currentReminder.time === '' ) {
-      alertMissingTime()
-    } else if (user.currentReminder.days.length === 0) {
-      alertMissingDays()
-    } else {
+    // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
+    //   alertMissingTimeDays()
+    // } else if (user.currentReminder.time === '' ) {
+    //   alertMissingTime()
+    // } else if (user.currentReminder.days.length === 0) {
+    //   alertMissingDays()
+    // } else {
       user.reminders.push(user.currentReminder)
       navigation.navigate('Profile', {user: user})
       // send to server
-    }
+    // }
   }
 
   const [fontsLoaded] = useFonts({

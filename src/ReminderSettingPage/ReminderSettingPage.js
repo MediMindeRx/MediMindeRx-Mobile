@@ -99,7 +99,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     } else {
       setTitle('')
       setSupplies('')
-      setToggleCheckBox(false)
+      setShowSupplies(false)
       navigation.navigate('Schedule Reminder', {user:user})
     }
   }

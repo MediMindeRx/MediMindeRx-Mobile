@@ -42,9 +42,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       })
     }
 
-    // buggy, if 2 different reminders in array, will render same one twice
     const remindersJSX = () => {
-      console.log(user)
         if (user.reminders.length > 0) {
             return user.reminders.map(reminder => {
              return (<View style={{width: "100%"}}>
