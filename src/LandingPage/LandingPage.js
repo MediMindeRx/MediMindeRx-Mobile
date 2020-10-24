@@ -20,6 +20,9 @@ import {
 
 
   export default LandingPage = ({ navigation }) => {
+
+    const user = {name: ''}
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
@@ -45,7 +48,7 @@ import {
           />
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={() => navigation.navigate('ReminderSettingPage')}
+            onPress={() => navigation.navigate('Create Reminder')}
           >
             <Text style={styles.buttonText}>Create Reminder</Text>
           </TouchableOpacity>
@@ -80,7 +83,7 @@ import {
     
     welcomeText: {
       color: lightBlue,
-      fontSize: 24,
+      fontSize: 26,
       fontFamily: "Montserrat_700Bold",
     },
 

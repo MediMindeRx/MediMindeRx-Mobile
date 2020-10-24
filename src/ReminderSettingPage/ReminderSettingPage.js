@@ -18,7 +18,7 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
 
 
-export default ReminderSettingPage = ({ navigation }) => {
+export default ReminderSettingPage = ({ navigation, route }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold
   })
@@ -36,6 +36,7 @@ export default ReminderSettingPage = ({ navigation }) => {
         <Header />
 
         <View style={{ alignItems:'center' }}>
+          <Text style={styles.sectionHeaderText}>Hey, !</Text> 
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
 
           <View style={styles.inputField}>
@@ -53,7 +54,7 @@ export default ReminderSettingPage = ({ navigation }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={() => navigation.navigate('FrequencyPage')}
+              onPress={() => navigation.navigate('Schedule Reminder')}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
@@ -82,8 +83,6 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
-    marginBottom: "10%",
-    marginTop: "2%"
   },
 
   subheaderText: {
@@ -104,6 +103,7 @@ const styles = StyleSheet.create({
     borderBottomColor: red,
     borderBottomWidth: 2,
     width: "80%",
+    marginTop: "5%"
   },
 
   inputField2: {

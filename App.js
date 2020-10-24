@@ -24,11 +24,12 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator 
           initialRouteName="LandingPage"
+          screenOptions={{headerShown: false}}
         >
-          <Stack.Screen name="LandingPage" component={LandingPage} />
-          <Stack.Screen name="ReminderSettingPage" component={ReminderSettingPage} />
-          <Stack.Screen name="FrequencyPage" component={FrequencyPage} />
-          <Stack.Screen name="ProfilePage" component={ProfilePage} />
+          <Stack.Screen name="Welcome" component={LandingPage} />
+          <Stack.Screen name="Create Reminder" component={ReminderSettingPage} />
+          <Stack.Screen name="Schedule Reminder" component={FrequencyPage} />
+          <Stack.Screen name="Profile" component={ProfilePage} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

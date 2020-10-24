@@ -1,5 +1,7 @@
 import React from 'react'
 // import {connect} from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import {AppLoading} from 'expo'
 import {
@@ -18,7 +20,7 @@ import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-google-fonts/open-sans-condensed'
 
 
-  export default ProfilePage = () => {
+  export default ProfilePage = ({navigation}) => {
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       OpenSansCondensed_300Light,
@@ -82,7 +84,10 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
         </View>
         
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.buttonStyle}>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => navigation.navigate('Create Reminder')}
+            >
             <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
         </View>

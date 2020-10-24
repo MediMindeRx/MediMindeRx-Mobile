@@ -36,7 +36,7 @@ import {
     container: {
       alignItems: "center",
       marginTop: "2%",
-      marginBottom: 20
+      marginBottom: "5%"
     }, 
     blueText: {
       color: lightBlue,

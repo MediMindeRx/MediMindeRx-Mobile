@@ -12,7 +12,7 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import {LinearGradient, linearGradient} from 'expo-linear-gradient'
+import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
 import {lightBlue, white, red} from '../ui/colors';
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat';
@@ -96,7 +96,7 @@ export default FrequencyPage = ({ navigation }) => {
             <TouchableOpacity 
               style={styles.buttonStyle}
               style={styles.buttonStyle}
-              onPress={() => navigation.navigate('ProfilePage')}
+              onPress={() => navigation.navigate('Profile')}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
