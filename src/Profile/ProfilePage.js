@@ -57,8 +57,8 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
 
         <Text style={styles.welcomeText}>Here are your reminders, Joe:</Text> 
 
-        <View style={{height: "50%", width: "80%"}}>
-          <ScrollView>
+        <View style={{height: "55%", alignItems: 'center'}}>
+          <ScrollView >
             <Text style={styles.subHeaderText}>Tennis Practice</Text> 
             <Text style={styles.bodyTextDetails}>5pm | TTH</Text> 
             <Text style={styles.bodyTextDetails}>Elbow wrap, Inhaler, Water Bottle</Text> 
@@ -96,7 +96,6 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-start',
     },
 
     linearGradient: {
@@ -106,28 +105,21 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 15
+      marginTop: "5%"
     },
 
     welcomeText: {
       color: lightBlue,
-      fontSize: 28,
+      fontSize: 24,
       fontFamily: "Montserrat_700Bold",
-    },
-
-    headerText: {
-      color: lightBlue,
-      fontSize: 25,
-      fontFamily: "Montserrat_700Bold",
-      marginTop: 15,
-      marginLeft: 5,
+      marginLeft: "9%",
     },
 
     subHeaderText: {
       color: lightBlue,
       fontSize: 25,
       fontFamily: "OpenSansCondensed_700Bold",
-      marginTop: 10,
+      marginTop: "5%",
     },
 
     bodyTextDetails: {

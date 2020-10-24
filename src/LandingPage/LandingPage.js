@@ -70,12 +70,12 @@ import {
     buttonContainer: {
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 20,
+      marginTop: "10%",
     },
 
     welcomeTexts: {
       marginLeft: "10%",
-      marginTop: "30%"
+      marginTop: "20%"
     },
     
     welcomeText: {

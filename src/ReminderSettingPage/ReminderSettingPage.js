@@ -35,8 +35,9 @@ export default ReminderSettingPage = ({ navigation }) => {
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
-        <View style={{marginLeft: 30}}>
+        <View style={{ alignItems:'center' }}>
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
+
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
             <TextInput style={styles.inputText} placeholder='Enter its name here'></TextInput>
@@ -47,6 +48,8 @@ export default ReminderSettingPage = ({ navigation }) => {
             <TextInput style={styles.inputText} placeholder='List them here'></TextInput>
           </View>
 
+        </View>
+
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
@@ -55,8 +58,6 @@ export default ReminderSettingPage = ({ navigation }) => {
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>
-
-        </View>
 
         </LinearGradient>
       </KeyboardAvoidingView>
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
-    width: "90%",
     marginBottom: "10%",
     marginTop: "2%"
   },
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
-    width: "90%"
   },
 
   inputText: {
@@ -104,13 +103,13 @@ const styles = StyleSheet.create({
   inputField: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: "90%",
+    width: "80%",
   },
 
   inputField2: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: "90%",
+    width: "80%",
     marginTop: "10%",
   },
 
