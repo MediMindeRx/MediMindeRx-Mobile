@@ -36,7 +36,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         <Header />
 
         <View style={{ alignItems:'center' }}>
-          <Text style={styles.sectionHeaderText}>Hey, !</Text> 
+          <Text style={styles.sectionHeaderText}>Hey!</Text> 
           <Text style={styles.sectionHeaderText}>Let's set up your first reminder.</Text>
 
           <View style={styles.inputField}>
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 28,
     fontFamily: "Montserrat_700Bold",
+    marginBottom: '2%'
   },
 
   subheaderText: {

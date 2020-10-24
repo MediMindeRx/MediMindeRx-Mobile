@@ -9,7 +9,6 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Dimensions
   } from 'react-native';
 
   //ui
@@ -21,7 +20,7 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    const user = {name: ''}
+    // let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: ''}}
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
