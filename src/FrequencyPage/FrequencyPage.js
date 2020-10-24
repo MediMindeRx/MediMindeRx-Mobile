@@ -98,7 +98,7 @@ export default FrequencyPage = ({ navigation }) => {
               style={styles.buttonStyle}
               onPress={() => navigation.navigate('ProfilePage')}
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
           </View>
 

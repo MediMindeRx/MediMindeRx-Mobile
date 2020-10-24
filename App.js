@@ -1,13 +1,11 @@
 // Imports
-import React, {Component} from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { StatusBar } from 'expo-status-bar';
 import {store} from './src/store'
 import 'react-native-gesture-handler'
 
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
+import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { StyleSheet, Text, View } from 'react-native';
 
 // App Imports
 import LandingPage from './src/LandingPage/LandingPage'

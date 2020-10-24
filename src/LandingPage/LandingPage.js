@@ -47,7 +47,7 @@ import {
             style={styles.buttonStyle}
             onPress={() => navigation.navigate('ReminderSettingPage')}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Create Reminder</Text>
           </TouchableOpacity>
         </View>
 

@@ -55,7 +55,7 @@ export default ReminderSettingPage = ({ navigation }) => {
               style={styles.buttonStyle}
               onPress={() => navigation.navigate('FrequencyPage')}
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
           </View>
 

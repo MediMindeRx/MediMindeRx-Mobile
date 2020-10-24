@@ -83,7 +83,7 @@ import {OpenSansCondensed_300Light, OpenSansCondensed_700Bold} from '@expo-googl
         
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.buttonText}>Add Reminder</Text>
+            <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
         </View>
         </LinearGradient>
