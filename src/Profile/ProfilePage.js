@@ -49,7 +49,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
             return user.reminders.map(reminder => {
              return (<View style={{width: "100%"}}>
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-                <Text><Text style={styles.bodyTextDetails}>{reminder.time} |</Text> <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> </Text>
+                <Text>
+                  <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
+                  <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> 
+                </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)

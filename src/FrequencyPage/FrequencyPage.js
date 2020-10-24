@@ -144,7 +144,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   // write method to connect global store to here?
 
 
-   const alertUserDays = () =>
+   const alertMissingDays = () =>
     Alert.alert(
       "No Days Selected",
       "What days would you like to be reminded?",
@@ -159,34 +159,50 @@ export default FrequencyPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-    const alertUserTime = () =>
-    Alert.alert(
-      "No Time Selected",
-      "What time should we remind you?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
+    const alertMissingTime = () =>
+      Alert.alert(
+        "No Time Selected",
+        "What time should we remind you?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
     );
 
+    const alertMissingTimeDays = () => {
+      Alert.alert(
+        "Add Date & Time",
+        "We can't schedule without your input! Select days and time to send reminder.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      )
+    }
+ 
   const saveData = () => {
-    if (alert.currentReminder.time === '' ) {
-      alertUserTime()
+    if (alertTime.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
+      alertMissingTimeDays()
+    } else if (alert.currentReminder.time === '' ) {
+      alertMissingTime()
     } else if (user.currentReminder.days.length === 0) {
-      alertUserDays()
+      alertMissingDays()
     } else {
       user.reminders.push(user.currentReminder)
       navigation.navigate('Profile', {user: user})
       // send to server
     }
   }
-
-
 
 
   const [fontsLoaded] = useFonts({
