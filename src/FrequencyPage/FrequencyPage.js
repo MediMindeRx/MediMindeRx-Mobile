@@ -36,10 +36,10 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [friday, toggleFriday] = useState(false)
   const [saturday, toggleSaturday] = useState(false)
   const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-  
+
   const toggleCustomDays = (day) => {
-    user.currentReminder.days.includes(day) ? 
-          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1) 
+    user.currentReminder.days.includes(day) ?
+          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1)
           : user.currentReminder.days.push(day)
   }
 
@@ -51,22 +51,22 @@ export default FrequencyPage = ({ navigation, route }) => {
         break
       case "Tuesday":
         toggleTuesday(!tuesday)
-        break 
+        break
       case "Wednesday":
       toggleWednesday(!wednesday)
-        break 
+        break
       case "Thursday":
       toggleThursday(!thursday)
-        break  
+        break
       case "Friday":
         toggleFriday(!friday)
         break
       case "Saturday":
         toggleSaturday(!saturday)
-        break 
+        break
       case "Sunday":
       toggleSunday(!sunday)
-        break      
+        break
     }
   }
 
@@ -76,9 +76,9 @@ export default FrequencyPage = ({ navigation, route }) => {
       return (
         <View key={sevenDays[i]} style={styles.frequencySwitch}>
           <Text style={styles.dateLabel}>{sevenDays[i]}</Text>
-          <Switch 
-            trackColor={{false: white, true: red}} 
-            value={day} 
+          <Switch
+            trackColor={{false: white, true: red}}
+            value={day}
             onChange={() => toggleDay(sevenDays[i])}/>
         </View>
       )
@@ -99,7 +99,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       }
     }
   }
-  
+
   const switchEveryday = (switchName) => {
     if (switchName === "everyday") {
       user.currentReminder.days.push(...sevenDays)
@@ -111,13 +111,13 @@ export default FrequencyPage = ({ navigation, route }) => {
       }
     }
   }
-  
+
   const switchCustom = (switchName) => {
     if (switchName === "custom") {
       toggleCustom(!custom)
       toggleEveryday(false)
       toggleWorkweek(false)
-    } 
+    }
   }
 
   const setUserDays = (switchName) => {
@@ -128,7 +128,10 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const timeChange = (event, date) => {
-    console.log(date)
+    const isAfterNoon = moment(date).local().hour() > 12
+    const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
+    user.currentReminder.time = `${hour}:${moment(date).minute()} ${isAfterNoon ? "PM" : "AM"}`
+    console.log(user.currentReminder.time)
     // user.currentReminder.time = moment(date).format('LT')
   }
 
@@ -191,6 +194,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     
  
   const saveData = () => {
+<<<<<<< HEAD
     // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
     //   alertMissingTimeDays()
     // } else if (user.currentReminder.time === '' ) {
@@ -202,10 +206,16 @@ export default FrequencyPage = ({ navigation, route }) => {
       navigation.navigate('Profile', {user: user})
       // send to server
     // }
+=======
+
+    user.reminders.push(user.currentReminder)
+    navigation.navigate('Profile', {user: user})
+    // send to server
+>>>>>>> 0fba88d... Assign string of time to user's current reminder
   }
 
   const [fontsLoaded] = useFonts({
-    Montserrat_700Bold, 
+    Montserrat_700Bold,
     OpenSansCondensed_300Light,
     Montserrat_600SemiBold
   })
@@ -220,6 +230,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
         <Header />
+<<<<<<< HEAD
         <Text style={styles.welcomeText}>When should I send your reminder?</Text>
         <View style={{height: "50%"}}>
           <ScrollView>
@@ -228,6 +239,16 @@ export default FrequencyPage = ({ navigation, route }) => {
 
               <View style={styles.frequencySwitch}>
                 <Text style={styles.dateLabel}>Monday through Friday </Text>
+=======
+          <Text style={styles.welcomeText}>When should I send your reminder?</Text>
+          <View style={{height: "50%"}}>
+        <ScrollView>
+          <View style={styles.frequencyBox}>
+            <Text style={styles.headerText}>Frequency</Text>
+            <View style={styles.frequencySwitch}>
+              <Text style={styles.dateLabel}>Monday through Friday
+              </Text>
+>>>>>>> 0fba88d... Assign string of time to user's current reminder
                 <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
               </View>
 
@@ -237,6 +258,7 @@ export default FrequencyPage = ({ navigation, route }) => {
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
+<<<<<<< HEAD
               <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
             </View>
             
@@ -250,8 +272,23 @@ export default FrequencyPage = ({ navigation, route }) => {
           </ScrollView>
           </View> 
 
+=======
+                <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
+              </View>
+              {custom ? <View>{daysList()}</View> : null}
+
+          </View>
+
+          <View style={styles.frequencyBox}>
+            <Text style={styles.headerText}>Time</Text>
+            <DateTimePicker value={Date.now()} mode="time" onChange={timeChange}/>
+          </View>
+
+        </ScrollView>
+        </View>
+>>>>>>> 0fba88d... Assign string of time to user's current reminder
           <View style={styles.buttonContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.buttonStyle}
               onPress={saveData}
             >
@@ -284,7 +321,7 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 26,
     fontFamily: "Montserrat_700Bold",
-    marginLeft: 30, 
+    marginLeft: 30,
     width: "80%"
   },
 
@@ -325,10 +362,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: grey
   },
-  
+
   frequencySwitch: {
-    marginTop: 10, 
-    flexDirection: 'row', 
+    marginTop: 10,
+    flexDirection: 'row',
     justifyContent: 'space-between'
   }
 
