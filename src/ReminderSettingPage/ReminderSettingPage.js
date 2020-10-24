@@ -35,7 +35,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     user.currentReminder.supplies = text
   }
 
-  const alertUserSupplies = () =>
+  const alertMissingSupplies = () =>
     Alert.alert(
       "Don't Forget What's Important",
       "Please add medical supplies to your reminder.",
@@ -50,7 +50,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-  const alertUserTitle = () =>
+  const alertMissingTitle = () =>
     Alert.alert(
       "No Title Given",
       "Stay organized! Please add a title to your reminder.",
@@ -65,13 +65,28 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
+    const alertMissingTitleSupplies = () =>
+      Alert.alert(
+        "What's This Reminder About?",
+        "Add a title and supplies to your reminder.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
 
-  const goToFreqPage = () => {
-    if (!user.currentReminder.supplies) {
-      alertUserSupplies()
-    } 
-    if (!user.currentReminder.title) {
-      alertUserTitle()
+  const goToSchedPage = () => {
+    if (!user.currentReminder.supplies && !user.currentReminder.title) {
+      alertMissingTitleSupplies()
+    } else if (!user.currentReminder.supplies) {
+      alertMissingSupplies()
+    } else if (!user.currentReminder.title) {
+      alertMissingTitle()
     } else {
       setTitle('')
       setSupplies('')
@@ -113,7 +128,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={goToFreqPage}
+              onPress={goToSchedPage}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>

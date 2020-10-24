@@ -159,7 +159,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-    const alertMissingTime = () =>
+   const alertMissingTime = () =>
       Alert.alert(
         "No Time Selected",
         "What time should we remind you?",
@@ -174,7 +174,7 @@ export default FrequencyPage = ({ navigation, route }) => {
         { cancelable: false }
     );
 
-    const alertMissingTimeDays = () => {
+    const alertMissingTimeDays = () => 
       Alert.alert(
         "Add Date & Time",
         "We can't schedule without your input! Select days and time to send reminder.",
@@ -188,7 +188,7 @@ export default FrequencyPage = ({ navigation, route }) => {
         ],
         { cancelable: false }
       )
-    }
+    
  
   const saveData = () => {
     if (alertTime.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
@@ -203,7 +203,6 @@ export default FrequencyPage = ({ navigation, route }) => {
       // send to server
     }
   }
-
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold, 
@@ -221,35 +220,36 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
         <Header />
-          <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-          <View style={{height: "50%"}}>
-        <ScrollView>
-          <View style={styles.frequencyBox}>
-            <Text style={styles.headerText}>Frequency</Text>
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Monday through Friday 
-              </Text>
+        <Text style={styles.welcomeText}>When should I send your reminder?</Text>
+        <View style={{height: "50%"}}>
+          <ScrollView>
+            <View style={styles.frequencyBox}>
+              <Text style={styles.headerText}>Frequency</Text>
+
+              <View style={styles.frequencySwitch}>
+                <Text style={styles.dateLabel}>Monday through Friday </Text>
                 <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
-            </View>
+              </View>
+
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Everyday</Text>
-                <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
+              <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
-                <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
-              </View>
-              {custom ? <View>{daysList()}</View> : null}
-                
-          </View>
+              <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
+            </View>
+            
+            {custom ? <View>{daysList()}</View> : null}
+            </View>
 
-          <View style={styles.frequencyBox}>
-            <Text style={styles.headerText}>Time</Text>
-            <DateTimePicker value={Date.now()} mode="time"/>
-          </View>
+            <View style={styles.frequencyBox}>
+              <Text style={styles.headerText}>Time</Text>
+              <DateTimePicker value={Date.now()} mode="time"/>
+            </View>
+          </ScrollView>
+          </View> 
 
-        </ScrollView>
-        </View> 
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
               style={styles.buttonStyle}
@@ -259,7 +259,7 @@ export default FrequencyPage = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
 
-      </LinearGradient>
+        </LinearGradient>
       </View>
     )
   }
