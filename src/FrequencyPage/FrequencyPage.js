@@ -25,8 +25,9 @@ import {AppLoading} from 'expo';
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
   
-
   const [singleDateSwitch, toggleSingleDateSwitch] = useState(false)
+  const [singleDate, setSingleDate] = useState(new Date())
+  const [time, setTime] = useState(new Date())
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -38,6 +39,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [friday, toggleFriday] = useState(false)
   const [saturday, toggleSaturday] = useState(false)
   const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 
   const toggleCustomDays = (day) => {
     user.currentReminder.days.includes(day) ?
@@ -88,7 +90,6 @@ export default FrequencyPage = ({ navigation, route }) => {
     return daysJSX
   }
 
-
   const switchWorkweek = (switchName) => {
     if (switchName === "workweek") {
       const workingDays = sevenDays.slice(0, 5)
@@ -130,15 +131,21 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const timeChange = (event, date) => {
+    formatTime(date)
+  }
+  
+  const formatTime = (date) => {
     const isAfterNoon = moment(date).local().hour() > 12
     const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
-    user.currentReminder.time = `${hour}:${minute} ${isAfterNoon ? "PM" : "AM"}`
+    const timeFormat = hour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
+    user.currentReminder.time = timeFormat
   }
 
   const singleDateChange = (event, date) => {
-    const singleDate = moment(date).format('LL')
-    user.currentReminder.days.push(singleDate)
+    const singleDateFormat = moment(date).format('LL')
+    setSingleDate(singleDateFormat)
+    user.currentReminder.days.push(singleDateFormat)
   }
 
   //   if (custom) {
@@ -200,18 +207,18 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
   const saveData = () => {
-    if (user.currentReminder.days.length === 0 && !user.currentReminder.time) {
-      alertMissingTimeDays()
-    } else if (!user.currentReminder.time) {
-      alertMissingTime()
-    } else if (user.currentReminder.days.length === 0) {
-      alertMissingDays()
-    } else {
-      user.reminders.push(user.currentReminder)
-      navigation.navigate('Profile', {user: user})
-      // send to server
-    }
+    if (!user.currentReminder.time) {
+      formatTime(time)
+    } 
+    if (user.currentReminder.days.length === 0) {
+      let singleDateFormat = moment(singleDate).format('LL')
+      user.currentReminder.days.push(singleDateFormat)
+    } 
+    user.reminders.push(user.currentReminder)
+    navigation.navigate('Profile', {user: user})
+    // send to server
   }
+  
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
