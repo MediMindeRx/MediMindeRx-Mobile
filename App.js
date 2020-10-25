@@ -1,5 +1,9 @@
 // Imports
 import React from 'react';
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 import 'react-native-gesture-handler'
 import * as Notifications from 'expo-notifications'
 import { NavigationContainer} from '@react-navigation/native'

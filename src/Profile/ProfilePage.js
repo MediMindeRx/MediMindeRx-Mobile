@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,49 +9,98 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from 'react-native';
 import Header from '../Header/Header'
+import {getAllRemindersAPI, deleteReminderAPI } from '../apiCalls/apiCalls'
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
-import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat'
+import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
 
 
   export default ProfilePage = ({navigation, route}) => {
     const {user} = route.params
+    const [userReminders, setUserReminders] = useState(user.reminders)
+
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       Montserrat_600SemiBold,
+      Montserrat_400Regular_Italic
     })
 
+
     const greeting = () => {
-        return user.reminders.length > 0 ? 
+        return userReminders.length > 0 ? 
           `Here are your reminders, ${user.name}:`: 
             "Let's schedule some reminders."
     }
 
+
     const dayRender = (days) => {
-      return days.map(day => {
-        if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
-          return day.charAt(0) + day.charAt(1) + " "
-        } else {
-          return day.charAt(0) + " "
-        }
-      })
+      if (days[0].includes(',')) {
+        return days[0]
+      } 
+      if (days.length === 7) {
+        return "Repeat daily"
+      } 
+      if (days.length === 2 && days.includes("Saturday") && days.includes("Sunday")) {
+        return "Repeat weekends"
+      }
+      if (days.length === 5 && !days.includes("Saturday") && !days.includes("Sunday")) {
+        return "Repeat weekdays"
+      } else {
+        return "Repeat" +  days.map(day => {
+          if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
+            return " " + day.charAt(0) + day.charAt(1)
+          } else {
+            return " " + day.charAt(0)
+          }
+        })
+      }
     }
 
+
+    const alertDelete = (id) =>
+      Alert.alert(
+        "Delete Confirmation",
+        "Are you sure you want to delete this reminder?",
+        [
+          {
+            text: "Nope, take me back",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "Yep!", onPress: () => deleteReminder(id) }
+        ],
+        { cancelable: false }
+      )
+
+    const deleteReminder = async (id) => {
+      // deleteReminderAPI(id) 
+      // const apiData = await getAllRemindersAPI()
+      // setUserReminders(apiData)
+      // user.reminders = userReminders
+    } 
+
     const remindersJSX = () => {
-        if (user.reminders.length > 0) {
-            return user.reminders.map(reminder => {
-             return (<View style={{width: "100%"}}>
+        if (userReminders.length > 0) {
+            return userReminders.map(reminder => {
+             return (<View style={{width: "100%"}} key={reminder.id}>
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
                 <Text>
                   <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
-                  <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> 
+                  <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
                 </Text>
-                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
+                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+                <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
+                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+                  </Text> 
+                <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
+                  <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
+                </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
             })
@@ -59,16 +108,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
           return null
         }
       }
-
-
-      const addNewReminder = () => {
-        user.currentReminder.title = ''
-        user.currentReminder.supplies = ''
-        user.currentReminder.time = ''
-        user.currentReminder.days = []
-        navigation.navigate('Create Reminder', {user: user})
-      }
-
 
     if (!fontsLoaded) {
       return <AppLoading/>
@@ -89,7 +128,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={addNewReminder}
+            onPress={() => navigation.navigate('Create Reminder', {user: user})}
             >
             <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
@@ -140,7 +179,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
     bodyTextDetails: {
       color: grey,
-      fontSize: 19,
+      fontSize: 18,
       fontFamily: "Montserrat_600SemiBold",
       marginRight: "6%"
     },
@@ -161,6 +200,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.5,
       shadowRadius: 3,
-    }
+    },
 
 })

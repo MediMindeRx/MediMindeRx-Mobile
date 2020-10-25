@@ -33,12 +33,12 @@ Browse the app.
 
 ## Tech Stack 
 - React Native
-- Redux
+- React Hooks
 - React Native Push Notifications
 
 ### Future Extentensions
 - Add user log-in
-
+- One user can keep track of their family's med reminders in color-coded organization
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

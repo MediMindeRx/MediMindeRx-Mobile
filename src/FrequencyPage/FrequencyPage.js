@@ -13,6 +13,7 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
+import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
 
 
 //ui
@@ -25,9 +26,13 @@ import {AppLoading} from 'expo';
 
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
-
+  
+  const [singleDateSwitch, toggleSingleDateSwitch] = useState(false)
+  const [singleDate, setSingleDate] = useState(new Date())
+  const [time, setSingleTime] = useState(new Date())
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
+  const [weekend, toggleWeekend] = useState(false)
   const [custom, toggleCustom] = useState(false)
   const [sunday, toggleSunday] = useState(false)
   const [monday, toggleMonday] = useState(false)
@@ -38,11 +43,16 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [saturday, toggleSaturday] = useState(false)
   const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
+
   const toggleCustomDays = (day) => {
     user.currentReminder.days.includes(day) ?
           user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1)
           : user.currentReminder.days.push(day)
-  }
+    user.currentReminder.days.sort((a, b) => {
+        return moment(a, 'ddd dddd') > moment(b, 'ddd dddd');
+          })
+      };
+  
 
   const toggleDay = (day) => {
     toggleCustomDays(day)
@@ -71,7 +81,6 @@ export default FrequencyPage = ({ navigation, route }) => {
     }
   }
 
-
   const daysList = () => {
     const daysJSX = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((day, i) => {
       return (
@@ -87,139 +96,84 @@ export default FrequencyPage = ({ navigation, route }) => {
     return daysJSX
   }
 
-
-  const switchWorkweek = (switchName) => {
-    if (switchName === "workweek") {
-      const workingDays = sevenDays.slice(0, 5)
-      user.currentReminder.days.push(...workingDays)
-      toggleWorkweek(!workweek)
-      toggleEveryday(false)
-      toggleCustom(false)
-      if (workweek) {
-        user.currentReminder.days = []
-      }
-    }
-  }
-
-  const switchEveryday = (switchName) => {
-    if (switchName === "everyday") {
-      user.currentReminder.days.push(...sevenDays)
-      toggleEveryday(!everyday)
-      toggleCustom(false)
-      toggleWorkweek(false)
-      if (everyday) {
-        user.currentReminder.days = []
-      }
-    }
-  }
-
-  const switchCustom = (switchName) => {
-    if (switchName === "custom") {
-      toggleCustom(!custom)
-      toggleEveryday(false)
-      toggleWorkweek(false)
-    }
+  const toggleAllOff = () => {
+    toggleCustom(false)
+    toggleWorkweek(false)
+    toggleEveryday(false)
+    toggleWeekend(false)  
   }
 
   const setUserDays = (switchName) => {
     user.currentReminder.days = []
-    switchWorkweek(switchName)
-    switchEveryday(switchName)
-    switchCustom(switchName)
+    toggleAllOff()
+    switch(switchName) {
+      case "everyday":
+        toggleEveryday(!everyday)
+        everyday ? user.currentReminder.days = [] : user.currentReminder.days.push(...sevenDays)
+        break
+      case "workweek":
+        toggleWorkweek(!workweek)
+        const workingDays = sevenDays.slice(0, 5)
+        workweek ? user.currentReminder.days = [] : user.currentReminder.days.push(...workingDays)
+        break
+      case "weekend":
+        toggleWeekend(!weekend)
+        const weekendDays = sevenDays.slice(-2)
+        weekend ? user.currentReminder.days = [] : user.currentReminder.days.push(...weekendDays)
+        break
+      case "custom":
+      toggleCustom(!custom)
+        break
+    }
   }
 
   const timeChange = (event, date) => {
+    formatTime(date)
+  }
+  
+  const formatTime = (date) => {
     const isAfterNoon = moment(date).local().hour() > 12
     const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
+    const formatHour = hour === 0 ? 12 : hour
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
-
-    user.currentReminder.time = `${hour}:${minute} ${isAfterNoon ? "PM" : "AM"}`
+    const timeFormat = formatHour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
+    user.currentReminder.time = timeFormat
     user.currentReminder.fullDate = date
   }
 
-  //   if (custom) {
-  //   const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-  //   const selectedDays = sevenDays.filter((day, index) => {
-  //     return days[index]
-  //     }
-  //   )
-  //   user.currentReminder.days.push([...selectedDays])
-  // }
-
-  // write method to connect global store to here?
-
-
-  const alertMissingDays = () =>
-    Alert.alert(
-      "No Days Selected",
-      "What days would you like to be reminded?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
-
-    const alertMissingTime = () =>
-      Alert.alert(
-        "No Time Selected",
-        "What time should we remind you?",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-    );
-
-    const alertMissingTimeDays = () =>
-      Alert.alert(
-        "Add Date & Time",
-        "We can't schedule without your input! Select days and time to send reminder.",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-      )
-
-
-  const saveData = () => {
-    // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
-    //   alertMissingTimeDays()
-    // } else if (user.currentReminder.time === '' ) {
-    //   alertMissingTime()
-    // } else if (user.currentReminder.days.length === 0) {
-    //   alertMissingDays()
-    // } else {
-      const trigger = {seconds: Math.round(user.currentReminder.fullDate.getTime() / 1000 - Date.now() / 1000)}
-      // const trigger = moment(user.currentReminder.fullDate + 10)
-      // trigger.setMinutes(0)
-      // trigger.setHours(0)
-
-      user.reminders.push(user.currentReminder)
-      navigation.navigate('Profile', {user: user})
-      Notifications.scheduleNotificationAsync({
-        content: {
-          title: user.currentReminder.title,
-          body: user.currentReminder.supplies
-        },
-        trigger: trigger
-      })
-      // send to server
-    // }
+  const singleDateChange = (event, date) => {
+    const singleDateFormat = moment(date).format('LL')
+    user.currentReminder.days.push(singleDateFormat)
   }
+
+  const inputCheck = () => {
+    if (!user.currentReminder.time) {
+      formatTime(time)
+    } 
+    if (user.currentReminder.days.length === 0) {
+      let singleDateFormat = moment(singleDate).format('LL')
+      user.currentReminder.days.push(singleDateFormat)
+    } 
+    saveData()
+  }
+  
+  const saveData = async () => {
+    // const trigger = {seconds: Math.round(user.currentReminder.fullDate.getTime() / 1000 - Date.now() / 1000)}
+    // Notifications.scheduleNotificationAsync({
+    //     content: {
+    //       title: user.currentReminder.title,
+    //       body: user.currentReminder.supplies
+    //     },
+    //     trigger: trigger
+    //   })
+    const newReminder = user.currentReminder
+    // addReminderAPI(user.id, user.currentReminder)
+    user.reminders.push(newReminder)
+    // user.reminders = await getAllRemindersAPI()
+    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}
+    navigation.navigate('Profile', {user: user})
+  }
+  
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
@@ -243,21 +197,44 @@ export default FrequencyPage = ({ navigation, route }) => {
               <Text style={styles.headerText}>Frequency</Text>
 
               <View style={styles.frequencySwitch}>
-                <Text style={styles.dateLabel}>Monday through Friday </Text>
-                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
+                <Text style={styles.dateLabel}>Repeat</Text>
+                <Switch trackColor={{false: white, true: red}} value={singleDateSwitch} onValueChange={() => toggleSingleDateSwitch(!singleDateSwitch)}/>
               </View>
 
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Everyday</Text>
-              <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
+            {singleDateSwitch === false && 
+              <View >
+                <Text style={styles.headerText}>Date</Text>
+                <DateTimePicker value={new Date()} onChange={singleDateChange} minimumDate={new Date()}/>
+               </View>
+            }
+
+            {singleDateSwitch &&
+              <View>
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Monday through Friday </Text>
+                  <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
+                </View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Everyday</Text>
+                  <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
+                </View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Weekend</Text>
+                  <Switch trackColor={{false: white, true: red}} value={weekend} onValueChange={() => setUserDays("weekend")}/>
+                </View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Custom </Text>
+                  <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
+                </View>
+                {custom ? <View>{daysList()}</View> : null}
+              </View>
+            }
+
             </View>
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Custom </Text>
-                <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
-              </View>
-              {custom ? <View>{daysList()}</View> : null}
 
-          </View>
 
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
@@ -269,7 +246,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonStyle}
-              onPress={saveData}
+              onPress={inputCheck}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
@@ -301,7 +278,8 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily: "Montserrat_700Bold",
     marginLeft: 30,
-    width: "80%"
+    width: "80%",
+    marginBottom: "2%"
   },
 
   headerText: {
@@ -325,13 +303,12 @@ const styles = StyleSheet.create({
     backgroundColor: red,
     padding: 13,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: "3%",
     width: "60%",
   },
 
   frequencyBox: {
-    marginTop: 20,
-    marginLeft: 30,
+    marginLeft: "8%",
     width: "85%"
   },
 
@@ -343,7 +320,7 @@ const styles = StyleSheet.create({
   },
 
   frequencySwitch: {
-    marginTop: 10,
+    marginTop: "1%",
     flexDirection: 'row',
     justifyContent: 'space-between'
   }

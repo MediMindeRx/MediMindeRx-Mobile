@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     Alert
   } from 'react-native';
+  import {addUserAPI} from '../apiCalls/apiCalls'
 
   //ui
   import {lightBlue, white, red, grey} from '../ui/colors'
@@ -57,8 +58,10 @@ import {
         { cancelable: false }
     );
 
-    const goToCreateReminder = () => {
-      user.name ? navigation.navigate('Create Reminder', {user: user }) : alertUserName()
+
+    const goToCreateReminder = async () => {
+      // user.name ? await addUserAPI(user.name) : alertUserName()
+      navigation.navigate('Create Reminder', {user: user }) 
     }
 
     const [fontsLoaded] = useFonts({
@@ -110,12 +113,6 @@ import {
       flex: 1,
     },
 
-    buttonContainer: {
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: "10%",
-    },
-
     welcomeTexts: {
       marginLeft: "10%",
       marginTop: "20%"
@@ -143,6 +140,12 @@ import {
       fontFamily: "Montserrat_700Bold",
       fontSize: 20,
       textAlign: "center",
+    },
+
+    buttonContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: "10%",
     },
 
     buttonStyle: {

@@ -8,10 +8,11 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView,
     Alert,
     Switch
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
@@ -24,7 +25,6 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const [title, setTitle] = useState('')
   const [supplies, setSupplies] = useState('')
   const [showSupplies, setShowSupplies] = useState(false)
-
 
   const {user} = route.params
 
@@ -41,7 +41,6 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const toggleSupplies = () => {
     user.currentReminder.showSupplies = !showSupplies
     setShowSupplies(!showSupplies)
-    console.log(user.currentReminder.showSupplies)
   }
 
   const alertMissingSupplies = () =>
@@ -112,11 +111,14 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     return <AppLoading />
   } else {
     return (
-      <KeyboardAvoidingView 
-        style={styles.container}
-        behavior="padding"
+      <KeyboardAwareScrollView 
+        style={[styles.container, { backgroundColor: "#E0EAFC" }]}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container}
+        scrollEnabled={false}
       >
 
+    
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
@@ -125,15 +127,25 @@ export default ReminderSettingPage = ({ navigation, route }) => {
 
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
-            <TextInput style={styles.inputText} value={title} onChangeText={(text) => handleTitleChange(text)} maxLength={25} placeholder='Enter its name here'/>
+            <TextInput 
+                style={styles.inputText} 
+                value={title} 
+                onChangeText={(text) => handleTitleChange(text)} 
+                maxLength={25} 
+                placeholder='Enter its name here'/>
           </View>
 
-          <View style={styles.inputField2}>
+          <View style={[styles.inputField, {marginTop: "10%"}]}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
+            <TextInput 
+                style={styles.inputText} 
+                value={supplies} 
+                onChangeText={(text) => handleSuppliesChange(text)} 
+                maxLength={100} 
+                placeholder='List them here'/>             
           </View>
 
-          <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
+          <View style={{flexDirection: 'row', justifyContent:"space-evenly", alignItems:'center', marginTop: "2%", width: "90%"}}>
             <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
             <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
           </View>
@@ -150,7 +162,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           </View>
 
         </LinearGradient>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     )
   }
 }
@@ -199,16 +211,9 @@ const styles = StyleSheet.create({
     marginTop: "5%"
   },
 
-  inputField2: {
-    borderBottomColor: red,
-    borderBottomWidth: 2,
-    width: "80%",
-    marginTop: "10%",
-  },
-
   showSuppliesText: {
     color: grey,
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: "Montserrat_700Bold",
   },
 
