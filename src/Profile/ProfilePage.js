@@ -82,6 +82,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       // deleteReminderAPI(id) 
       // const apiData = await getAllRemindersAPI()
       // setUserReminders(apiData)
+      // user.reminders = userReminders
     } 
 
     const remindersJSX = () => {
@@ -108,13 +109,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         }
       }
 
-
-      const addNewReminder = () => {
-        user.reminders = userReminders
-        navigation.navigate('Create Reminder', {user: user})
-      }
-
-
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
@@ -134,7 +128,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.buttonStyle}
-            onPress={addNewReminder}
+            onPress={() => navigation.navigate('Create Reminder', {user: user})}
             >
             <Text style={styles.buttonText}>Add New Reminder</Text>
           </TouchableOpacity>
