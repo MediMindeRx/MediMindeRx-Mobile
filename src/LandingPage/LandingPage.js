@@ -23,7 +23,8 @@ import {
 
 
   export default LandingPage = ({ navigation }) => {
-    const [permission, askForPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
+    const [notificationsPermission, askForNPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
+    const [locationPermission, askForLPermission] = Permissions.usePermissions(Permissions.LOCATION, { ask: true })
 
     let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
 
