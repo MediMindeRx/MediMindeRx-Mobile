@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Notifications from 'expo-notifications'
 import {
     StyleSheet,
     Text,
@@ -146,7 +147,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   // write method to connect global store to here?
 
 
-   const alertMissingDays = () =>
+  const alertMissingDays = () =>
     Alert.alert(
       "No Days Selected",
       "What days would you like to be reminded?",
@@ -161,7 +162,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-   const alertMissingTime = () =>
+    const alertMissingTime = () =>
       Alert.alert(
         "No Time Selected",
         "What time should we remind you?",
