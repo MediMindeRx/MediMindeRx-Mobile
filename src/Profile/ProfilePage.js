@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Notifications from 'expo-notifications'
 
 import {AppLoading} from 'expo'
 import {
@@ -85,25 +86,41 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       // user.reminders = userReminders
     } 
 
+    const startNotificationCountdown = notificationDate => {
+      const trigger = {seconds: Math.round(notificationDate.getTime() / 1000 - Date.now() / 1000)}
+
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: user.currentReminder.title,
+          body: user.currentReminder.supplies
+        },
+        trigger: trigger
+      })
+    }
+
     const remindersJSX = () => {
         if (userReminders.length > 0) {
-            return userReminders.map(reminder => {
-             return (<View style={{width: "100%"}} key={reminder.id}>
-                <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-                <Text>
-                  <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
-                  <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
-                </Text>
-                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
-                <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
-                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
-                  </Text> 
-                <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
-                  <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
-                </TouchableOpacity>
-                <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
-              </View>)
-            })
+          return userReminders.map(reminder => {
+            
+            startNotificationCountdown(reminder.fullDate)
+
+            return (<View style={{width: "100%"}} key={reminder.id}>
+              <Text style={styles.subHeaderText}>{reminder.title}</Text> 
+              <Text>
+                <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
+                <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
+              </Text>
+              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+              <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
+                {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+                </Text> 
+              <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
+                <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
+              </TouchableOpacity>
+              <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
+            </View>)
+            
+          })
         } else {
           return null
         }

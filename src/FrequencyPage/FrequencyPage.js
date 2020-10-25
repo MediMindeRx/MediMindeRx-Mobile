@@ -158,14 +158,6 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    // const trigger = {seconds: Math.round(user.currentReminder.fullDate.getTime() / 1000 - Date.now() / 1000)}
-    // Notifications.scheduleNotificationAsync({
-    //     content: {
-    //       title: user.currentReminder.title,
-    //       body: user.currentReminder.supplies
-    //     },
-    //     trigger: trigger
-    //   })
     const newReminder = user.currentReminder
     // addReminderAPI(user.id, user.currentReminder)
     user.reminders.push(newReminder)
