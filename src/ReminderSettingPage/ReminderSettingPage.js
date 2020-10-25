@@ -145,7 +145,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
                 placeholder='List them here'/>             
           </View>
 
-          <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
+          <View style={{flexDirection: 'row', justifyContent:"space-evenly", alignItems:'center', marginTop: "2%", width: "90%"}}>
             <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
             <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
           </View>
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
 
   showSuppliesText: {
     color: grey,
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: "Montserrat_700Bold",
   },
 
