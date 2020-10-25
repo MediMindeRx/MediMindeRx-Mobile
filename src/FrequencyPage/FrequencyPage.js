@@ -231,6 +231,13 @@ export default FrequencyPage = ({ navigation, route }) => {
                 <Switch trackColor={{false: white, true: red}} value={singleDateSwitch} onValueChange={() => toggleSingleDateSwitch(!singleDateSwitch)}/>
               </View>
 
+            {singleDateSwitch === false && 
+              <View style={styles.frequencyBox}>
+                <Text style={styles.headerText}>Date</Text>
+                <DateTimePicker value={Date.now()}/>
+               </View>
+            }
+
             {singleDateSwitch &&
               <View>
 
@@ -249,7 +256,7 @@ export default FrequencyPage = ({ navigation, route }) => {
                 </View>
                 
                 {custom ? <View>{daysList()}</View> : null}
-                
+
               </View>
             }
 
