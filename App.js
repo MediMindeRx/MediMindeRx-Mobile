@@ -1,7 +1,7 @@
 // Imports
 import React from 'react';
 import 'react-native-gesture-handler'
-
+import * as Notifications from 'expo-notifications'
 import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -14,6 +14,13 @@ import ProfilePage from './src/Profile/ProfilePage'
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function App() {
   return (

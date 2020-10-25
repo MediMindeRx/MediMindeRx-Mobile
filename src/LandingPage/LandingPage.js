@@ -23,10 +23,9 @@ import {
 
 
   export default LandingPage = ({ navigation }) => {
+    const [permission, askForPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
 
     let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
-
-    const [permission, askForPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
 
     const handleChange = (text) => {
       user.name = text.trim()
