@@ -234,13 +234,12 @@ export default FrequencyPage = ({ navigation, route }) => {
             {singleDateSwitch === false && 
               <View style={styles.frequencyBox}>
                 <Text style={styles.headerText}>Date</Text>
-                <DateTimePicker value={Date.now()}/>
+                <DateTimePicker value={new Date()} onChange={}/>
                </View>
             }
 
             {singleDateSwitch &&
               <View>
-
                 <View style={styles.frequencySwitch}>
                   <Text style={styles.dateLabel}>Monday through Friday </Text>
                   <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
@@ -254,9 +253,7 @@ export default FrequencyPage = ({ navigation, route }) => {
                   <Text style={styles.dateLabel}>Custom </Text>
                   <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
                 </View>
-                
                 {custom ? <View>{daysList()}</View> : null}
-
               </View>
             }
 
@@ -264,7 +261,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
             <View style={styles.frequencyBox}>
               <Text style={styles.headerText}>Time</Text>
-              <DateTimePicker value={Date.now()} mode="time"/>
+              <DateTimePicker value={new Date()} mode="time" onChange={}/>
             </View>
           </ScrollView>
           </View> 
