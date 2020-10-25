@@ -41,53 +41,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const toggleSupplies = () => {
     user.currentReminder.showSupplies = !showSupplies
     setShowSupplies(!showSupplies)
-    console.log(user.currentReminder.showSupplies)
   }
-
-  const alertMissingSupplies = () =>
-    Alert.alert(
-      "Don't Forget What's Important",
-      "Please add medical supplies to your reminder.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
-
-  const alertMissingTitle = () =>
-    Alert.alert(
-      "No Title Given",
-      "Stay organized! Please add a title to your reminder.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
-
-    const alertMissingTitleSupplies = () =>
-      Alert.alert(
-        "What's This Reminder About?",
-        "Add a title and supplies to your reminder.",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-      );
 
   const goToSchedPage = () => {
     if (!user.currentReminder.supplies && !user.currentReminder.title) {

@@ -27,7 +27,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   
   const [singleDateSwitch, toggleSingleDateSwitch] = useState(false)
   const [singleDate, setSingleDate] = useState(new Date())
-  const [time, setTime] = useState(new Date())
+  const [time, setSingleTime] = useState(new Date())
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -73,7 +73,6 @@ export default FrequencyPage = ({ navigation, route }) => {
         break
     }
   }
-
 
   const daysList = () => {
     const daysJSX = [monday, tuesday, wednesday, thursday, friday, saturday, sunday].map((day, i) => {
@@ -137,8 +136,9 @@ export default FrequencyPage = ({ navigation, route }) => {
   const formatTime = (date) => {
     const isAfterNoon = moment(date).local().hour() > 12
     const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
+    const formatHour = hour === 0 ? 12 : hour
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
-    const timeFormat = hour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
+    const timeFormat = formatHour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
     user.currentReminder.time = timeFormat
   }
 
@@ -160,50 +160,50 @@ export default FrequencyPage = ({ navigation, route }) => {
   // write method to connect global store to here?
 
 
-   const alertMissingDays = () =>
-    Alert.alert(
-      "No Days Selected",
-      "What days would you like to be reminded?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
+  //  const alertMissingDays = () =>
+  //   Alert.alert(
+  //     "No Days Selected",
+  //     "What days would you like to be reminded?",
+  //     [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel Pressed"),
+  //         style: "cancel"
+  //       },
+  //       { text: "OK", onPress: () => console.log("OK Pressed") }
+  //     ],
+  //     { cancelable: false }
+  //   );
 
-   const alertMissingTime = () =>
-      Alert.alert(
-        "No Time Selected",
-        "What time should we remind you?",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-    );
+  //  const alertMissingTime = () =>
+  //     Alert.alert(
+  //       "No Time Selected",
+  //       "What time should we remind you?",
+  //       [
+  //         {
+  //           text: "Cancel",
+  //           onPress: () => console.log("Cancel Pressed"),
+  //           style: "cancel"
+  //         },
+  //         { text: "OK", onPress: () => console.log("OK Pressed") }
+  //       ],
+  //       { cancelable: false }
+  //   );
 
-    const alertMissingTimeDays = () =>
-      Alert.alert(
-        "Current Date & Time",
-        "You have schedule the reminder to happen immediately. Is this what you want?",
-        [
-          {
-            text: "No, take me back.",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-      )
+  //   const alertMissingTimeDays = () =>
+  //     Alert.alert(
+  //       "Current Date & Time",
+  //       "You have schedule the reminder to happen immediately. Is this what you want?",
+  //       [
+  //         {
+  //           text: "No, take me back.",
+  //           onPress: () => console.log("Cancel Pressed"),
+  //           style: "cancel"
+  //         },
+  //         { text: "OK", onPress: () => console.log("OK Pressed") }
+  //       ],
+  //       { cancelable: false }
+  //     )
 
 
   const inputCheck = () => {
@@ -218,7 +218,9 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = () => {
-    user.reminders.push(user.currentReminder)
+    const newReminder = user.currentReminder
+    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}
+    user.reminders.push(newReminder)
     navigation.navigate('Profile', {user: user})
     // send to server
   }

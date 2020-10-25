@@ -31,6 +31,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
 
     const greeting = () => {
+      console.log(userReminders)
         return userReminders.length > 0 ? 
           `Here are your reminders, ${user.name}:`: 
             "Let's schedule some reminders."
@@ -68,12 +69,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       )
 
 
-    const deleteReminder = (id) => {
-      alertDelete(id)
-      // const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
-      // setUserReminders(user.reminders.filter(reminder => reminder.id !== id))
-    } 
-
     const remindersJSX = () => {
         if (userReminders.length > 0) {
             return userReminders.map(reminder => {
@@ -85,7 +80,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
-                  <Text style={styles.deleteButtonText} onPress={() => deleteReminder(reminder.id)}>Delete</Text>
+                  <Text style={styles.deleteButtonText} onPress={() => alertDelete(reminder.id)}>Delete</Text>
                 </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
@@ -97,10 +92,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
 
       const addNewReminder = () => {
-        user.currentReminder.title = ''
-        user.currentReminder.supplies = ''
-        user.currentReminder.time = ''
-        user.currentReminder.days = []
+        user.reminders = userReminders
+        console.log("add new reminder/prof page", user)
         navigation.navigate('Create Reminder', {user: user})
       }
 
