@@ -24,6 +24,21 @@ export const deleteReminderAPI = async (reminderID) => {
   }
 }
 
+export const addUserAPI = async (userName) => {
+  try { 
+   const response = await fetch(`${apiURL}`, {
+     method: "POST",
+     headers: {
+          "Content-Type": "application/json",
+        },
+     body: JSON.stringify(userName)   
+   })
+    return response
+  } catch (err) {
+    return err
+  }
+}
+
 export const addReminderAPI = async (userID, reminder) => {
   try {
     const response = await fetch(`${apiURL}/${userID}/reminders`, {

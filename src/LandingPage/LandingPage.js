@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     Alert
   } from 'react-native';
+  import {addUserAPI} from '../apiCalls/apiCalls'
 
   //ui
   import {lightBlue, white, red, grey} from '../ui/colors'
@@ -43,8 +44,9 @@ import {
     );
 
 
-    const goToCreateReminder = () => {
-      user.name ? navigation.navigate('Create Reminder', {user: user }) : alertUserName()
+    const goToCreateReminder = async () => {
+      // user.name ? await addUserAPI(user.name) : alertUserName()
+      navigation.navigate('Create Reminder', {user: user }) 
     }
 
     const [fontsLoaded] = useFonts({

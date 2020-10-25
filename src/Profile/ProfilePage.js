@@ -12,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import Header from '../Header/Header'
+import {getAllRemindersAPI, deleteReminderAPI } from '../apiCalls/apiCalls'
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
@@ -63,11 +64,16 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
-          { text: "Yep!", onPress: () => setUserReminders(user.reminders.filter(reminder => reminder.id !== id)) }
+          { text: "Yep!", onPress: () => deleteReminder(id) }
         ],
         { cancelable: false }
       )
 
+    const deleteReminder = async (id) => {
+      // deleteReminderAPI(id) 
+      // const apiData = await getAllRemindersAPI()
+      // setUserReminders(apiData)
+    } 
 
     const remindersJSX = () => {
         if (userReminders.length > 0) {
@@ -93,7 +99,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
       const addNewReminder = () => {
         user.reminders = userReminders
-        console.log("add new reminder/prof page", user)
         navigation.navigate('Create Reminder', {user: user})
       }
 

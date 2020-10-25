@@ -145,7 +145,6 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   const singleDateChange = (event, date) => {
     const singleDateFormat = moment(date).format('LL')
-    setSingleDate(singleDateFormat)
     user.currentReminder.days.push(singleDateFormat)
   }
 
@@ -175,7 +174,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   
   const saveData = async () => {
     const newReminder = user.currentReminder
-    // addReminderAPI(user.currentReminder)
+    // addReminderAPI(user.id, user.currentReminder)
     user.reminders.push(newReminder)
     // user.reminders = await getAllRemindersAPI()
     user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}

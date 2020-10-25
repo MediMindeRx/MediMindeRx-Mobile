@@ -113,7 +113,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   } else {
     return (
       <KeyboardAwareScrollView 
-        style={styles.container}
+        style={[styles.container, { backgroundColor: "#E0EAFC" }]}
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={styles.container}
         scrollEnabled={false}
