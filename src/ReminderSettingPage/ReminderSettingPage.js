@@ -116,8 +116,8 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         style={styles.container}
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={styles.container}
-         scrollEnabled={false}
-        >
+        scrollEnabled={false}
+      >
 
     
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
