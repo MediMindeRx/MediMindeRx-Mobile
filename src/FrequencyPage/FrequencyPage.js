@@ -95,52 +95,6 @@ export default FrequencyPage = ({ navigation, route }) => {
     return daysJSX
   }
 
-  // const switchWorkweek = (switchName) => {
-  //   if (switchName === "workweek") {
-  //     const workingDays = sevenDays.slice(0, 5)
-  //     user.currentReminder.days.push(...workingDays)
-  //     toggleWorkweek(!workweek)
-  //     toggleEveryday(false)
-  //     toggleCustom(false)
-  //     toggleWeekend(false)
-  //     if (workweek) {
-  //       user.currentReminder.days = []
-  //     }
-  //   }
-  // }
-
-  // const switchEveryday = (switchName) => {
-  //   if (switchName === "everyday") {
-  //     user.currentReminder.days.push(...sevenDays)
-  //     toggleEveryday(!everyday)
-  //     toggleCustom(false)
-  //     toggleWorkweek(false)
-  //     toggleWeekend(false)
-  //     if (everyday) {
-  //       user.currentReminder.days = []
-  //     }
-  //   }
-  // }
-
-  // const switchCustom = (switchName) => {
-  //   if (switchName === "custom") {
-  //     toggleCustom(!custom)
-  //     toggleEveryday(false)
-  //     toggleWorkweek(false)
-  //     toggleWeekend(false)
-
-  //   }
-  // }
-
-  // const switchWeekend = (switchName) => {
-  //   if (switchName === 'weekend') {
-  //     toggleWeekend(!weekend)
-  //     toggleCustom(false)
-  //     toggleWorkweek(false)
-  //     toggleEveryday(false)
-  //   }
-  // }
-
   const toggleAllOff = () => {
     toggleCustom(false)
     toggleWorkweek(false)
@@ -149,7 +103,6 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const setUserDays = (switchName) => {
-    console.log("hello")
     user.currentReminder.days = []
     toggleAllOff()
     switch(switchName) {
@@ -160,13 +113,11 @@ export default FrequencyPage = ({ navigation, route }) => {
       case "workweek":
         toggleWorkweek(!workweek)
         const workingDays = sevenDays.slice(0, 5)
-        console.log(workingDays)
         workweek ? user.currentReminder.days = [] : user.currentReminder.days.push(...workingDays)
         break
       case "weekend":
         toggleWeekend(!weekend)
         const weekendDays = sevenDays.slice(-2)
-        console.log(weekendDays)  
         weekend ? user.currentReminder.days = [] : user.currentReminder.days.push(...weekendDays)
         break
       case "custom":
