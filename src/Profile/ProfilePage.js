@@ -41,8 +41,12 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
 
     const dayRender = (days) => {
+      console.log(days.length)
       if (days[0].includes(',')) {
         return days[0]
+      } 
+      if (days.length === 7) {
+        return "Repeat everyday"
       } else {
         return "Repeat" +  days.map(day => {
           if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
