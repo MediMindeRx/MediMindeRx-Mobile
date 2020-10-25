@@ -31,6 +31,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [time, setSingleTime] = useState(new Date())
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
+  const [weekend, toggleWeekend] = useState(false)
   const [custom, toggleCustom] = useState(false)
   const [sunday, toggleSunday] = useState(false)
   const [monday, toggleMonday] = useState(false)
@@ -94,44 +95,84 @@ export default FrequencyPage = ({ navigation, route }) => {
     return daysJSX
   }
 
-  const switchWorkweek = (switchName) => {
-    if (switchName === "workweek") {
-      const workingDays = sevenDays.slice(0, 5)
-      user.currentReminder.days.push(...workingDays)
-      toggleWorkweek(!workweek)
-      toggleEveryday(false)
-      toggleCustom(false)
-      if (workweek) {
-        user.currentReminder.days = []
-      }
-    }
-  }
+  // const switchWorkweek = (switchName) => {
+  //   if (switchName === "workweek") {
+  //     const workingDays = sevenDays.slice(0, 5)
+  //     user.currentReminder.days.push(...workingDays)
+  //     toggleWorkweek(!workweek)
+  //     toggleEveryday(false)
+  //     toggleCustom(false)
+  //     toggleWeekend(false)
+  //     if (workweek) {
+  //       user.currentReminder.days = []
+  //     }
+  //   }
+  // }
 
-  const switchEveryday = (switchName) => {
-    if (switchName === "everyday") {
-      user.currentReminder.days.push(...sevenDays)
-      toggleEveryday(!everyday)
-      toggleCustom(false)
-      toggleWorkweek(false)
-      if (everyday) {
-        user.currentReminder.days = []
-      }
-    }
-  }
+  // const switchEveryday = (switchName) => {
+  //   if (switchName === "everyday") {
+  //     user.currentReminder.days.push(...sevenDays)
+  //     toggleEveryday(!everyday)
+  //     toggleCustom(false)
+  //     toggleWorkweek(false)
+  //     toggleWeekend(false)
+  //     if (everyday) {
+  //       user.currentReminder.days = []
+  //     }
+  //   }
+  // }
 
-  const switchCustom = (switchName) => {
-    if (switchName === "custom") {
-      toggleCustom(!custom)
-      toggleEveryday(false)
-      toggleWorkweek(false)
-    }
+  // const switchCustom = (switchName) => {
+  //   if (switchName === "custom") {
+  //     toggleCustom(!custom)
+  //     toggleEveryday(false)
+  //     toggleWorkweek(false)
+  //     toggleWeekend(false)
+
+  //   }
+  // }
+
+  // const switchWeekend = (switchName) => {
+  //   if (switchName === 'weekend') {
+  //     toggleWeekend(!weekend)
+  //     toggleCustom(false)
+  //     toggleWorkweek(false)
+  //     toggleEveryday(false)
+  //   }
+  // }
+
+  const toggleAllOff = () => {
+    toggleCustom(false)
+    toggleWorkweek(false)
+    toggleEveryday(false)
+    toggleWeekend(false)  
   }
 
   const setUserDays = (switchName) => {
+    console.log("hello")
     user.currentReminder.days = []
-    switchWorkweek(switchName)
-    switchEveryday(switchName)
-    switchCustom(switchName)
+    toggleAllOff()
+    switch(switchName) {
+      case "everyday":
+        toggleEveryday(!everyday)
+        everyday ? user.currentReminder.days = [] : user.currentReminder.days.push(...sevenDays)
+        break
+      case "workweek":
+        toggleWorkweek(!workweek)
+        const workingDays = sevenDays.slice(0, 5)
+        console.log(workingDays)
+        workweek ? user.currentReminder.days = [] : user.currentReminder.days.push(...workingDays)
+        break
+      case "weekend":
+        toggleWeekend(!weekend)
+        const weekendDays = sevenDays.slice(-2)
+        console.log(weekendDays)  
+        weekend ? user.currentReminder.days = [] : user.currentReminder.days.push(...weekendDays)
+        break
+      case "custom":
+      toggleCustom(!custom)
+        break
+    }
   }
 
   const timeChange = (event, date) => {
@@ -151,16 +192,6 @@ export default FrequencyPage = ({ navigation, route }) => {
     const singleDateFormat = moment(date).format('LL')
     user.currentReminder.days.push(singleDateFormat)
   }
-
-  //   if (custom) {
-  //   const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-  //   const selectedDays = sevenDays.filter((day, index) => {
-  //     return days[index]
-  //     }
-  //   )
-  //   user.currentReminder.days.push([...selectedDays])
-  // }
-
 
   const inputCheck = () => {
     if (!user.currentReminder.time) {
@@ -227,6 +258,12 @@ export default FrequencyPage = ({ navigation, route }) => {
                   <Text style={styles.dateLabel}>Everyday</Text>
                   <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
                 </View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Weekend</Text>
+                  <Switch trackColor={{false: white, true: red}} value={weekend} onValueChange={() => setUserDays("weekend")}/>
+                </View>
+
                 <View style={styles.frequencySwitch}>
                   <Text style={styles.dateLabel}>Custom </Text>
                   <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
