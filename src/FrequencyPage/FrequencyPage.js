@@ -211,7 +211,7 @@ export default FrequencyPage = ({ navigation, route }) => {
             {singleDateSwitch === false && 
               <View >
                 <Text style={styles.headerText}>Date</Text>
-                <DateTimePicker value={new Date()} onChange={singleDateChange}/>
+                <DateTimePicker value={new Date()} onChange={singleDateChange} minimumDate={new Date()}/>
                </View>
             }
 
