@@ -66,7 +66,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     return <AppLoading />
   } else {
     return (
-      <KeyboardAvoidingView 
+      <View 
         style={styles.container}
         behavior="padding"
       >
@@ -82,10 +82,10 @@ export default ReminderSettingPage = ({ navigation, route }) => {
             <TextInput style={styles.inputText} value={title} onChangeText={(text) => handleTitleChange(text)} maxLength={25} placeholder='Enter its name here'/>
           </View>
 
-          <View style={styles.inputField2}>
+          <KeyboardAvoidingView style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
             <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
-          </View>
+          </KeyboardAvoidingView>
 
           <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
             <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
@@ -104,7 +104,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           </View>
 
         </LinearGradient>
-      </KeyboardAvoidingView>
+      </View>
     )
   }
 }
