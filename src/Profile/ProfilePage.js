@@ -88,9 +88,9 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
       // verify that we have permissions
       const permissions = await Notifications.getPermissionsAsync()
-      const triggerDate = new Date(reminder.fullDate)
       
       // make sure the reminder fires right when the minute changes
+      const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
 
       if (permissions.granted) {
