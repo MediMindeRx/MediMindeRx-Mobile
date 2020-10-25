@@ -9,6 +9,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from 'react-native';
 import Header from '../Header/Header'
 
@@ -49,15 +50,15 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
     const alertDelete = () =>
       Alert.alert(
-        "Deleting Reminder",
+        "Delete Confirmation",
         "Are you sure you want to delete this reminder?",
         [
           {
-            text: "Cancel",
+            text: "Nope, take me back",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: "Yes", onPress: () => console.log("OK Pressed") }
         ],
         { cancelable: false }
       )
