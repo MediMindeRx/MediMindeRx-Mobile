@@ -87,7 +87,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
                 <Text style={styles.bodySmallTextDetails}>
-                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies shown in notification"}
+                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                   </Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
                   <Text style={styles.deleteButtonText} onPress={() => alertDelete(reminder.id)}>Delete</Text>
