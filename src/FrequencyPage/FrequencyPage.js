@@ -12,6 +12,7 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
+import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
 
 
 //ui
@@ -159,7 +160,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   // write method to connect global store to here?
 
-  
+
 
   const inputCheck = () => {
     if (!user.currentReminder.time) {
@@ -172,12 +173,13 @@ export default FrequencyPage = ({ navigation, route }) => {
     saveData()
   }
   
-  const saveData = () => {
+  const saveData = async () => {
     const newReminder = user.currentReminder
-    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}
+    // addReminderAPI(user.currentReminder)
     user.reminders.push(newReminder)
+    // user.reminders = await getAllRemindersAPI()
+    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}
     navigation.navigate('Profile', {user: user})
-    // send to server
   }
   
 

@@ -1,6 +1,6 @@
 const apiURL = ''
 
-export const getAllReminders = async () => {
+export const getAllRemindersAPI = async () => {
   try {
     const response = fetch(`${apiURL}`)
     const data = await response.json()
@@ -10,7 +10,7 @@ export const getAllReminders = async () => {
   }
 }
 
-export const deleteReminder = async (reminderID) => {
+export const deleteReminderAPI = async (reminderID) => {
   try {
     const response = await fetch(`${apiURL}/${id}`, {
       method: 'DELETE',
@@ -24,7 +24,7 @@ export const deleteReminder = async (reminderID) => {
   }
 }
 
-export const addReminder = async (userID, reminder) => {
+export const addReminderAPI = async (userID, reminder) => {
   try {
     const response = await fetch(`${apiURL}/${userID}/reminders`, {
       method: 'POST',
