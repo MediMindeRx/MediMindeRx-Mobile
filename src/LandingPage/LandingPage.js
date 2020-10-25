@@ -21,7 +21,6 @@ import {
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
   import {LinearGradient} from 'expo-linear-gradient'
 
-
   export default LandingPage = ({ navigation }) => {
     const [notificationsPermission, askForNPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
     const [locationPermission, askForLPermission] = Permissions.usePermissions(Permissions.LOCATION, { ask: true })
