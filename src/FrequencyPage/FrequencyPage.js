@@ -203,6 +203,15 @@ export default FrequencyPage = ({ navigation, route }) => {
     // } else {
       user.reminders.push(user.currentReminder)
       navigation.navigate('Profile', {user: user})
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: user.currentReminder.title,
+          body: user.currentReminder.supplies
+        },
+        trigger: {
+          seconds: 10
+        }
+      })
       // send to server
     // }
   }
@@ -220,7 +229,6 @@ export default FrequencyPage = ({ navigation, route }) => {
       <View style={styles.container}>
 
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
-
 
         <Header />
         <Text style={styles.welcomeText}>When should I send your reminder?</Text>
