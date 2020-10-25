@@ -132,7 +132,9 @@ export default FrequencyPage = ({ navigation, route }) => {
     const isAfterNoon = moment(date).local().hour() > 12
     const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
+
     user.currentReminder.time = `${hour}:${minute} ${isAfterNoon ? "PM" : "AM"}`
+    user.currentReminder.fullDate = date
   }
 
   //   if (custom) {
@@ -201,6 +203,11 @@ export default FrequencyPage = ({ navigation, route }) => {
     // } else if (user.currentReminder.days.length === 0) {
     //   alertMissingDays()
     // } else {
+      const trigger = {seconds: Math.round(user.currentReminder.fullDate.getTime() / 1000 - Date.now() / 1000)}
+      // const trigger = moment(user.currentReminder.fullDate + 10)
+      // trigger.setMinutes(0)
+      // trigger.setHours(0)
+
       user.reminders.push(user.currentReminder)
       navigation.navigate('Profile', {user: user})
       Notifications.scheduleNotificationAsync({
@@ -208,9 +215,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           title: user.currentReminder.title,
           body: user.currentReminder.supplies
         },
-        trigger: {
-          seconds: 10
-        }
+        trigger: trigger
       })
       // send to server
     // }
