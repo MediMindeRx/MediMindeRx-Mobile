@@ -25,7 +25,18 @@ import {
     const [notificationsPermission, askForNPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
     const [locationPermission, askForLPermission] = Permissions.usePermissions(Permissions.LOCATION, { ask: true })
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
+    let user = {
+      name: null, 
+      reminders: [], 
+      currentReminder: {
+        title: '', 
+        supplies: '', 
+        days: [], 
+        time: '', 
+        fullDate: '',
+        showSupplies: false 
+      }
+    }
 
     const handleChange = (text) => {
       user.name = text.trim()
