@@ -17,7 +17,7 @@ import {getAllRemindersAPI, deleteReminderAPI } from '../apiCalls/apiCalls'
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
-import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat'
+import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
 
 
   export default ProfilePage = ({navigation, route}) => {
@@ -28,6 +28,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       Montserrat_600SemiBold,
+      Montserrat_400Regular_Italic
     })
 
 
@@ -84,7 +85,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
                   <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
                   <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
                 </Text>
-                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
+                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+                <Text style={styles.bodySmallTextDetails}>
+                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies shown in notification"}
+                  </Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
                   <Text style={styles.deleteButtonText} onPress={() => alertDelete(reminder.id)}>Delete</Text>
                 </TouchableOpacity>
@@ -178,6 +182,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
       marginRight: "6%"
     },
 
+     bodySmallTextDetails: {
+      color: grey,
+      fontSize: 14,
+      fontFamily: "Montserrat_400Regular_Italic",
+      marginRight: "6%"
+    },
+
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
@@ -199,13 +210,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
     deleteButtonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
-      fontSize: 16,
+      fontSize: 14,
       textAlign: "center",
     },
 
     deleteButtonStyle : {
       backgroundColor: red,
-      padding: 10,
+      padding: 5,
       borderRadius: 10,
       width: "25%",
       shadowColor: '#000',
