@@ -159,52 +159,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   // write method to connect global store to here?
 
-
-  //  const alertMissingDays = () =>
-  //   Alert.alert(
-  //     "No Days Selected",
-  //     "What days would you like to be reminded?",
-  //     [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => console.log("Cancel Pressed"),
-  //         style: "cancel"
-  //       },
-  //       { text: "OK", onPress: () => console.log("OK Pressed") }
-  //     ],
-  //     { cancelable: false }
-  //   );
-
-  //  const alertMissingTime = () =>
-  //     Alert.alert(
-  //       "No Time Selected",
-  //       "What time should we remind you?",
-  //       [
-  //         {
-  //           text: "Cancel",
-  //           onPress: () => console.log("Cancel Pressed"),
-  //           style: "cancel"
-  //         },
-  //         { text: "OK", onPress: () => console.log("OK Pressed") }
-  //       ],
-  //       { cancelable: false }
-  //   );
-
-  //   const alertMissingTimeDays = () =>
-  //     Alert.alert(
-  //       "Current Date & Time",
-  //       "You have schedule the reminder to happen immediately. Is this what you want?",
-  //       [
-  //         {
-  //           text: "No, take me back.",
-  //           onPress: () => console.log("Cancel Pressed"),
-  //           style: "cancel"
-  //         },
-  //         { text: "OK", onPress: () => console.log("OK Pressed") }
-  //       ],
-  //       { cancelable: false }
-  //     )
-
+  
 
   const inputCheck = () => {
     if (!user.currentReminder.time) {

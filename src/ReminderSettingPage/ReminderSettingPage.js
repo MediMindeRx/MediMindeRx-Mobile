@@ -43,6 +43,51 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     setShowSupplies(!showSupplies)
   }
 
+  const alertMissingSupplies = () =>
+    Alert.alert(
+      "Don't Forget What's Important",
+      "Please add medical supplies to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+  const alertMissingTitle = () =>
+    Alert.alert(
+      "No Title Given",
+      "Stay organized! Please add a title to your reminder.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+    const alertMissingTitleSupplies = () =>
+      Alert.alert(
+        "What's This Reminder About?",
+        "Add a title and supplies to your reminder.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+
   const goToSchedPage = () => {
     if (!user.currentReminder.supplies && !user.currentReminder.title) {
       alertMissingTitleSupplies()
@@ -82,10 +127,10 @@ export default ReminderSettingPage = ({ navigation, route }) => {
             <TextInput style={styles.inputText} value={title} onChangeText={(text) => handleTitleChange(text)} maxLength={25} placeholder='Enter its name here'/>
           </View>
 
-          <KeyboardAvoidingView style={styles.inputField2}>
+          <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
             <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
-          </KeyboardAvoidingView>
+          </View>
 
           <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
             <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
