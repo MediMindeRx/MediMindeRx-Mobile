@@ -33,13 +33,38 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
     }
 
     const dayRender = (days) => {
-      return days.map(day => {
-        if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
-          return day.charAt(0) + day.charAt(1) + " "
-        } else {
-          return day.charAt(0) + " "
-        }
-      })
+      console.log(days[0].includes('/'))
+      if (days.includes('/')) {
+        return day
+      } else {
+        return days.map(day => {
+          if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
+            return day.charAt(0) + day.charAt(1) + " "
+          } else {
+            return day.charAt(0) + " "
+          }
+        })
+      }
+    }
+
+    const alertDelete = () =>
+      Alert.alert(
+        "Deleting Reminder",
+        "Are you sure you want to delete this reminder?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      )
+
+
+    const deleteReminder = (id) => {
+      alertDelete()
     }
 
     const remindersJSX = () => {
@@ -49,11 +74,11 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
                 <Text>
                   <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
-                  <Text style={styles.bodyTextDetails}>{dayRender([...reminder.days])}</Text> 
+                  <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
-                  <Text style={styles.deleteButtonText}>Delete</Text>
+                  <Text style={styles.deleteButtonText} onPress={deleteReminder}>Delete</Text>
                 </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)

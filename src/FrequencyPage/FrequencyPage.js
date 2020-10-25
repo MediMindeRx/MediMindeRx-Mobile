@@ -136,7 +136,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const singleDateChange = (event, date) => {
-    const singleDate = moment(date).format('l')
+    const singleDate = moment(date).format('LL')
     user.currentReminder.days.push(singleDate)
   }
 
