@@ -46,7 +46,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         return days[0]
       } 
       if (days.length === 7) {
-        return "Repeat everyday"
+        return "Repeat daily"
+      } 
+      if (days.length === 2 && days.includes("Saturday") && days.includes("Sunday")) {
+        return "Repeat weekends"
+      }
+      if (days.length === 5 && !days.includes("Saturday") && !days.includes("Sunday")) {
+        return "Repeat weekdays"
       } else {
         return "Repeat" +  days.map(day => {
           if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
