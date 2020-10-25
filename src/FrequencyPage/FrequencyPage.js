@@ -130,9 +130,8 @@ export default FrequencyPage = ({ navigation, route }) => {
   const timeChange = (event, date) => {
     const isAfterNoon = moment(date).local().hour() > 12
     const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
-    user.currentReminder.time = `${hour}:${moment(date).minute()} ${isAfterNoon ? "PM" : "AM"}`
-    console.log(user.currentReminder.time)
-    // user.currentReminder.time = moment(date).format('LT')
+    const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
+    user.currentReminder.time = `${hour}:${minute} ${isAfterNoon ? "PM" : "AM"}`
   }
 
   //   if (custom) {
@@ -177,7 +176,7 @@ export default FrequencyPage = ({ navigation, route }) => {
         { cancelable: false }
     );
 
-    const alertMissingTimeDays = () => 
+    const alertMissingTimeDays = () =>
       Alert.alert(
         "Add Date & Time",
         "We can't schedule without your input! Select days and time to send reminder.",
@@ -191,10 +190,9 @@ export default FrequencyPage = ({ navigation, route }) => {
         ],
         { cancelable: false }
       )
-    
- 
+
+
   const saveData = () => {
-<<<<<<< HEAD
     // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
     //   alertMissingTimeDays()
     // } else if (user.currentReminder.time === '' ) {
@@ -206,12 +204,6 @@ export default FrequencyPage = ({ navigation, route }) => {
       navigation.navigate('Profile', {user: user})
       // send to server
     // }
-=======
-
-    user.reminders.push(user.currentReminder)
-    navigation.navigate('Profile', {user: user})
-    // send to server
->>>>>>> 0fba88d... Assign string of time to user's current reminder
   }
 
   const [fontsLoaded] = useFonts({
@@ -230,7 +222,6 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
         <Header />
-<<<<<<< HEAD
         <Text style={styles.welcomeText}>When should I send your reminder?</Text>
         <View style={{height: "50%"}}>
           <ScrollView>
@@ -239,16 +230,6 @@ export default FrequencyPage = ({ navigation, route }) => {
 
               <View style={styles.frequencySwitch}>
                 <Text style={styles.dateLabel}>Monday through Friday </Text>
-=======
-          <Text style={styles.welcomeText}>When should I send your reminder?</Text>
-          <View style={{height: "50%"}}>
-        <ScrollView>
-          <View style={styles.frequencyBox}>
-            <Text style={styles.headerText}>Frequency</Text>
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Monday through Friday
-              </Text>
->>>>>>> 0fba88d... Assign string of time to user's current reminder
                 <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
               </View>
 
@@ -258,21 +239,6 @@ export default FrequencyPage = ({ navigation, route }) => {
             </View>
             <View style={styles.frequencySwitch}>
               <Text style={styles.dateLabel}>Custom </Text>
-<<<<<<< HEAD
-              <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
-            </View>
-            
-            {custom ? <View>{daysList()}</View> : null}
-            </View>
-
-            <View style={styles.frequencyBox}>
-              <Text style={styles.headerText}>Time</Text>
-              <DateTimePicker value={Date.now()} mode="time"/>
-            </View>
-          </ScrollView>
-          </View> 
-
-=======
                 <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
               </View>
               {custom ? <View>{daysList()}</View> : null}
@@ -281,12 +247,11 @@ export default FrequencyPage = ({ navigation, route }) => {
 
           <View style={styles.frequencyBox}>
             <Text style={styles.headerText}>Time</Text>
-            <DateTimePicker value={Date.now()} mode="time" onChange={timeChange}/>
+            <DateTimePicker value={new Date()} mode="time" onChange={timeChange}/>
           </View>
 
         </ScrollView>
         </View>
->>>>>>> 0fba88d... Assign string of time to user's current reminder
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonStyle}
