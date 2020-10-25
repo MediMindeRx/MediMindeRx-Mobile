@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -21,6 +21,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
   export default ProfilePage = ({navigation, route}) => {
     const {user} = route.params
+    const [userReminders, setUserReminders] = useState(user.reminders)
 
 
     const [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
 
     const greeting = () => {
-        return user.reminders.length > 0 ? 
+        return userReminders.length > 0 ? 
           `Here are your reminders, ${user.name}:`: 
             "Let's schedule some reminders."
     }
@@ -51,7 +52,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
     }
 
 
-    const alertDelete = () =>
+    const alertDelete = (id) =>
       Alert.alert(
         "Delete Confirmation",
         "Are you sure you want to delete this reminder?",
@@ -61,20 +62,22 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
-          { text: "Yep!", onPress: () => console.log("OK Pressed") }
+          { text: "Yep!", onPress: () => setUserReminders(user.reminders.filter(reminder => reminder.id !== id)) }
         ],
         { cancelable: false }
       )
 
 
     const deleteReminder = (id) => {
-      alertDelete()
-    }
+      alertDelete(id)
+      // const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
+      // setUserReminders(user.reminders.filter(reminder => reminder.id !== id))
+    } 
 
     const remindersJSX = () => {
-        if (user.reminders.length > 0) {
-            return user.reminders.map(reminder => {
-             return (<View style={{width: "100%"}}>
+        if (userReminders.length > 0) {
+            return userReminders.map(reminder => {
+             return (<View style={{width: "100%"}} key={reminder.id}>
                 <Text style={styles.subHeaderText}>{reminder.title}</Text> 
                 <Text>
                   <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
@@ -82,7 +85,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
-                  <Text style={styles.deleteButtonText} onPress={deleteReminder}>Delete</Text>
+                  <Text style={styles.deleteButtonText} onPress={() => deleteReminder(reminder.id)}>Delete</Text>
                 </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)

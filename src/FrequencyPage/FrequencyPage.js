@@ -192,11 +192,11 @@ export default FrequencyPage = ({ navigation, route }) => {
 
     const alertMissingTimeDays = () =>
       Alert.alert(
-        "Add Date & Time",
-        "We can't schedule without your input! Select days and time to send reminder.",
+        "Current Date & Time",
+        "You have schedule the reminder to happen immediately. Is this what you want?",
         [
           {
-            text: "Cancel",
+            text: "No, take me back.",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
@@ -206,7 +206,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       )
 
 
-  const saveData = () => {
+  const inputCheck = () => {
     if (!user.currentReminder.time) {
       formatTime(time)
     } 
@@ -214,6 +214,10 @@ export default FrequencyPage = ({ navigation, route }) => {
       let singleDateFormat = moment(singleDate).format('LL')
       user.currentReminder.days.push(singleDateFormat)
     } 
+    saveData()
+  }
+  
+  const saveData = () => {
     user.reminders.push(user.currentReminder)
     navigation.navigate('Profile', {user: user})
     // send to server
@@ -285,7 +289,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonStyle}
-              onPress={saveData}
+              onPress={inputCheck}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
