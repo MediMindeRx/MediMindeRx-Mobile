@@ -22,10 +22,12 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
   export default ProfilePage = ({navigation, route}) => {
     const {user} = route.params
 
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       Montserrat_600SemiBold,
     })
+
 
     const greeting = () => {
         return user.reminders.length > 0 ? 
@@ -33,20 +35,21 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
             "Let's schedule some reminders."
     }
 
+
     const dayRender = (days) => {
-      console.log(days[0].includes('/'))
-      if (days.includes('/')) {
-        return day
+      if (days[0].includes(',')) {
+        return days[0]
       } else {
-        return days.map(day => {
+        return "Repeat" +  days.map(day => {
           if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
-            return day.charAt(0) + day.charAt(1) + " "
+            return " " + day.charAt(0) + day.charAt(1)
           } else {
-            return day.charAt(0) + " "
+            return " " + day.charAt(0)
           }
         })
       }
     }
+
 
     const alertDelete = () =>
       Alert.alert(
@@ -58,7 +61,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
-          { text: "Yes", onPress: () => console.log("OK Pressed") }
+          { text: "Yep!", onPress: () => console.log("OK Pressed") }
         ],
         { cancelable: false }
       )
@@ -169,7 +172,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google
 
     bodyTextDetails: {
       color: grey,
-      fontSize: 19,
+      fontSize: 18,
       fontFamily: "Montserrat_600SemiBold",
       marginRight: "6%"
     },

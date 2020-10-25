@@ -24,6 +24,7 @@ import {AppLoading} from 'expo';
 
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
+  
 
   const [singleDateSwitch, toggleSingleDateSwitch] = useState(false)
   const [workweek, toggleWorkweek] = useState(false)
@@ -199,17 +200,17 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
   const saveData = () => {
-    // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
-    //   alertMissingTimeDays()
-    // } else if (user.currentReminder.time === '' ) {
-    //   alertMissingTime()
-    // } else if (user.currentReminder.days.length === 0) {
-    //   alertMissingDays()
-    // } else {
+    if (user.currentReminder.days.length === 0 && !user.currentReminder.time) {
+      alertMissingTimeDays()
+    } else if (!user.currentReminder.time) {
+      alertMissingTime()
+    } else if (user.currentReminder.days.length === 0) {
+      alertMissingDays()
+    } else {
       user.reminders.push(user.currentReminder)
       navigation.navigate('Profile', {user: user})
       // send to server
-    // }
+    }
   }
 
   const [fontsLoaded] = useFonts({
@@ -239,7 +240,7 @@ export default FrequencyPage = ({ navigation, route }) => {
               </View>
 
             {singleDateSwitch === false && 
-              <View style={styles.frequencyBox}>
+              <View >
                 <Text style={styles.headerText}>Date</Text>
                 <DateTimePicker value={new Date()} onChange={singleDateChange}/>
                </View>
@@ -309,7 +310,8 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily: "Montserrat_700Bold",
     marginLeft: 30,
-    width: "80%"
+    width: "80%",
+    marginBottom: "2%"
   },
 
   headerText: {
@@ -333,13 +335,12 @@ const styles = StyleSheet.create({
     backgroundColor: red,
     padding: 13,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: "3%",
     width: "60%",
   },
 
   frequencyBox: {
-    marginTop: 20,
-    marginLeft: 30,
+    marginLeft: "8%",
     width: "85%"
   },
 
@@ -351,7 +352,7 @@ const styles = StyleSheet.create({
   },
 
   frequencySwitch: {
-    marginTop: 10,
+    marginTop: "1%",
     flexDirection: 'row',
     justifyContent: 'space-between'
   }
