@@ -34,7 +34,7 @@ import {
         supplies: '', 
         days: [], 
         time: '', 
-        fullDate: '',
+        fullDate: null,
         showSupplies: false 
       }
     }

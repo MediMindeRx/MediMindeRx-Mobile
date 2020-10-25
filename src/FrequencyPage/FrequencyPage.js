@@ -15,7 +15,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
 
-
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
 import Header from '../Header/Header';
@@ -138,7 +137,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
     const timeFormat = formatHour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
     user.currentReminder.time = timeFormat
-    user.currentReminder.fullDate = date
+    user.currentReminder.fullDate = date.getTime()
   }
 
   const singleDateChange = (event, date) => {
@@ -162,7 +161,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     // addReminderAPI(user.id, user.currentReminder)
     user.reminders.push(newReminder)
     // user.reminders = await getAllRemindersAPI()
-    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now()}
+    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now(), fullDate: null}
     navigation.navigate('Profile', {user: user})
   }
   
