@@ -98,8 +98,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
                 <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                   {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                   </Text> 
-                <TouchableOpacity style={styles.deleteButtonStyle}>
-                  <Text style={styles.deleteButtonText} onPress={() => alertDelete(reminder.id)}>Delete</Text>
+                <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
+                  <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
                 </TouchableOpacity>
                 <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
               </View>)
@@ -201,24 +201,5 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       shadowOpacity: 0.5,
       shadowRadius: 3,
     },
-
-    deleteButtonText: {
-      color: white,
-      fontFamily: "Montserrat_700Bold",
-      fontSize: 14,
-      textAlign: "center",
-    },
-
-    deleteButtonStyle : {
-      backgroundColor: red,
-      padding: 5,
-      borderRadius: 10,
-      width: "25%",
-      shadowColor: '#000',
-      marginTop: "2%",
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.5,
-      shadowRadius: 3,
-    }
 
 })
