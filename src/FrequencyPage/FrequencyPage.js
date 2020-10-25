@@ -37,10 +37,10 @@ export default FrequencyPage = ({ navigation, route }) => {
   const [friday, toggleFriday] = useState(false)
   const [saturday, toggleSaturday] = useState(false)
   const sevenDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-  
+
   const toggleCustomDays = (day) => {
-    user.currentReminder.days.includes(day) ? 
-          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1) 
+    user.currentReminder.days.includes(day) ?
+          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1)
           : user.currentReminder.days.push(day)
   }
 
@@ -52,22 +52,22 @@ export default FrequencyPage = ({ navigation, route }) => {
         break
       case "Tuesday":
         toggleTuesday(!tuesday)
-        break 
+        break
       case "Wednesday":
       toggleWednesday(!wednesday)
-        break 
+        break
       case "Thursday":
       toggleThursday(!thursday)
-        break  
+        break
       case "Friday":
         toggleFriday(!friday)
         break
       case "Saturday":
         toggleSaturday(!saturday)
-        break 
+        break
       case "Sunday":
       toggleSunday(!sunday)
-        break      
+        break
     }
   }
 
@@ -77,9 +77,9 @@ export default FrequencyPage = ({ navigation, route }) => {
       return (
         <View key={sevenDays[i]} style={styles.frequencySwitch}>
           <Text style={styles.dateLabel}>{sevenDays[i]}</Text>
-          <Switch 
-            trackColor={{false: white, true: red}} 
-            value={day} 
+          <Switch
+            trackColor={{false: white, true: red}}
+            value={day}
             onChange={() => toggleDay(sevenDays[i])}/>
         </View>
       )
@@ -100,7 +100,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       }
     }
   }
-  
+
   const switchEveryday = (switchName) => {
     if (switchName === "everyday") {
       user.currentReminder.days.push(...sevenDays)
@@ -112,13 +112,13 @@ export default FrequencyPage = ({ navigation, route }) => {
       }
     }
   }
-  
+
   const switchCustom = (switchName) => {
     if (switchName === "custom") {
       toggleCustom(!custom)
       toggleEveryday(false)
       toggleWorkweek(false)
-    } 
+    }
   }
 
   const setUserDays = (switchName) => {
@@ -129,8 +129,15 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const timeChange = (event, date) => {
-    console.log(date)
-    // user.currentReminder.time = moment(date).format('LT')
+    const isAfterNoon = moment(date).local().hour() > 12
+    const hour = isAfterNoon ? moment(date).local().hour() - 12 : moment(date).local().hour()
+    const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
+    user.currentReminder.time = `${hour}:${minute} ${isAfterNoon ? "PM" : "AM"}`
+  }
+
+  const singleDateChange = (event, date) => {
+    const singleDate = moment(date).format('l')
+    user.currentReminder.days.push(singleDate)
   }
 
   //   if (custom) {
@@ -175,7 +182,7 @@ export default FrequencyPage = ({ navigation, route }) => {
         { cancelable: false }
     );
 
-    const alertMissingTimeDays = () => 
+    const alertMissingTimeDays = () =>
       Alert.alert(
         "Add Date & Time",
         "We can't schedule without your input! Select days and time to send reminder.",
@@ -189,8 +196,8 @@ export default FrequencyPage = ({ navigation, route }) => {
         ],
         { cancelable: false }
       )
-    
- 
+
+
   const saveData = () => {
     // if (user.currentReminder.days.length === 0 && alert.currentReminder.time === '' ) {
     //   alertMissingTimeDays()
@@ -206,7 +213,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const [fontsLoaded] = useFonts({
-    Montserrat_700Bold, 
+    Montserrat_700Bold,
     OpenSansCondensed_300Light,
     Montserrat_600SemiBold
   })
@@ -234,7 +241,7 @@ export default FrequencyPage = ({ navigation, route }) => {
             {singleDateSwitch === false && 
               <View style={styles.frequencyBox}>
                 <Text style={styles.headerText}>Date</Text>
-                <DateTimePicker value={new Date()} onChange={}/>
+                <DateTimePicker value={new Date()} onChange={singleDateChange}/>
                </View>
             }
 
@@ -259,15 +266,16 @@ export default FrequencyPage = ({ navigation, route }) => {
 
             </View>
 
-            <View style={styles.frequencyBox}>
-              <Text style={styles.headerText}>Time</Text>
-              <DateTimePicker value={new Date()} mode="time" onChange={}/>
-            </View>
-          </ScrollView>
-          </View> 
 
+          <View style={styles.frequencyBox}>
+            <Text style={styles.headerText}>Time</Text>
+            <DateTimePicker value={new Date()} mode="time" onChange={timeChange}/>
+          </View>
+
+        </ScrollView>
+        </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.buttonStyle}
               onPress={saveData}
             >
@@ -300,7 +308,7 @@ const styles = StyleSheet.create({
     color: lightBlue,
     fontSize: 26,
     fontFamily: "Montserrat_700Bold",
-    marginLeft: 30, 
+    marginLeft: 30,
     width: "80%"
   },
 
@@ -341,10 +349,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: grey
   },
-  
+
   frequencySwitch: {
-    marginTop: 10, 
-    flexDirection: 'row', 
+    marginTop: 10,
+    flexDirection: 'row',
     justifyContent: 'space-between'
   }
 
