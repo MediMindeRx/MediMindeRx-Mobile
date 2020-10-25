@@ -107,6 +107,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         if (userReminders.length > 0) {
           // cancel all previously set notifications to remove duplicates
           Notifications.cancelAllScheduledNotificationsAsync()
+          
           return userReminders.map(reminder => {
 
             startNotificationCountdown(reminder)
