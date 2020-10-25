@@ -83,9 +83,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     } 
 
     const startNotificationCountdown = async reminder => {
-      // cancel all previously set notifications to remove duplicates
-      await Notifications.cancelAllScheduledNotificationsAsync()
-
       // verify that we have permissions
       const permissions = await Notifications.getPermissionsAsync()
       
@@ -108,6 +105,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const remindersJSX = () => {
         if (userReminders.length > 0) {
+          // cancel all previously set notifications to remove duplicates
+          Notifications.cancelAllScheduledNotificationsAsync()
           return userReminders.map(reminder => {
 
             startNotificationCountdown(reminder)
