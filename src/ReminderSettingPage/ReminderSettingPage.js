@@ -8,23 +8,24 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView,
     Alert,
     Switch
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import Header from '../Header/Header'
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default ReminderSettingPage = ({ navigation, route }) => {
   const [title, setTitle] = useState('')
   const [supplies, setSupplies] = useState('')
   const [showSupplies, setShowSupplies] = useState(false)
-
 
   const {user} = route.params
 
@@ -111,11 +112,14 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     return <AppLoading />
   } else {
     return (
-      <View 
+      <KeyboardAwareScrollView 
         style={styles.container}
-        behavior="padding"
-      >
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container}
+         scrollEnabled={false}
+        >
 
+    
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
@@ -149,7 +153,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           </View>
 
         </LinearGradient>
-      </View>
+      </KeyboardAwareScrollView>
     )
   }
 }
