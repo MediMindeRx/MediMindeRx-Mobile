@@ -54,7 +54,6 @@ import {
     })
 
 
-
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
@@ -100,12 +99,6 @@ import {
        flex: 1,
     },
 
-    buttonContainer: {
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: "10%",
-    },
-
     welcomeTexts: {
       marginLeft: "10%",
       marginTop: "20%"
@@ -133,6 +126,12 @@ import {
       fontFamily: "Montserrat_700Bold",
       fontSize: 20,
       textAlign: "center",
+    },
+
+    buttonContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: "10%",
     },
 
     buttonStyle: {

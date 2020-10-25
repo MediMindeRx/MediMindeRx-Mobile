@@ -135,7 +135,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
                 placeholder='Enter its name here'/>
           </View>
 
-          <View style={styles.inputField2}>
+          <View style={[styles.inputField, {marginTop: "10%"}]}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
             <TextInput 
                 style={styles.inputText} 
@@ -209,13 +209,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "80%",
     marginTop: "5%"
-  },
-
-  inputField2: {
-    borderBottomColor: red,
-    borderBottomWidth: 2,
-    width: "80%",
-    marginTop: "10%",
   },
 
   showSuppliesText: {

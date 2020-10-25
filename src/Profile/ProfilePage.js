@@ -95,7 +95,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
                   <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
                 </Text>
                 <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
-                <Text style={styles.bodySmallTextDetails}>
+                <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                   {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                   </Text> 
                 <TouchableOpacity style={styles.deleteButtonStyle}>
@@ -181,13 +181,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       color: grey,
       fontSize: 18,
       fontFamily: "Montserrat_600SemiBold",
-      marginRight: "6%"
-    },
-
-     bodySmallTextDetails: {
-      color: grey,
-      fontSize: 14,
-      fontFamily: "Montserrat_400Regular_Italic",
       marginRight: "6%"
     },
 
