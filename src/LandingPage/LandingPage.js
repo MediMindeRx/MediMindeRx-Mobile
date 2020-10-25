@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     Alert
   } from 'react-native';
+  import {addUserAPI} from '../apiCalls/apiCalls'
 
   //ui
   import {lightBlue, white, red, grey} from '../ui/colors'
@@ -21,7 +22,7 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', supplies: '', days: [], time: '', showSupplies: false }}
+    let user = {name: null, reminders: [], currentReminder: {title: '', id: Date.now(), supplies: '', days: [], time: '', showSupplies: false }}
 
     const handleChange = (text) => {
       user.name = text.trim()
@@ -43,14 +44,14 @@ import {
     );
 
 
-    const goToCreateReminder = () => {
-      user.name ? navigation.navigate('Create Reminder', {user: user }) : alertUserName()
+    const goToCreateReminder = async () => {
+      // user.name ? await addUserAPI(user.name) : alertUserName()
+      navigation.navigate('Create Reminder', {user: user }) 
     }
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold
     })
-
 
 
     if (!fontsLoaded) {
@@ -98,12 +99,6 @@ import {
        flex: 1,
     },
 
-    buttonContainer: {
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: "10%",
-    },
-
     welcomeTexts: {
       marginLeft: "10%",
       marginTop: "20%"
@@ -131,6 +126,12 @@ import {
       fontFamily: "Montserrat_700Bold",
       fontSize: 20,
       textAlign: "center",
+    },
+
+    buttonContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: "10%",
     },
 
     buttonStyle: {
