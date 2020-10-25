@@ -46,7 +46,11 @@ export default FrequencyPage = ({ navigation, route }) => {
     user.currentReminder.days.includes(day) ?
           user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1)
           : user.currentReminder.days.push(day)
-  }
+    user.currentReminder.days.sort((a, b) => {
+        return moment(a, 'ddd dddd') > moment(b, 'ddd dddd');
+          })
+      };
+  
 
   const toggleDay = (day) => {
     toggleCustomDays(day)
@@ -156,9 +160,6 @@ export default FrequencyPage = ({ navigation, route }) => {
   //   )
   //   user.currentReminder.days.push([...selectedDays])
   // }
-
-  // write method to connect global store to here?
-
 
 
   const inputCheck = () => {

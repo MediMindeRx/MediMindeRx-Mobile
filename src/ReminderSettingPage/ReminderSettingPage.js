@@ -19,7 +19,6 @@ import {lightBlue, white, red, grey} from '../ui/colors'
 import Header from '../Header/Header'
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
-import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default ReminderSettingPage = ({ navigation, route }) => {
@@ -128,12 +127,22 @@ export default ReminderSettingPage = ({ navigation, route }) => {
 
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
-            <TextInput style={styles.inputText} value={title} onChangeText={(text) => handleTitleChange(text)} maxLength={25} placeholder='Enter its name here'/>
+            <TextInput 
+                style={styles.inputText} 
+                value={title} 
+                onChangeText={(text) => handleTitleChange(text)} 
+                maxLength={25} 
+                placeholder='Enter its name here'/>
           </View>
 
           <View style={styles.inputField2}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput style={styles.inputText} value={supplies} onChangeText={(text) => handleSuppliesChange(text)} maxLength={100} placeholder='List them here'/>             
+            <TextInput 
+                style={styles.inputText} 
+                value={supplies} 
+                onChangeText={(text) => handleSuppliesChange(text)} 
+                maxLength={100} 
+                placeholder='List them here'/>             
           </View>
 
           <View style={{flexDirection: 'row', alignItems:'center', marginTop: "2%"}}>
