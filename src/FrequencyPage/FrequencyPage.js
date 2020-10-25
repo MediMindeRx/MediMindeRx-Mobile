@@ -25,6 +25,7 @@ import {AppLoading} from 'expo';
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
 
+  const [singleDateSwitch, toggleSingleDateSwitch] = useState(false)
   const [workweek, toggleWorkweek] = useState(false)
   const [everyday, toggleEveryday] = useState(false)
   const [custom, toggleCustom] = useState(false)
@@ -218,7 +219,6 @@ export default FrequencyPage = ({ navigation, route }) => {
 
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
-
         <Header />
         <Text style={styles.welcomeText}>When should I send your reminder?</Text>
         <View style={{height: "50%"}}>
@@ -227,20 +227,32 @@ export default FrequencyPage = ({ navigation, route }) => {
               <Text style={styles.headerText}>Frequency</Text>
 
               <View style={styles.frequencySwitch}>
-                <Text style={styles.dateLabel}>Monday through Friday </Text>
-                <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
+                <Text style={styles.dateLabel}>Repeat</Text>
+                <Switch trackColor={{false: white, true: red}} value={singleDateSwitch} onValueChange={() => toggleSingleDateSwitch(!singleDateSwitch)}/>
               </View>
 
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Everyday</Text>
-              <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
-            </View>
-            <View style={styles.frequencySwitch}>
-              <Text style={styles.dateLabel}>Custom </Text>
-              <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
-            </View>
-            
-            {custom ? <View>{daysList()}</View> : null}
+            {singleDateSwitch &&
+              <View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Monday through Friday </Text>
+                  <Switch trackColor={{false: white, true: red}} value={workweek} onValueChange={() => setUserDays("workweek")}/>
+                </View>
+
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Everyday</Text>
+                  <Switch trackColor={{false: white, true: red}} value={everyday} onValueChange={() => setUserDays("everyday")}/>
+                </View>
+                <View style={styles.frequencySwitch}>
+                  <Text style={styles.dateLabel}>Custom </Text>
+                  <Switch trackColor={{false: white, true: red}} value={custom} onValueChange={() => setUserDays("custom")}/>
+                </View>
+                
+                {custom ? <View>{daysList()}</View> : null}
+                
+              </View>
+            }
+
             </View>
 
             <View style={styles.frequencyBox}>
