@@ -33,7 +33,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
 
     const greeting = () => {
-      console.log(userReminders)
         return userReminders.length > 0 ? 
           `Here are your reminders, ${user.name}:`: 
             "Let's schedule some reminders."
@@ -41,7 +40,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
 
     const dayRender = (days) => {
-      console.log(days.length)
       if (days[0].includes(',')) {
         return days[0]
       } 
