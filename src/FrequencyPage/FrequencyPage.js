@@ -174,6 +174,11 @@ export default FrequencyPage = ({ navigation, route }) => {
     navigation.navigate('Profile', {user: user})
   }
   
+  const goBack = () => {
+    user.currentReminder.time = ''
+    user.currentReminder.days = []
+    navigation.navigate('Trigger Options', {user: user})
+  }
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
@@ -248,6 +253,12 @@ export default FrequencyPage = ({ navigation, route }) => {
               style={styles.buttonStyle}
               onPress={inputCheck}
             >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={goBack}
+            >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
           </View>
@@ -269,6 +280,7 @@ const styles = StyleSheet.create({
     },
 
   buttonContainer: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -304,7 +316,7 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 10,
     marginTop: "3%",
-    width: "60%",
+    marginLeft: "3%"
   },
 
   frequencyBox: {

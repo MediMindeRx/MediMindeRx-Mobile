@@ -32,7 +32,7 @@ export default function App() {
       >
         <Stack.Screen name="Welcome" component={LandingPage} />
         <Stack.Screen name="Create Reminder" component={ReminderSettingPage} />
-        <Stack.Screen name="Trigger Option" component={TriggerOptions}/>
+        <Stack.Screen name="Trigger Options" component={TriggerOptions}/>
         <Stack.Screen name="Schedule Reminder" component={FrequencyPage} />
         <Stack.Screen name="Profile" component={ProfilePage} />
       </Stack.Navigator>
