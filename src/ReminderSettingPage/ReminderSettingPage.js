@@ -99,7 +99,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       setTitle('')
       setSupplies('')
       setShowSupplies(false)
-      navigation.navigate('Trigger Option', {user:user})
+      navigation.navigate('Trigger Options', {user:user})
     }
   }
 

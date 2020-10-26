@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 import {AppLoading} from 'expo'
 import {
@@ -21,7 +23,7 @@ import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
 
-export default TriggerOptions = ({navigation, route}) => {
+export default LocationPage = ({navigation, route}) => {
     const {user} = route.params
 
     const [fontsLoaded] = useFonts({
@@ -29,6 +31,10 @@ export default TriggerOptions = ({navigation, route}) => {
       Montserrat_600SemiBold,
       Montserrat_400Regular_Italic
     })
+
+    const handleChange = (text) => {
+      user.currentReminder.location = text
+    }
 
 
     if (!fontsLoaded) {
@@ -41,28 +47,41 @@ export default TriggerOptions = ({navigation, route}) => {
           <Header />
 
           <View style={styles.welcomeTexts}>
-            <Text style={styles.headerText}>How should we remind you?</Text> 
-            <Text style={[styles.bodyText, {marginTop: "2%"}]}>Medication reminders can be scheduled, or fired when leaving a location.</Text>
+            <Text style={styles.headerText}>Add Location</Text> 
             <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
-            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>- "Bring inhaler to soccer practice at 6:30pm on Tuesdays"</Text>
-            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>- "You've left the house! Did you remember your Epi-pen?"</Text> 
-            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>- "You've left the Mt. Evans Trailhead parking lot. Did you remember your insulin?"</Text> 
+            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the house! Did you remember your insulin?"</Text>
+            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left work. Did you remember your inhaler?"</Text>
+          </View>
+
+          <View>
+            <GooglePlacesAutocomplete
+              placeholder='Search'
+              onPress={(data, details = null) => {
+               // 'details' is provided when fetchDetails = true
+              console.log(data, details);
+              }}
+                query={{
+                  key: "AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw",
+                  language: 'en',
+                }}
+            />
+
+            <TextInput 
+              style={styles.inputText} 
+              placeholder='Nickname'
+              maxLength={10}
+              onChangeText={(text) => handleChange(text)}
+            />
           </View>
 
           <View style={styles.buttonContainer}>
-            <Text style={styles.headerText}>Choose your setting:</Text> 
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={()=>{navigation.navigate('Schedule Reminder', {user: user })}}
+              onPress={()=>{navigation.navigate('Profile', {user: user })}}
             >
-              <Text style={styles.buttonText}>On Schedule</Text>
+              <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.buttonStyle}
-              onPress={()=>{navigation.navigate('Location Reminder', {user: user })}}
-            >
-              <Text style={styles.buttonText}>Leave Location</Text>
-            </TouchableOpacity>
+            
           </View>
 
           </LinearGradient>
@@ -110,7 +129,7 @@ export default TriggerOptions = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      marginTop: "1%"
+      marginTop: "2%"
     },
 
     buttonStyle: {

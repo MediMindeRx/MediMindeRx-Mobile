@@ -1,6 +1,5 @@
 const apiURL = 'http:/192.168.0.23:19001:127.0.0.1/5000/api'
 
-
 export const getAllRemindersAPI = async () => {
   try {
 
