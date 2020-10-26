@@ -10,6 +10,7 @@ import LandingPage from './src/LandingPage/LandingPage'
 import ReminderSettingPage from './src/ReminderSettingPage/ReminderSettingPage'
 import FrequencyPage from './src/FrequencyPage/FrequencyPage'
 import ProfilePage from './src/Profile/ProfilePage'
+import TriggerOptions from './src/TriggerOption/TriggerOption';
 
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
@@ -31,6 +32,7 @@ export default function App() {
       >
         <Stack.Screen name="Welcome" component={LandingPage} />
         <Stack.Screen name="Create Reminder" component={ReminderSettingPage} />
+        <Stack.Screen name="Trigger Option" component={TriggerOptions}/>
         <Stack.Screen name="Schedule Reminder" component={FrequencyPage} />
         <Stack.Screen name="Profile" component={ProfilePage} />
       </Stack.Navigator>

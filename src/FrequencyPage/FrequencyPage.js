@@ -13,7 +13,8 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
-import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
+import {AppLoading} from 'expo';
+// import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
 
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
@@ -21,7 +22,6 @@ import Header from '../Header/Header';
 import {lightBlue, white, red, grey} from '../ui/colors';
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
-import {AppLoading} from 'expo';
 
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params

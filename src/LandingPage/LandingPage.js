@@ -11,7 +11,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
   } from 'react-native';
   import {addUserAPI} from '../apiCalls/apiCalls'
 
@@ -34,7 +34,10 @@ import {
         days: [], 
         time: '', 
         fullDate: null,
-        showSupplies: false 
+        showSupplies: false, 
+        lat: null,
+        long: null,
+        location: null 
       }
     }
 
