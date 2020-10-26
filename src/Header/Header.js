@@ -25,8 +25,7 @@ import {
           <Image source={logo} style={{width: "100%", height: 75}} resizeMode='contain'/>
           <Text>
             <Text style={styles.bodyText}>Worry less,</Text>  
-            <Text style={[styles.bodyText, {color: red, fontFamily: "Montserrat_700Bold"}]}> 
-              experience more.
+            <Text style={[styles.bodyText, {color: red, fontFamily: "Montserrat_700Bold"}]}> experience more.
             </Text>
           </Text>
         </View>

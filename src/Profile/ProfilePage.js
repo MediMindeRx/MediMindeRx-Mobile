@@ -76,19 +76,18 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       )
 
     const deleteReminder = async (id) => {
+      const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
       // deleteReminderAPI(id) 
       // const apiData = await getAllRemindersAPI()
-      // setUserReminders(apiData)
-      // user.reminders = userReminders
+      setUserReminders(updatedReminders)
+      user.reminders = userReminders
     } 
 
     const startNotificationCountdown = async reminder => {
-      // verify that we have permissions
       const permissions = await Notifications.getPermissionsAsync()
-      
-      // make sure the reminder fires right when the minute changes
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
+      const notifBody = reminder.showSupplies ? reminder.supplies : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -96,7 +95,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         Notifications.scheduleNotificationAsync({
           content: {
             title: reminder.title,
-            body: reminder.supplies
+            body: notifBody
           },
           trigger: triggerDate
         })

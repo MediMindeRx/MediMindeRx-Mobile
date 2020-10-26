@@ -1,4 +1,4 @@
-const apiURL = 'http://127.0.0.1:5000/api'
+const apiURL = 'http:/192.168.0.23:19001:127.0.0.1/5000/api'
 
 
 export const getAllRemindersAPI = async () => {
@@ -32,10 +32,10 @@ export const addUserAPI = async (userName) => {
   try {
     const response = await fetch(`${apiURL}/User`, {
       method: "POST",
-       headers: {
-          "Accept": "application/json",
-          "Content-Type": 'application/json'
-        },
+      //  headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": 'application/json'
+      //   },
       body: JSON.stringify(userName)
     })
     return response

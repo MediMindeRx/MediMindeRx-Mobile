@@ -157,7 +157,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    const serverFormatDays = user.currentReminder.days.join(' ')
+    const serverFormatDays = user.currentReminder.days
     const newReminder = {
       name: user.name,
       user_id: user.id,
@@ -167,10 +167,10 @@ export default FrequencyPage = ({ navigation, route }) => {
       days: serverFormatDays,
       full_date: user.currentReminder.fullDate      
     } 
-    addReminderAPI(newReminder)
-    // user.reminders.push(newReminder)
-    user.reminders = await getAllRemindersAPI().split(' ')
-    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: null, fullDate: null}
+    // addReminderAPI(newReminder)
+    user.reminders.push(user.currentReminder)
+    // user.reminders = await getAllRemindersAPI().split(' ')
+    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now(), fullDate: null}
     navigation.navigate('Profile', {user: user})
   }
   
