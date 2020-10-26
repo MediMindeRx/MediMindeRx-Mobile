@@ -125,8 +125,9 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     } else if (!user.currentReminder.title) {
       alertMissingTitle()
     } else {
-      user.supplies = supplies
+      user.supplies = supplies.join(' ')
       setTitle('')
+      setSupply('')
       setSupplies('')
       setShowSupplies(false)
       // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
