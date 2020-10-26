@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 import {AppLoading} from 'expo'
@@ -16,12 +15,12 @@ import {
   Alert
 } from 'react-native';
 import Header from '../Header/Header'
-import {getAllRemindersAPI, deleteReminderAPI } from '../apiCalls/apiCalls'
-
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
+import { TextInput } from 'react-native-gesture-handler';
 
 export default LocationPage = ({navigation, route}) => {
     const {user} = route.params
@@ -53,25 +52,61 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left work. Did you remember your inhaler?"</Text>
           </View>
 
-          <View>
-            <GooglePlacesAutocomplete
-              placeholder='Search'
+        <ScrollView>
+          <GooglePlacesAutocomplete
+              placeholder='Enter Location'
+              minLength={2}
+              autoFocus={false}
+              returnKeyType={'default'}
+              fetchDetails={true}
+              returnKeyType={'search'} 
+              listViewDisplayed="true"   
+              fetchDetails={true}
+              listUnderlayColor={red}
               onPress={(data, details = null) => {
-               // 'details' is provided when fetchDetails = true
-              console.log(data, details);
+                console.log(data, details);
               }}
-                query={{
-                  key: "AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw",
-                  language: 'en',
-                }}
+
+              enablePoweredByContainer={true}
+              styles={{
+                container: {
+                  borderColor: red,
+                  borderWidth: 2,
+                  zIndex: 2
+                }, 
+
+                textInput: {
+                  borderColor: red,
+                  borderWidth: 2,
+                  marginLeft: 0,
+                  marginRight: 0,
+                  color: '#5d5d5d',
+                  fontSize: 16
+                },
+                predefinedPlacesDescription: {
+                  color: '#1faadb'
+                },
+               
+              }}
+              renderDescription={row => row.description}
+              currentLocation={false}
+              query={{
+                key: 'AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw',
+                language: 'en'
+              }}
             />
 
+        </ScrollView>
+      
+          <View style={{alignItems: "center"}}>
             <TextInput 
               style={styles.inputText} 
               placeholder='Nickname'
               maxLength={10}
               onChangeText={(text) => handleChange(text)}
             />
+
+
           </View>
 
           <View style={styles.buttonContainer}>
@@ -117,6 +152,17 @@ export default LocationPage = ({navigation, route}) => {
       color: lightBlue,
       fontSize: 18,
       fontFamily: "Montserrat_700Bold",
+    },
+
+    inputText: {
+      color: grey,
+      fontSize: 23,
+      fontFamily: "Montserrat_700Bold",
+      borderBottomWidth: 2,
+      borderBottomColor: red,
+      width: "60%",
+      // marginTop: "20%",
+      paddingBottom: 5,
     },
 
 
