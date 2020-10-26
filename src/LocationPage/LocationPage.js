@@ -112,11 +112,16 @@ export default LocationPage = ({navigation, route}) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity 
               style={styles.buttonStyle}
+              onPress={()=>{navigation.navigate('Trigger Options', {user: user })}}
+            >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.buttonStyle}
               onPress={()=>{navigation.navigate('Profile', {user: user })}}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
-            
           </View>
 
           </LinearGradient>
@@ -175,14 +180,14 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      marginTop: "2%"
+      marginTop: "2%",
+      flexDirection: "row"
     },
 
     buttonStyle: {
       backgroundColor: red,
       padding: 13,
       borderRadius: 10,
-      width: "60%",
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.5,

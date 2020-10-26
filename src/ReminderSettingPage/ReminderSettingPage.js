@@ -43,6 +43,8 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     setShowSupplies(!showSupplies)
   }
 
+
+
   const alertMissingSupplies = () =>
     Alert.alert(
       "Don't Forget What's Important",
@@ -88,6 +90,9 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         { cancelable: false }
       );
 
+
+      // title and supplies and showSupplies and userID
+      
   const goToOptionsPage = () => {
     if (!user.currentReminder.supplies && !user.currentReminder.title) {
       alertMissingTitleSupplies()

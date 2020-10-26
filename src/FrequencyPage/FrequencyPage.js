@@ -157,26 +157,35 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    const serverFormatDays = user.currentReminder.days
+    const serverFormatDays = user.currentReminder.scheduled.days
     const newReminder = {
-      name: user.name,
-      user_id: user.id,
-      supplies: user.currentReminder.supplies,
-      show_supplies: user.currentReminder.showSupplies,
-      time: user.currentReminder.time,
-      days: serverFormatDays,
-      full_date: user.currentReminder.fullDate      
+      reminder_id: reminder.id,
+      scheduled: {
+        time: user.currentReminder.scheduled.time,
+        days: serverFormatDays,
+        full_date: user.currentReminder.scheduled.fullDate      
+      }    
     } 
     // addReminderAPI(newReminder)
     user.reminders.push(user.currentReminder)
     // user.reminders = await getAllRemindersAPI().split(' ')
-    user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now(), fullDate: null}
+    user.currentReminder = {
+      title: '', 
+      supplies: '', 
+      showSupplies: false,  
+      scheduled: {
+        days: [], 
+        time: '', 
+        id: Date.now(), 
+        fullDate: null
+      }
+    }
     navigation.navigate('Profile', {user: user})
   }
   
   const goBack = () => {
-    user.currentReminder.time = ''
-    user.currentReminder.days = []
+    user.currentReminder.scheduled.time = ''
+    user.currentReminder.scheduled.days = []
     navigation.navigate('Trigger Options', {user: user})
   }
 

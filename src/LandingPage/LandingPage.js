@@ -27,17 +27,22 @@ import {
 
     let user = {
       name: null, 
+      id: null,
       reminders: [], 
       currentReminder: {
         title: '', 
         supplies: '', 
-        days: [], 
-        time: '', 
-        fullDate: null,
         showSupplies: false, 
-        lat: null,
-        long: null,
-        location: null 
+        scheduled: {
+          days: [], 
+          time: '', 
+          fullDate: null,
+        }, 
+        location: { 
+          lat: null,
+          long: null,
+          locationName: null 
+        }
       }
     }
 
