@@ -260,13 +260,13 @@ export default FrequencyPage = ({ navigation, route }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonStyle}
-              onPress={inputCheck}
+              onPress={goBack}
             >
               <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
-              onPress={goBack}
+              onPress={inputCheck}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
