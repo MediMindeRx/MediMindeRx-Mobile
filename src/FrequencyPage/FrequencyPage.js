@@ -13,7 +13,8 @@ import {
   } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
-import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
+import {AppLoading} from 'expo';
+// import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
 
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
@@ -21,7 +22,6 @@ import Header from '../Header/Header';
 import {lightBlue, white, red, grey} from '../ui/colors';
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold} from '@expo-google-fonts/montserrat';
 import {OpenSansCondensed_300Light} from '@expo-google-fonts/open-sans-condensed'
-import {AppLoading} from 'expo';
 
 export default FrequencyPage = ({ navigation, route }) => {
   const {user} = route.params
@@ -157,14 +157,28 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    const newReminder = user.currentReminder
-    // addReminderAPI(user.id, user.currentReminder)
-    user.reminders.push(newReminder)
-    // user.reminders = await getAllRemindersAPI()
+    const serverFormatDays = user.currentReminder.days
+    const newReminder = {
+      name: user.name,
+      user_id: user.id,
+      supplies: user.currentReminder.supplies,
+      show_supplies: user.currentReminder.showSupplies,
+      time: user.currentReminder.time,
+      days: serverFormatDays,
+      full_date: user.currentReminder.fullDate      
+    } 
+    // addReminderAPI(newReminder)
+    user.reminders.push(user.currentReminder)
+    // user.reminders = await getAllRemindersAPI().split(' ')
     user.currentReminder = {title: '', supplies: '', days: [], time: '', showSupplies: false, id: Date.now(), fullDate: null}
     navigation.navigate('Profile', {user: user})
   }
   
+  const goBack = () => {
+    user.currentReminder.time = ''
+    user.currentReminder.days = []
+    navigation.navigate('Trigger Options', {user: user})
+  }
 
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
@@ -239,6 +253,12 @@ export default FrequencyPage = ({ navigation, route }) => {
               style={styles.buttonStyle}
               onPress={inputCheck}
             >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={goBack}
+            >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
           </View>
@@ -260,6 +280,7 @@ const styles = StyleSheet.create({
     },
 
   buttonContainer: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -295,7 +316,7 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 10,
     marginTop: "3%",
-    width: "60%",
+    marginLeft: "3%"
   },
 
   frequencyBox: {

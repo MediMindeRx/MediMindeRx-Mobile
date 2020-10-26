@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppLoading } from 'expo'
@@ -12,7 +11,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
   } from 'react-native';
   import {addUserAPI} from '../apiCalls/apiCalls'
 
@@ -35,7 +34,10 @@ import {
         days: [], 
         time: '', 
         fullDate: null,
-        showSupplies: false 
+        showSupplies: false, 
+        lat: null,
+        long: null,
+        location: null 
       }
     }
 
@@ -60,8 +62,19 @@ import {
 
 
     const goToCreateReminder = async () => {
-      // user.name ? await addUserAPI(user.name) : alertUserName()
-      navigation.navigate('Create Reminder', {user: user }) 
+      if (user.name) {
+        // const userName = {"name": user.name}
+        // const apiData = await addUserAPI(userName)
+        // console.log("landingPage", apiData)
+        // if (apiData.status === 'success') {
+        //   user.id = apiData.data.user_id
+          navigation.navigate('Create Reminder', {user: user }) 
+        // } else {
+        //   console.log(apiData)
+        // }
+      } else {
+        alertUserName()
+      }
     }
 
     const [fontsLoaded] = useFonts({

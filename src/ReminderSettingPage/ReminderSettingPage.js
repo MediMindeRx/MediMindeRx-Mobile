@@ -88,7 +88,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         { cancelable: false }
       );
 
-  const goToSchedPage = () => {
+  const goToOptionsPage = () => {
     if (!user.currentReminder.supplies && !user.currentReminder.title) {
       alertMissingTitleSupplies()
     } else if (!user.currentReminder.supplies) {
@@ -99,7 +99,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       setTitle('')
       setSupplies('')
       setShowSupplies(false)
-      navigation.navigate('Schedule Reminder', {user:user})
+      navigation.navigate('Trigger Options', {user:user})
     }
   }
 
@@ -155,7 +155,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={goToSchedPage}
+              onPress={goToOptionsPage}
             >
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
