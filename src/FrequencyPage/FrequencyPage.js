@@ -44,10 +44,10 @@ export default FrequencyPage = ({ navigation, route }) => {
 
 
   const toggleCustomDays = (day) => {
-    user.currentReminder.days.includes(day) ?
-          user.currentReminder.days.splice(user.currentReminder.days.indexOf(day), 1)
-          : user.currentReminder.days.push(day)
-    user.currentReminder.days.sort((a, b) => {
+    user.currentReminder.scheduled.days.includes(day) ?
+          user.currentReminder.scheduled.days.splice(user.currentReminder.scheduled.days.indexOf(day), 1)
+          : user.currentReminder.scheduled.days.push(day)
+    user.currentReminder.scheduled.days.sort((a, b) => {
         return moment(a, 'ddd dddd') > moment(b, 'ddd dddd');
           })
       };
@@ -103,22 +103,22 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const setUserDays = (switchName) => {
-    user.currentReminder.days = []
+    user.currentReminder.scheduled.days = []
     toggleAllOff()
     switch(switchName) {
       case "everyday":
         toggleEveryday(!everyday)
-        everyday ? user.currentReminder.days = [] : user.currentReminder.days.push(...sevenDays)
+        everyday ? user.currentReminder.scheduled.days = [] : user.currentReminder.scheduled.days.push(...sevenDays)
         break
       case "workweek":
         toggleWorkweek(!workweek)
         const workingDays = sevenDays.slice(0, 5)
-        workweek ? user.currentReminder.days = [] : user.currentReminder.days.push(...workingDays)
+        workweek ? user.currentReminder.scheduled.days = [] : user.currentReminder.scheduled.days.push(...workingDays)
         break
       case "weekend":
         toggleWeekend(!weekend)
         const weekendDays = sevenDays.slice(-2)
-        weekend ? user.currentReminder.days = [] : user.currentReminder.days.push(...weekendDays)
+        weekend ? user.currentReminder.scheduled.days = [] : user.currentReminder.days.push(...weekendDays)
         break
       case "custom":
       toggleCustom(!custom)
@@ -136,8 +136,8 @@ export default FrequencyPage = ({ navigation, route }) => {
     const formatHour = hour === 0 ? 12 : hour
     const minute = moment(date).minute() < 10 ? `0${moment(date).minute()}` : moment(date).minute()
     const timeFormat = formatHour + ":" + minute + " " + `${isAfterNoon ? "PM" : "AM"}`
-    user.currentReminder.time = timeFormat
-    user.currentReminder.fullDate = date.getTime()
+    user.currentReminder.scheduled.time = timeFormat
+    user.currentReminder.scheduled.unixDate = date.getTime()
   }
 
   const singleDateChange = (event, date) => {
@@ -146,12 +146,12 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const inputCheck = () => {
-    if (!user.currentReminder.time) {
+    if (!user.currentReminder.scheduled.time) {
       formatTime(time)
     } 
-    if (user.currentReminder.days.length === 0) {
+    if (user.currentReminder.scheduled.days.length === 0) {
       let singleDateFormat = moment(singleDate).format('LL')
-      user.currentReminder.days.push(singleDateFormat)
+      user.currentReminder.scheduled.days.push(singleDateFormat)
     } 
     saveData()
   }
@@ -163,7 +163,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       scheduled: {
         time: user.currentReminder.scheduled.time,
         days: serverFormatDays,
-        full_date: user.currentReminder.scheduled.fullDate      
+        full_date: user.currentReminder.scheduled.unixDate     
       }    
     } 
     // addReminderAPI(newReminder)

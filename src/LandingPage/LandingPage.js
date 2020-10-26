@@ -31,12 +31,12 @@ import {
       reminders: [], 
       currentReminder: {
         title: '', 
-        supplies: '', 
+        supplies: [], 
         showSupplies: false, 
         scheduled: {
           days: [], 
           time: '', 
-          fullDate: null,
+          unixDate: null,
         }, 
         location: { 
           lat: null,
