@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Notifications from 'expo-notifications'
+import { Constants } from 'expo-constants'
 
 import {AppLoading} from 'expo'
 import {
@@ -19,11 +21,9 @@ import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
 
-
   export default ProfilePage = ({navigation, route}) => {
     const {user} = route.params
     const [userReminders, setUserReminders] = useState(user.reminders)
-
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
@@ -31,13 +31,11 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       Montserrat_400Regular_Italic
     })
 
-
     const greeting = () => {
         return userReminders.length > 0 ? 
           `Here are your reminders, ${user.name}:`: 
             "Let's schedule some reminders."
     }
-
 
     const dayRender = (days) => {
       if (days[0].includes(',')) {
@@ -62,7 +60,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       }
     }
 
-
     const alertDelete = (id) =>
       Alert.alert(
         "Delete Confirmation",
@@ -85,25 +82,53 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       // user.reminders = userReminders
     } 
 
+    const startNotificationCountdown = async reminder => {
+      // verify that we have permissions
+      const permissions = await Notifications.getPermissionsAsync()
+      
+      // make sure the reminder fires right when the minute changes
+      const triggerDate = new Date(reminder.fullDate)
+      triggerDate.setSeconds(0)
+
+      if (permissions.granted) {
+        console.log('Notification permissions granted.')
+
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: reminder.title,
+            body: reminder.supplies
+          },
+          trigger: triggerDate
+        })
+      }
+    }
+
     const remindersJSX = () => {
         if (userReminders.length > 0) {
-            return userReminders.map(reminder => {
-             return (<View style={{width: "100%"}} key={reminder.id}>
-                <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-                <Text>
-                  <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
-                  <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
-                </Text>
-                <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
-                <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
-                  {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
-                  </Text> 
-                <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
-                  <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
-                </TouchableOpacity>
-                <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
-              </View>)
-            })
+          // cancel all previously set notifications to remove duplicates
+          Notifications.cancelAllScheduledNotificationsAsync()
+          
+          return userReminders.map(reminder => {
+
+            startNotificationCountdown(reminder)
+
+            return (<View style={{width: "100%"}} key={reminder.id}>
+              <Text style={styles.subHeaderText}>{reminder.title}</Text> 
+              <Text>
+                <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
+                <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
+              </Text>
+              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+              <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
+                {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+                </Text> 
+              <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
+                <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
+              </TouchableOpacity>
+              <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
+            </View>)
+
+          })
         } else {
           return null
         }
@@ -112,7 +137,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
-       return(
+      return (
       <View style={styles.container}>
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />

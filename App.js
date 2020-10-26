@@ -1,9 +1,7 @@
 // Imports
 import React from 'react';
-import axios from 'axios';
-
 import 'react-native-gesture-handler'
-
+import * as Notifications from 'expo-notifications'
 import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -16,20 +14,26 @@ import ProfilePage from './src/Profile/ProfilePage'
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true
+  }),
+});
 
 export default function App() {
   return (
-    
-      <NavigationContainer>
-        <Stack.Navigator 
-          initialRouteName="LandingPage"
-          screenOptions={{headerShown: false}}
-        >
-          <Stack.Screen name="Welcome" component={LandingPage} />
-          <Stack.Screen name="Create Reminder" component={ReminderSettingPage} />
-          <Stack.Screen name="Schedule Reminder" component={FrequencyPage} />
-          <Stack.Screen name="Profile" component={ProfilePage} />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="LandingPage"
+        screenOptions={{headerShown: false}}
+      >
+        <Stack.Screen name="Welcome" component={LandingPage} />
+        <Stack.Screen name="Create Reminder" component={ReminderSettingPage} />
+        <Stack.Screen name="Schedule Reminder" component={FrequencyPage} />
+        <Stack.Screen name="Profile" component={ProfilePage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
