@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppLoading } from 'expo'
+import Constants from 'expo-constants'
+import * as Notifications from 'expo-notifications'
+import * as Permissions from 'expo-permissions'
 import {
     StyleSheet,
     Text,
@@ -19,10 +22,22 @@ import {
   import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
   import {LinearGradient} from 'expo-linear-gradient'
 
-
   export default LandingPage = ({ navigation }) => {
+    const [notificationsPermission, askForNPermission] = Permissions.usePermissions(Permissions.NOTIFICATIONS, { ask: true })
+    const [locationPermission, askForLPermission] = Permissions.usePermissions(Permissions.LOCATION, { ask: true })
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', id: Date.now(), supplies: '', days: [], time: '', showSupplies: false }}
+    let user = {
+      name: null, 
+      reminders: [], 
+      currentReminder: {
+        title: '', 
+        supplies: '', 
+        days: [], 
+        time: '', 
+        fullDate: null,
+        showSupplies: false 
+      }
+    }
 
     const handleChange = (text) => {
       user.name = text.trim()
@@ -53,38 +68,37 @@ import {
       Montserrat_700Bold
     })
 
-
     if (!fontsLoaded) {
       return <AppLoading/>
     } else {
-    return(
-      <View style={styles.container}>
-        <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
+      return (
+        <View style={styles.container}>
+          <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
-        <Header />
+          <Header />
 
-        <View style={styles.welcomeTexts}>
-          <Text style={styles.welcomeText}>Hey there!</Text> 
-          <Text style={styles.welcomeText}>What's your name?</Text>
+          <View style={styles.welcomeTexts}>
+            <Text style={styles.welcomeText}>Hey there!</Text> 
+            <Text style={styles.welcomeText}>What's your name?</Text>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <TextInput 
+              style={styles.inputText} 
+              placeholder='Name'
+              maxLength={15}
+              onChangeText={(text) => handleChange(text)}
+            />
+            <TouchableOpacity 
+              style={styles.buttonStyle}
+              onPress={goToCreateReminder}
+            >
+              <Text style={styles.buttonText}>Create Reminder</Text>
+            </TouchableOpacity>
+          </View>
+
+          </LinearGradient>
         </View>
-
-        <View style={styles.buttonContainer}>
-          <TextInput 
-            style={styles.inputText} 
-            placeholder='Name'
-            maxLength={15}
-            onChangeText={(text) => handleChange(text)}
-          />
-          <TouchableOpacity 
-            style={styles.buttonStyle}
-            onPress={goToCreateReminder}
-          >
-            <Text style={styles.buttonText}>Create Reminder</Text>
-          </TouchableOpacity>
-        </View>
-
-        </LinearGradient>
-      </View>
     )
   }
 }
@@ -95,8 +109,8 @@ import {
       justifyContent: 'flex-start',
     },
 
-     linearGradient: {
-       flex: 1,
+    linearGradient: {
+      flex: 1,
     },
 
     welcomeTexts: {
