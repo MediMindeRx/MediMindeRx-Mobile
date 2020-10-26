@@ -22,7 +22,7 @@ import {
 
   export default LandingPage = ({ navigation }) => {
 
-    let user = {name: null, reminders: [], currentReminder: {title: '', id: Date.now(), supplies: '', days: [], time: '', showSupplies: false }}
+    let user = {name: null, reminders: [], id: null, currentReminder: {title: '', id: null, supplies: '', days: [], time: '', showSupplies: false, fullDate: null }}
 
     const handleChange = (text) => {
       user.name = text.trim()
@@ -45,8 +45,19 @@ import {
 
 
     const goToCreateReminder = async () => {
-      // user.name ? await addUserAPI(user.name) : alertUserName()
-      navigation.navigate('Create Reminder', {user: user }) 
+      if (user.name) {
+        const userName = {"name": user.name}
+        const apiData = await addUserAPI(userName)
+        console.log("landingPage", apiData)
+        if (apiData.status === 'success') {
+          user.id = apiData.data.user_id
+          navigation.navigate('Create Reminder', {user: user }) 
+        } else {
+          // console.log(apiData)
+        }
+      } else {
+        alertUserName()
+      }
     }
 
     const [fontsLoaded] = useFonts({

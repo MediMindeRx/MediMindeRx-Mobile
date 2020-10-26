@@ -1,8 +1,10 @@
-const apiURL = ''
+const apiURL = 'http://127.0.0.1:5000/api'
+
 
 export const getAllRemindersAPI = async () => {
   try {
-    const response = fetch(`${apiURL}`)
+
+    const response = fetch(`${apiURL}/Reminder`)
     const data = await response.json()
      return data 
   } catch (err) {
@@ -12,11 +14,13 @@ export const getAllRemindersAPI = async () => {
 
 export const deleteReminderAPI = async (reminderID) => {
   try {
-    const response = await fetch(`${apiURL}/${id}`, {
+    const response = await fetch(`${apiURL}/Reminder`, {
       method: 'DELETE',
       headers: {
-          "Content-Type": "application/json",
-        }
+          "Accept": "application/json",
+          "Content-Type": 'multipart/form-data'
+        },
+        body: JSON.stringify(reminderID)
     })
     return response
   } catch (err) {
@@ -25,23 +29,24 @@ export const deleteReminderAPI = async (reminderID) => {
 }
 
 export const addUserAPI = async (userName) => {
-  try { 
-   const response = await fetch(`${apiURL}`, {
-     method: "POST",
-     headers: {
-          "Content-Type": "application/json",
+  try {
+    const response = await fetch(`${apiURL}/User`, {
+      method: "POST",
+       headers: {
+          "Accept": "application/json",
+          "Content-Type": 'application/json'
         },
-     body: JSON.stringify(userName)   
-   })
+      body: JSON.stringify(userName)
+    })
     return response
-  } catch (err) {
-    return err
+  } catch (error) {
+    return error
   }
 }
 
-export const addReminderAPI = async (userID, reminder) => {
+export const addReminderAPI = async (reminder) => {
   try {
-    const response = await fetch(`${apiURL}/${userID}/reminders`, {
+    const response = await fetch(`${apiURL}/Reminder`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"

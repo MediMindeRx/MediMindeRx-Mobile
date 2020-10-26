@@ -1,5 +1,6 @@
 // Imports
 import React from 'react';
+import axios from 'axios';
 
 import 'react-native-gesture-handler'
 
