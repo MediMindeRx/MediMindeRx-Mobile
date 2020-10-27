@@ -27,17 +27,23 @@ import {
 
     let user = {
       name: null, 
+      id: null,
       reminders: [], 
       currentReminder: {
         title: '', 
-        supplies: '', 
-        days: [], 
-        time: '', 
-        fullDate: null,
+        supplies: [], 
+        id: null,
         showSupplies: false, 
-        lat: null,
-        long: null,
-        location: null 
+        scheduled: {
+          days: [], 
+          time: '', 
+          unixDate: null,
+        }, 
+        location: { 
+          lat: null,
+          long: null,
+          locationName: null 
+        }
       }
     }
 
@@ -65,7 +71,6 @@ import {
       if (user.name) {
         // const userName = {"name": user.name}
         // const apiData = await addUserAPI(userName)
-        // console.log("landingPage", apiData)
         // if (apiData.status === 'success') {
         //   user.id = apiData.data.user_id
           navigation.navigate('Create Reminder', {user: user }) 

@@ -87,7 +87,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       const permissions = await Notifications.getPermissionsAsync()
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
-      const notifBody = reminder.showSupplies ? reminder.supplies : "Don't forget your supplies!"
+      const notifBody = reminder.showSupplies ? reminder.supplies.join(" ") : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -102,6 +102,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       }
     }
 
+
+
     const remindersJSX = () => {
         if (userReminders.length > 0) {
           // cancel all previously set notifications to remove duplicates
@@ -113,11 +115,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
             return (<View style={{width: "100%"}} key={reminder.id}>
               <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-              <Text>
-                <Text style={styles.bodyTextDetails}>{reminder.time} |</Text> 
-                <Text style={styles.bodyTextDetails}> {dayRender(reminder.days)}</Text> 
-              </Text>
-              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+              
+              {reminder.scheduled.time && reminder.scheduled.days && <Text>
+                <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text> 
+                <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text> 
+              </Text>}
+              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>} 
+              <Text style={styles.bodyTextDetails}>{reminder.supplies.join(" ")}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                 {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                 </Text> 

@@ -19,11 +19,13 @@ import {lightBlue, white, red, grey} from '../ui/colors'
 import Header from '../Header/Header'
 import {useFonts, Montserrat_700Bold} from '@expo-google-fonts/montserrat'
 import {LinearGradient} from 'expo-linear-gradient'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default ReminderSettingPage = ({ navigation, route }) => {
   const [title, setTitle] = useState('')
-  const [supplies, setSupplies] = useState('')
+  const [supply, setSupply] = useState('')
+  const [supplies, setSupplies] = useState([])
   const [showSupplies, setShowSupplies] = useState(false)
 
   const {user} = route.params
@@ -33,15 +35,38 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     user.currentReminder.title = text
   }
 
-  const handleSuppliesChange = (text) => {
-    setSupplies(text)
-    user.currentReminder.supplies = text
+  const addSupply = () => {
+    supplies.push(supply)
+    setSupplies(supplies)
+    setSupply('')
+  }
+
+  const deleteSupply = (deletedSupply) => {
+    const updatedSupplies = supplies.filter(supply => supply !== deletedSupply)
+    setSupplies(updatedSupplies)
   }
 
   const toggleSupplies = () => {
     user.currentReminder.showSupplies = !showSupplies
     setShowSupplies(!showSupplies)
   }
+
+  const suppliesJSX = () => {
+    if (supplies.length > 0) {
+      return supplies.map(supply => {
+        return(<View style={styles.supplyItem} key={supply}>
+                <Text style={[styles.showSuppliesText, {fontSize: 16}]}>{supply}</Text>
+                <TouchableOpacity 
+                    style={styles.deleteSupplyButton}
+                    onPress={() => deleteSupply(supply)}
+                  >
+                    <Text style={[styles.buttonText, {fontSize: 14}]}>X</Text>
+                  </TouchableOpacity>  
+              </View>)
+      })
+    } 
+  }
+
 
   const alertMissingSupplies = () =>
     Alert.alert(
@@ -73,7 +98,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-    const alertMissingTitleSupplies = () =>
+  const alertMissingTitleSupplies = () =>
       Alert.alert(
         "What's This Reminder About?",
         "Add a title and supplies to your reminder.",
@@ -88,18 +113,34 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         { cancelable: false }
       );
 
-  const goToOptionsPage = () => {
-    if (!user.currentReminder.supplies && !user.currentReminder.title) {
+
+ const checkAlerts = () => {
+   if (!user.currentReminder.supplies && !user.currentReminder.title) {
       alertMissingTitleSupplies()
-    } else if (!user.currentReminder.supplies) {
+    } else if (user.currentReminder.supplies.length === 0) {
       alertMissingSupplies()
     } else if (!user.currentReminder.title) {
       alertMissingTitle()
     } else {
+      return "Reminder is ready"
+    }
+ }
+
+
+  const goToOptionsPage = async () => {
+    user.currentReminder.supplies = supplies.join(' ')
+    if (checkAlerts() === "Reminder is ready") {
       setTitle('')
+      setSupply('')
       setSupplies('')
       setShowSupplies(false)
-      navigation.navigate('Trigger Options', {user:user})
+      // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
+      const response = await createReminderAPI(apiReminder)
+      if (response.status === "success" ) {
+        //  user.currentReminder.id = apiData.data.reminder_id
+        navigation.navigate('Trigger Options', {user:user})
+        
+      }
     }
   }
 
@@ -121,10 +162,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
-
-        <View style={{ alignItems:'center', justifyContent: 'center' }}>
+        <View style={{ alignItems:'center'}}>
           <Text style={styles.sectionHeaderText}>Let's set up a reminder, {user.name}.</Text>
 
+        <View style={{height: "60%", width: "85%", marginBottom: "2%"}}>
+          <ScrollView>
+  
           <View style={styles.inputField}>
             <Text style={styles.subheaderText}>What should it be called?</Text>
             <TextInput 
@@ -135,21 +178,36 @@ export default ReminderSettingPage = ({ navigation, route }) => {
                 placeholder='Enter its name here'/>
           </View>
 
-          <View style={[styles.inputField, {marginTop: "10%"}]}>
+          <View style={[styles.inputField, {marginTop: "5%"}]}>
             <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-            <TextInput 
-                style={styles.inputText} 
-                value={supplies} 
-                onChangeText={(text) => handleSuppliesChange(text)} 
-                maxLength={100} 
-                placeholder='List them here'/>             
+          
+            <View style={{flexDirection: "row", justifyContent:"space-evenly", alignItems: "center"}}>
+              <TextInput 
+                  style={[styles.inputText, {width: "80%"}]} 
+                  value={supply} 
+                  onChangeText={(text) => setSupply(text)} 
+                  maxLength={15} 
+                  placeholder='Add item here'/>
+                  <TouchableOpacity 
+                    style={styles.addButtonStyle}
+                    onPress={addSupply}
+                  >
+                    <Text style={[styles.buttonText, {fontSize: 16}]}>Add</Text>
+                  </TouchableOpacity>             
+            </View>
           </View>
+            {supplies.length !== 0 ? 
+              (<View style={styles.supplyBox}>
+                {suppliesJSX()}
+              </View>) : null}
 
-          <View style={{flexDirection: 'row', justifyContent:"space-evenly", alignItems:'center', marginTop: "2%", width: "90%"}}>
+
+          </ScrollView>
+
+          <View style={styles.supplyToggle}>
             <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
             <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
           </View>
-
         </View>
 
           <View style={{alignItems: 'center'}}>
@@ -160,7 +218,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
               <Text style={styles.buttonText}>Schedule Reminder</Text>
             </TouchableOpacity>
           </View>
-
+        </View>
         </LinearGradient>
       </KeyboardAwareScrollView>
     )
@@ -186,7 +244,7 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_700Bold",
     marginBottom: '2%',
     width: "90%",
-    marginLeft: "10%"
+    marginLeft: "5%"
   },
 
   subheaderText: {
@@ -196,19 +254,18 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
-    fontSize: 20,
+    fontSize: 21,
     fontFamily: "Montserrat_700Bold",
-    marginTop: "10%",
+    marginTop: "5%",
     textAlign: "left",
     paddingBottom: 5,
     color: grey
   },
-
+  
   inputField: {
     borderBottomColor: red,
     borderBottomWidth: 2,
-    width: "80%",
-    marginTop: "5%"
+    marginTop: "3%"
   },
 
   showSuppliesText: {
@@ -228,11 +285,53 @@ const styles = StyleSheet.create({
     backgroundColor: red,
     padding: 13,
     borderRadius: 10,
-    width: "60%",
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    marginTop: "10%"
+  },
+
+  addButtonStyle: {
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    backgroundColor: red,
+    padding: 8,
+    borderRadius: 10,
+  },
+
+  supplyItem: {
+    flexDirection: "row", 
+    justifyContent:"space-between", 
+    alignItems: "center", 
+    width: "45%", 
+    marginTop: "1.5%",
+    marginRight: "5%"
+  },
+
+  supplyBox: {
+    marginTop: "2%", 
+    height: "25%", 
+    flexWrap: 'wrap', 
+    width: "100%", 
+    alignItems: "center",
+  },
+
+  deleteSupplyButton: {
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    backgroundColor: red,
+    borderRadius: 2,
+    padding: 2
+  },
+
+  supplyToggle: {
+    flexDirection: 'row', 
+    justifyContent:"space-evenly", 
+    alignItems:'center', 
   }
+
 })
