@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1603836450078" clover="3.2.0">
+  <project timestamp="1603836450078" name="All files">
+    <metrics statements="24" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="9" coveredmethods="1" elements="37" coveredelements="12" complexity="0" loc="24" ncloc="24" packages="2" files="2" classes="2"/>
+    <package name="App">
+      <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="App.js" path="/Users/nickhart/Turing/4module/MediMindeRx-Mobile/App/App.js">
+        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.LandingPage">
+      <metrics statements="19" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="7" coveredmethods="1"/>
+      <file name="LandingPage.js" path="/Users/nickhart/Turing/4module/MediMindeRx-Mobile/src/LandingPage/LandingPage.js">
+        <metrics statements="19" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="7" coveredmethods="1"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="89" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="108" count="0" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
