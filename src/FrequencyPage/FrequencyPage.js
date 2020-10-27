@@ -157,7 +157,7 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    const serverFormatDays = user.currentReminder.scheduled.days
+    const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
     const newReminder = {
       reminder_id: reminder.id,
       scheduled: {
@@ -167,8 +167,9 @@ export default FrequencyPage = ({ navigation, route }) => {
       }    
     } 
     // addReminderAPI(newReminder)
-    user.reminders.push(user.currentReminder)
-    // user.reminders = await getAllRemindersAPI().split(' ')
+    // const updatedReminders = getAllRemindersAPI()
+    // user.reminders = updatedReminders
+    user.reminders.push(user.currentReminder) // will be removed once API is working
     user.currentReminder = {
       title: '', 
       supplies: '', 
