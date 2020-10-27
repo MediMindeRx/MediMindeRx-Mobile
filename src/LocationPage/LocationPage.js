@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
@@ -23,6 +23,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 import { TextInput } from 'react-native-gesture-handler';
 
 export default LocationPage = ({navigation, route}) => {
+  const [longitude, setLongitude] = useState('')
+  const [latitude, setLatitude] = useState('')
+  const [locationName, setLocationName] = useState('')
+  
     const {user} = route.params
 
     const [fontsLoaded] = useFonts({
@@ -31,8 +35,24 @@ export default LocationPage = ({navigation, route}) => {
       Montserrat_400Regular_Italic,
     })
 
-    const handleChange = (text) => {
-      user.currentReminder.location = text
+    const setLocation = (data, details) => {
+      // do something with data and details
+      const locLongitude = data.longitude
+      const locLatitude = data.latitude
+      setLongitude(locLongitude)
+      setLatitude(locLatitude)
+    }
+
+    const inputCheck = () => {
+      if (!longitude && !latitude) {
+        
+      } else {
+        user.currentReminder.location.longitude = longitude
+        user.currentReminder.location.latitude = latitude
+        user.currentReminder.location.locationName = locationName
+        navigation.navigate('Profile', {user: user })
+      }
+
     }
 
 
@@ -65,7 +85,7 @@ export default LocationPage = ({navigation, route}) => {
               fetchDetails={true}
               listUnderlayColor={red}
               onPress={(data, details) => {
-                console.log(data, details);
+                setLocation(data, details);
               }}
 
               enablePoweredByContainer={true}
@@ -74,7 +94,6 @@ export default LocationPage = ({navigation, route}) => {
                   zIndex: 2,
                   width: "90%",
                 }, 
-
                 textInput: {
                   borderColor: red,
                   borderBottomWidth: 2,
@@ -102,7 +121,7 @@ export default LocationPage = ({navigation, route}) => {
               style={styles.inputText} 
               placeholder='Nickname ("Home")'
               maxLength={10}
-              onChangeText={(text) => handleChange(text)}
+              onChangeText={(text) => setLocationName(text)}
             />
 
 
@@ -117,7 +136,7 @@ export default LocationPage = ({navigation, route}) => {
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.buttonStyle}
-              onPress={()=>{navigation.navigate('Profile', {user: user })}}
+              onPress={}
             >
               <Text style={styles.buttonText}>Save Reminder</Text>
             </TouchableOpacity>
