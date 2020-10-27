@@ -324,8 +324,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
     backgroundColor: red,
-    borderRadius: 2,
-    padding: 2
+    borderRadius: 6,
+    padding: 2,
+    width: 20
   },
 
   supplyToggle: {

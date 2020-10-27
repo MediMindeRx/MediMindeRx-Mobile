@@ -15,7 +15,6 @@ import {
   Alert
 } from 'react-native';
 import Header from '../Header/Header'
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
@@ -99,30 +98,32 @@ export default LocationPage = ({navigation, route}) => {
           </View>
         
             <View style={{alignItems: "center"}}>
-              <TextInput 
-                style={styles.inputText} 
-                placeholder='Nickname ("Home")'
-                maxLength={10}
-                onChangeText={(text) => setLocationName(text)}
-              />
-              <TextInput 
-                style={styles.inputText} 
-                placeholder='Address'
-                maxLength={10}
-                onChangeText={(text) => setAddressName(text)}
-              />
-              <TextInput 
-                style={styles.inputText} 
-                placeholder='City'
-                maxLength={10}
-                onChangeText={(text) => setCityName(text)}
-              />
-              <TextInput 
-                style={styles.inputText} 
-                placeholder='State'
-                maxLength={10}
-                onChangeText={(text) => setStateName(text)}
-              />
+              <ScrollView>
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='Nickname ("Home")'
+                  maxLength={10}
+                  onChangeText={(text) => setLocationName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='Address'
+                  maxLength={10}
+                  onChangeText={(text) => setAddressName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='City'
+                  maxLength={10}
+                  onChangeText={(text) => setCityName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='State'
+                  maxLength={10}
+                  onChangeText={(text) => setStateName(text)}
+                />
+              </ScrollView>
 
             </View>
 
