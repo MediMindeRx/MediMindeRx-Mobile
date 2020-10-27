@@ -32,6 +32,7 @@ import {
       currentReminder: {
         title: '', 
         supplies: [], 
+        id: null,
         showSupplies: false, 
         scheduled: {
           days: [], 
@@ -70,7 +71,6 @@ import {
       if (user.name) {
         // const userName = {"name": user.name}
         // const apiData = await addUserAPI(userName)
-        // console.log("landingPage", apiData)
         // if (apiData.status === 'success') {
         //   user.id = apiData.data.user_id
           navigation.navigate('Create Reminder', {user: user }) 

@@ -87,7 +87,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       const permissions = await Notifications.getPermissionsAsync()
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
-      const notifBody = reminder.showSupplies ? reminder.supplies : "Don't forget your supplies!"
+      const notifBody = reminder.showSupplies ? reminder.supplies.join(" ") : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -101,6 +101,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
       }
     }
+
+
 
     const remindersJSX = () => {
         if (userReminders.length > 0) {

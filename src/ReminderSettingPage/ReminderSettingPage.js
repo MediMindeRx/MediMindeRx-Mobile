@@ -127,7 +127,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
  }
 
 
-  const goToOptionsPage = () => {
+  const goToOptionsPage = async () => {
     user.currentReminder.supplies = supplies.join(' ')
     if (checkAlerts() === "Reminder is ready") {
       setTitle('')
@@ -135,8 +135,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       setSupplies('')
       setShowSupplies(false)
       // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
-      // createReminderAPI(apiReminder)
-      navigation.navigate('Trigger Options', {user:user})
+      const response = await createReminderAPI(apiReminder)
+      if (response.status === "success" ) {
+        //  user.currentReminder.id = apiData.data.reminder_id
+        navigation.navigate('Trigger Options', {user:user})
+        
+      }
     }
   }
 

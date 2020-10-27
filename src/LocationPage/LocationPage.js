@@ -58,13 +58,21 @@ export default LocationPage = ({navigation, route}) => {
         { cancelable: false }
       );
 
-    const inputCheck = () => {
+    const inputCheck = async () => {
       if (!longitude && !latitude) {
         alertMissingLocation()
       } else {
         user.currentReminder.location.longitude = longitude
         user.currentReminder.location.latitude = latitude
         user.currentReminder.location.locationName = locationName
+        // const reminderType = {
+          // reminder.id, 
+          // currentReminder.location.longitude, 
+          // currentReminder.location.latitude, 
+          // currentReminder.location.locationName
+        // }
+      // addReminderTypeAPI(reminderType)
+      // user.reminders = await getAllReminders()
         navigation.navigate('Profile', {user: user })
       }
     }
