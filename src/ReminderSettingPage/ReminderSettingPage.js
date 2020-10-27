@@ -135,12 +135,12 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       setSupplies('')
       setShowSupplies(false)
       // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
-      const response = await createReminderAPI(apiReminder)
-      if (response.status === "success" ) {
+      // const response = await createReminderAPI(apiReminder)
+      // if (response.status === "success" ) {
         //  user.currentReminder.id = apiData.data.reminder_id
-        navigation.navigate('Trigger Options', {user:user})
+      navigation.navigate('Trigger Options', {user:user})
         
-      }
+      // }
     }
   }
 

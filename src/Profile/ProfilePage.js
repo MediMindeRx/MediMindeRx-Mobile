@@ -133,7 +133,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
         Notifications.removeNotificationSubscription(subscription)
       }
-    }
+    })
+  }
 
 
 
@@ -263,4 +264,4 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       shadowRadius: 3,
     },
 
-})
+})}

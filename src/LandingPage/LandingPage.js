@@ -27,12 +27,12 @@ import {
 
     let user = {
       name: null, 
-      id: null,
+      id: 1,
       reminders: [], 
       currentReminder: {
         title: '', 
         supplies: [], 
-        id: null,
+        id: Date.now(),
         showSupplies: false, 
         scheduled: {
           days: [], 

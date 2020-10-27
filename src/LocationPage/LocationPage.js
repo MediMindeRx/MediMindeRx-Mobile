@@ -26,6 +26,9 @@ export default LocationPage = ({navigation, route}) => {
   const [longitude, setLongitude] = useState('')
   const [latitude, setLatitude] = useState('')
   const [locationName, setLocationName] = useState('')
+  const [addressName, setAddressName] = useState('')
+  const [cityName, setCityName] = useState('')
+  const [stateName, setStateName] = useState('')
   
     const {user} = route.params
 
@@ -73,6 +76,7 @@ export default LocationPage = ({navigation, route}) => {
         // }
       // addReminderTypeAPI(reminderType)
       // user.reminders = await getAllReminders()
+        user.reminders.push(user.currentReminder)
         navigation.navigate('Profile', {user: user })
       }
     }
@@ -94,48 +98,6 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{height: "30%", marginLeft: "8%"}}>
-              <ScrollView>
-                <GooglePlacesAutocomplete
-                    placeholder='Enter Location'
-                    minLength={2}
-                    autoFocus={false}
-                    returnKeyType={'default'}
-                    fetchDetails={true}
-                    returnKeyType={'search'} 
-                    listViewDisplayed="true"   
-                    fetchDetails={true}
-                    listUnderlayColor={red}
-                    onPress={(data, details) => {
-                      setLocation(data, details);
-                    }}
-                    renderDescription={row => row.description}
-                    currentLocation={false}
-                    enablePoweredByContainer={true}
-                    query={{
-                      key: 'AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw',
-                      language: 'en'
-                    }}
-                    styles={{
-                      container: {
-                        zIndex: 2,
-                        width: "90%",
-                      }, 
-                      textInput: {
-                        borderColor: red,
-                        borderBottomWidth: 2,
-                        color: grey,
-                        fontFamily: 'Montserrat_600SemiBold',
-                        fontSize: 16,
-                      },
-                      predefinedPlacesDescription: {
-                        color: '#1faadb'
-                      },
-                    }}
-                  />
-              </ScrollView>
-          </View>
-
             <View style={{alignItems: "center"}}>
               <TextInput 
                 style={styles.inputText} 
@@ -143,6 +105,25 @@ export default LocationPage = ({navigation, route}) => {
                 maxLength={10}
                 onChangeText={(text) => setLocationName(text)}
               />
+              <TextInput 
+                style={styles.inputText} 
+                placeholder='Address'
+                maxLength={10}
+                onChangeText={(text) => setAddressName(text)}
+              />
+              <TextInput 
+                style={styles.inputText} 
+                placeholder='City'
+                maxLength={10}
+                onChangeText={(text) => setCityName(text)}
+              />
+              <TextInput 
+                style={styles.inputText} 
+                placeholder='State'
+                maxLength={10}
+                onChangeText={(text) => setStateName(text)}
+              />
+
             </View>
 
             <View style={styles.buttonContainer}>
@@ -205,6 +186,7 @@ export default LocationPage = ({navigation, route}) => {
       borderBottomColor: red,
       width: "70%",
       paddingBottom: 5,
+      marginTop: "3%"
     },
 
 
