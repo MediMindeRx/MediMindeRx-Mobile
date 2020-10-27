@@ -1,10 +1,10 @@
-const apiURL = 'http:/192.168.0.23:19001:127.0.0.1/5000/api'
+const apiURL = 'http://127.0.0.1/5000/api'
 
 export const getAllRemindersAPI = async () => {
   try {
-    const response = fetch(`${apiURL}/Reminder`)
-    const data = await response.json()
-     return data 
+    const response = await fetch(`${apiURL}/Reminder`)
+    const data = response.json()
+    return data 
   } catch (err) {
     return err
   }
