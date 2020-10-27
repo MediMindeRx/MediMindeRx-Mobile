@@ -84,6 +84,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
+      
       const permissions = await Notifications.getPermissionsAsync()
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
@@ -102,7 +103,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       }
 
       if (reminder.days.length === 7) {
-        console.log('running')
         const subscription = Notifications.addNotificationReceivedListener( async notification => {
           // Notifications.cancelAllScheduledNotificationsAsync()
           Notifications.scheduleNotificationAsync({
@@ -117,6 +117,21 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
         Notifications.removeNotificationSubscription(subscription)
       })
+    } else {
+      const subscription = Notifications.addNotificationReceivedListener( async notification => {
+        if (notification.title === reminder.title) {
+          // Notifications.cancelAllScheduledNotificationsAsync()
+          Notifications.scheduleNotificationAsync({
+            content: {
+              title: reminder.title,
+              body: reminder.supplies
+            },
+            trigger: {
+              seconds: 60 * 60 * 24 * 7,
+              repeats: true
+            }
+        })
+        Notifications.removeNotificationSubscription(subscription)
       }
     }
 
