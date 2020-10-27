@@ -101,7 +101,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
       }
 
-      if (reminder.days.length > 0) {
+      if (reminder.days.length === 7) {
         console.log('running')
         const subscription = Notifications.addNotificationReceivedListener( async notification => {
           // Notifications.cancelAllScheduledNotificationsAsync()
@@ -111,7 +111,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
               body: reminder.supplies
             },
             trigger: {
-              seconds: 120,
+              seconds: 60 * 60 * 24,
               repeats: true
             }
         })
