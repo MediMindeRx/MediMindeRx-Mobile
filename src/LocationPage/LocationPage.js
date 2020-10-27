@@ -43,16 +43,30 @@ export default LocationPage = ({navigation, route}) => {
       setLatitude(locLatitude)
     }
 
+    const alertMissingLocation = () =>
+      Alert.alert(
+        "Where should the reminder fire?",
+        "Select a location to fire when leaving a designated area.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+
     const inputCheck = () => {
       if (!longitude && !latitude) {
-        
+        alertMissingLocation()
       } else {
         user.currentReminder.location.longitude = longitude
         user.currentReminder.location.latitude = latitude
         user.currentReminder.location.locationName = locationName
         navigation.navigate('Profile', {user: user })
       }
-
     }
 
 
@@ -72,75 +86,71 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-        <View style={{height: "30%", marginLeft: "8%"}}>
-          <ScrollView>
-          <GooglePlacesAutocomplete
-              placeholder='Enter Location'
-              minLength={2}
-              autoFocus={false}
-              returnKeyType={'default'}
-              fetchDetails={true}
-              returnKeyType={'search'} 
-              listViewDisplayed="true"   
-              fetchDetails={true}
-              listUnderlayColor={red}
-              onPress={(data, details) => {
-                setLocation(data, details);
-              }}
-
-              enablePoweredByContainer={true}
-              styles={{
-                container: {
-                  zIndex: 2,
-                  width: "90%",
-                }, 
-                textInput: {
-                  borderColor: red,
-                  borderBottomWidth: 2,
-                  color: grey,
-                  fontFamily: 'Montserrat_600SemiBold',
-                  fontSize: 16,
-                },
-                predefinedPlacesDescription: {
-                  color: '#1faadb'
-                },
-               
-              }}
-                renderDescription={row => row.description}
-                currentLocation={false}
-                query={{
-                  key: 'AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw',
-                  language: 'en'
-                }}
-            />
-
-        </ScrollView>
-      </View>
-          <View style={{alignItems: "center"}}>
-            <TextInput 
-              style={styles.inputText} 
-              placeholder='Nickname ("Home")'
-              maxLength={10}
-              onChangeText={(text) => setLocationName(text)}
-            />
-
-
+            <View style={{height: "30%", marginLeft: "8%"}}>
+              <ScrollView>
+                <GooglePlacesAutocomplete
+                    placeholder='Enter Location'
+                    minLength={2}
+                    autoFocus={false}
+                    returnKeyType={'default'}
+                    fetchDetails={true}
+                    returnKeyType={'search'} 
+                    listViewDisplayed="true"   
+                    fetchDetails={true}
+                    listUnderlayColor={red}
+                    onPress={(data, details) => {
+                      setLocation(data, details);
+                    }}
+                    renderDescription={row => row.description}
+                    currentLocation={false}
+                    enablePoweredByContainer={true}
+                    query={{
+                      key: 'AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw',
+                      language: 'en'
+                    }}
+                    styles={{
+                      container: {
+                        zIndex: 2,
+                        width: "90%",
+                      }, 
+                      textInput: {
+                        borderColor: red,
+                        borderBottomWidth: 2,
+                        color: grey,
+                        fontFamily: 'Montserrat_600SemiBold',
+                        fontSize: 16,
+                      },
+                      predefinedPlacesDescription: {
+                        color: '#1faadb'
+                      },
+                    }}
+                  />
+              </ScrollView>
           </View>
 
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity 
-              style={styles.buttonStyle}
-              onPress={()=>{navigation.navigate('Trigger Options', {user: user })}}
-            >
-              <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.buttonStyle}
-              onPress={}
-            >
-              <Text style={styles.buttonText}>Save Reminder</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={{alignItems: "center"}}>
+              <TextInput 
+                style={styles.inputText} 
+                placeholder='Nickname ("Home")'
+                maxLength={10}
+                onChangeText={(text) => setLocationName(text)}
+              />
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity 
+                style={styles.buttonStyle}
+                onPress={()=>{navigation.navigate('Trigger Options', {user: user })}}
+              >
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.buttonStyle}
+                onPress={inputCheck}
+              >
+                <Text style={styles.buttonText}>Save Reminder</Text>
+              </TouchableOpacity>
+            </View>
 
           </LinearGradient>
         </View>

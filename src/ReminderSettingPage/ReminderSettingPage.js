@@ -39,7 +39,6 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     supplies.push(supply)
     setSupplies(supplies)
     setSupply('')
-    console.log(supplies)
   }
 
   const deleteSupply = (deletedSupply) => {
@@ -99,7 +98,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       { cancelable: false }
     );
 
-    const alertMissingTitleSupplies = () =>
+  const alertMissingTitleSupplies = () =>
       Alert.alert(
         "What's This Reminder About?",
         "Add a title and supplies to your reminder.",
@@ -115,17 +114,22 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       );
 
 
- 
-
-  const goToOptionsPage = () => {
-    if (!user.currentReminder.supplies && !user.currentReminder.title) {
+ const checkAlerts = () => {
+   if (!user.currentReminder.supplies && !user.currentReminder.title) {
       alertMissingTitleSupplies()
-    } else if (!user.currentReminder.supplies) {
+    } else if (user.currentReminder.supplies.length === 0) {
       alertMissingSupplies()
     } else if (!user.currentReminder.title) {
       alertMissingTitle()
     } else {
-      user.supplies = supplies.join(' ')
+      return "Reminder is ready"
+    }
+ }
+
+
+  const goToOptionsPage = () => {
+    user.currentReminder.supplies = supplies.join(' ')
+    if (checkAlerts() === "Reminder is ready") {
       setTitle('')
       setSupply('')
       setSupplies('')
