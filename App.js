@@ -6,12 +6,12 @@ import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 // App Imports
-import LandingPage from '../src/LandingPage/LandingPage'
-import ReminderSettingPage from '../src/ReminderSettingPage/ReminderSettingPage'
-import FrequencyPage from '../src/FrequencyPage/FrequencyPage'
-import ProfilePage from '../src/Profile/ProfilePage'
-import TriggerOptions from '../src/TriggerOptions/TriggerOptions'
-import LocationPage from '../src/LocationPage/LocationPage'
+import LandingPage from './src/LandingPage/LandingPage'
+import ReminderSettingPage from './src/ReminderSettingPage/ReminderSettingPage'
+import FrequencyPage from './src/FrequencyPage/FrequencyPage'
+import ProfilePage from './src/Profile/ProfilePage'
+import TriggerOptions from './src/TriggerOptions/TriggerOptions'
+import LocationPage from './src/LocationPage/LocationPage'
 
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
