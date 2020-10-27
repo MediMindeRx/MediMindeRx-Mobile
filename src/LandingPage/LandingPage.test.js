@@ -1,20 +1,21 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react-native' 
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import '@testing-library/jest-dom'
 
 import LandingPage from './LandingPage'
 
-jest.useFakeTimers()
+// jest.useFakeTimers()
 
 describe('LandingPage', () => {
   it('should have a greeting', () => {
     const {
       getByTestId,
-      getByText, 
+      findByText, 
       queryByTestId, 
       toJSON 
     } = render(<LandingPage />)
 
-    const header = getByText('Hey there! What\'s your name?')
+    const header = findByText('What\'s your name?')
     
     expect(header).toBeInTheDocument()
   });

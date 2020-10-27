@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1603840041759" clover="3.2.0">
-  <project timestamp="1603840041759" name="All files">
-    <metrics statements="24" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="9" coveredmethods="1" elements="37" coveredelements="14" complexity="0" loc="24" ncloc="24" packages="2" files="2" classes="2"/>
-    <package name="MediMindeRx-Mobile">
-      <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="App.js" path="/Users/nickhart/Turing/4module/MediMindeRx-Mobile/App.js">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="MediMindeRx-Mobile.src.LandingPage">
-      <metrics statements="19" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="1"/>
-      <file name="LandingPage.js" path="/Users/nickhart/Turing/4module/MediMindeRx-Mobile/src/LandingPage/LandingPage.js">
-        <metrics statements="19" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="1"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="2" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="70" count="2" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="89" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="124" count="1" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1603842373623" clover="3.2.0">
+  <project timestamp="1603842373623" name="All files">
+    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
   </project>
 </coverage>
