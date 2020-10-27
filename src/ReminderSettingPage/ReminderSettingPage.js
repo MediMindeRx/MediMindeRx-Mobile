@@ -54,7 +54,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const suppliesJSX = () => {
     if (supplies.length > 0) {
       return supplies.map(supply => {
-        return(<View style={styles.supplyItem}>
+        return(<View style={styles.supplyItem} key={supply}>
                 <Text style={[styles.showSuppliesText, {fontSize: 16}]}>{supply}</Text>
                 <TouchableOpacity 
                     style={styles.deleteSupplyButton}

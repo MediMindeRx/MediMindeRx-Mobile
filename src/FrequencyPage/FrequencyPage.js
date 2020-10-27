@@ -167,8 +167,8 @@ export default FrequencyPage = ({ navigation, route }) => {
       }    
     } 
     // addReminderAPI(newReminder)
-    // const updatedReminders = getAllRemindersAPI()
-    // user.reminders = updatedReminders
+    // const updatedReminders = await getAllRemindersAPI()
+    // user.reminders = updatedReminders.join(' ')
     user.reminders.push(user.currentReminder) // will be removed once API is working
     user.currentReminder = {
       title: '', 
