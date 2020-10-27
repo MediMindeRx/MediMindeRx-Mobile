@@ -26,24 +26,24 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     const [userReminders, setUserReminders] = useState(user.reminders)
 
     const [fontsLoaded] = useFonts({
-      Montserrat_700Bold, 
+      Montserrat_700Bold,
       Montserrat_600SemiBold,
       Montserrat_400Regular_Italic
     })
 
     const greeting = () => {
-        return userReminders.length > 0 ? 
-          `Here are your reminders, ${user.name}:`: 
+        return userReminders.length > 0 ?
+          `Here are your reminders, ${user.name}:`:
             "Let's schedule some reminders."
     }
 
     const dayRender = (days) => {
       if (days[0].includes(',')) {
         return days[0]
-      } 
+      }
       if (days.length === 7) {
         return "Repeat daily"
-      } 
+      }
       if (days.length === 2 && days.includes("Saturday") && days.includes("Sunday")) {
         return "Repeat weekends"
       }
@@ -77,11 +77,11 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const deleteReminder = async (id) => {
       const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
-      // deleteReminderAPI(id) 
+      // deleteReminderAPI(id)
       // const apiData = await getAllRemindersAPI()
       setUserReminders(updatedReminders)
       user.reminders = userReminders
-    } 
+    }
 
     const startNotificationCountdown = async reminder => {
       const permissions = await Notifications.getPermissionsAsync()
@@ -100,6 +100,24 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           trigger: triggerDate
         })
       }
+
+      if (reminder.days.length > 0) {
+        console.log('running')
+        const subscription = Notifications.addNotificationReceivedListener( async notification => {
+          // Notifications.cancelAllScheduledNotificationsAsync()
+          Notifications.scheduleNotificationAsync({
+            content: {
+              title: reminder.title,
+              body: reminder.supplies
+            },
+            trigger: {
+              seconds: 120,
+              repeats: true
+            }
+        })
+        Notifications.removeNotificationSubscription(subscription)
+      })
+      }
     }
 
 
@@ -108,23 +126,23 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         if (userReminders.length > 0) {
           // cancel all previously set notifications to remove duplicates
           Notifications.cancelAllScheduledNotificationsAsync()
-          
+
           return userReminders.map(reminder => {
 
             startNotificationCountdown(reminder)
 
             return (<View style={{width: "100%"}} key={reminder.id}>
-              <Text style={styles.subHeaderText}>{reminder.title}</Text> 
-              
+              <Text style={styles.subHeaderText}>{reminder.title}</Text>
+
               {reminder.scheduled.time && reminder.scheduled.days && <Text>
-                <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text> 
-                <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text> 
+                <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text>
+                <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text>
               </Text>}
-              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>} 
+              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>}
               <Text style={styles.bodyTextDetails}>{reminder.supplies.join(" ")}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                 {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
-                </Text> 
+                </Text>
               <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
                 <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
               </TouchableOpacity>
@@ -145,16 +163,16 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
-        <Text style={styles.welcomeText}>{greeting()}</Text> 
+        <Text style={styles.welcomeText}>{greeting()}</Text>
 
         <View style={styles.scrollContainer}>
           <ScrollView >
             {remindersJSX()}
           </ScrollView>
         </View>
-        
+
         <View style={styles.buttonContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => navigation.navigate('Create Reminder', {user: user})}
             >
@@ -184,9 +202,9 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     },
 
     scrollContainer: {
-      height: "55%", 
-      marginTop: "2%", 
-      marginLeft: "6%", 
+      height: "55%",
+      marginTop: "2%",
+      marginLeft: "6%",
       marginRight: "6%"
     },
 
