@@ -12,7 +12,7 @@ import {
     Switch
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import {createReminderAPI} from '../apiCalls/apiCalls'
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
@@ -54,7 +54,8 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const suppliesJSX = () => {
     if (supplies.length > 0) {
       return supplies.map(supply => {
-        return(<View style={styles.supplyItem} key={supply}>
+        if (supply !== '') {
+          return(<View style={styles.supplyItem} key={supply}>
                 <Text style={[styles.showSuppliesText, {fontSize: 16}]}>{supply}</Text>
                 <TouchableOpacity 
                     style={styles.deleteSupplyButton}
@@ -63,6 +64,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
                     <Text style={[styles.buttonText, {fontSize: 14}]}>X</Text>
                   </TouchableOpacity>  
               </View>)
+        }
       })
     } 
   }
@@ -130,16 +132,23 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const goToOptionsPage = async () => {
     user.currentReminder.supplies = supplies.join(' ')
     if (checkAlerts() === "Reminder is ready") {
-      setTitle('')
-      setSupply('')
-      setSupplies('')
-      setShowSupplies(false)
-      // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
-      const response = await createReminderAPI(apiReminder)
-      if (response.status === "success" ) {
-        //  user.currentReminder.id = apiData.data.reminder_id
+      const apiFormattedReminder = {
+        "user_id": `${user.id}`,
+        "title": user.currentReminder.title,
+        "supplies": user.currentReminder.supplies,
+        "show_supplies": `${user.currentReminder.showSupplies}`
+      }
+      try {
+        const apiData = await createReminderAPI(apiFormattedReminder)
+        user.currentReminder.id = apiData.data.id
+        console.log(user.currentReminder.id)
         navigation.navigate('Trigger Options', {user:user})
-        
+        setTitle('')
+        setSupply('')
+        setSupplies([])
+        setShowSupplies(false)
+      } catch (error) {
+        console.log(error)
       }
     }
   }
@@ -158,10 +167,10 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         contentContainerStyle={styles.container}
         scrollEnabled={false}
       >
-
     
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
+
         <View style={{ alignItems:'center'}}>
           <Text style={styles.sectionHeaderText}>Let's set up a reminder, {user.name}.</Text>
 
@@ -324,8 +333,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
     backgroundColor: red,
-    borderRadius: 2,
-    padding: 2
+    borderRadius: 6,
+    padding: 2,
+    width: 20
   },
 
   supplyToggle: {

@@ -14,7 +14,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import {AppLoading} from 'expo';
-// import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
+import {getAllRemindersAPI, addReminderTypeAPI} from '../apiCalls/apiCalls'
 
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
@@ -118,7 +118,7 @@ export default FrequencyPage = ({ navigation, route }) => {
       case "weekend":
         toggleWeekend(!weekend)
         const weekendDays = sevenDays.slice(-2)
-        weekend ? user.currentReminder.scheduled.days = [] : user.currentReminder.days.push(...weekendDays)
+        weekend ? user.currentReminder.scheduled.days = [] : user.currentReminder.scheduled.days.push(...weekendDays)
         break
       case "custom":
       toggleCustom(!custom)
@@ -142,7 +142,7 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   const singleDateChange = (event, date) => {
     const singleDateFormat = moment(date).format('LL')
-    user.currentReminder.days.push(singleDateFormat)
+    user.currentReminder.scheduled.days.push(singleDateFormat)
   }
 
   const inputCheck = () => {
@@ -153,40 +153,55 @@ export default FrequencyPage = ({ navigation, route }) => {
       let singleDateFormat = moment(singleDate).format('LL')
       user.currentReminder.scheduled.days.push(singleDateFormat)
     } 
+    if (user.currentReminder.scheduled.days.length > 1) {
+      user.currentReminder.scheduled.repeating = true
+    }
     saveData()
   }
   
   const saveData = async () => {
     const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
-    const reminderType = {
-      reminder_id: reminder.id,
-      scheduled: {
-        time: user.currentReminder.scheduled.time,
-        days: serverFormatDays,
-        full_date: user.currentReminder.scheduled.unixDate     
-      }    
+    const formatReminderType = {
+      "schedule_name": user.currentReminder.title,
+      "reminder_id": `${user.currentReminder.id}`,
+      "times": user.currentReminder.scheduled.time,
+      "days": serverFormatDays,
+      "unix_time": `${user.currentReminder.scheduled.unixDate}`,
+      "repeating": `${user.currentReminder.scheduled.repeating}`     
     } 
-    // addReminderTypeAPI(reminderType)
-    // const updatedReminders = await getAllRemindersAPI()
-    // user.reminders = updatedReminders.join(' ')
-    user.reminders.push(user.currentReminder) // will be removed once API is working
-    user.currentReminder = {
-      title: '', 
-      supplies: '', 
-      showSupplies: false,  
-      scheduled: {
-        days: [], 
-        time: '', 
-        id: Date.now(), 
-        fullDate: null
+    try {
+      await addReminderTypeAPI(formatReminderType)
+      const updatedReminders = await getAllRemindersAPI(user.id)
+      console.log(updatedReminders.data)
+      user.reminders = updatedReminders
+      user.currentReminder = {
+        title: '', 
+        supplies: '', 
+        showSupplies: false, 
+        id: '', 
+        scheduled: {
+          days: [], 
+          time: '', 
+          fullDate: null
+        },
+        location: {
+          locationName: '',
+          longitude: '',
+          latitude: '',
+          address:""
+        }
       }
+      navigation.navigate('Profile', {user: user})
+    } catch (error) {
+      console.log(error)
     }
-    navigation.navigate('Profile', {user: user})
   }
   
   const goBack = () => {
     user.currentReminder.scheduled.time = ''
     user.currentReminder.scheduled.days = []
+    user.currentReminder.scheduled.repeating = false
+    user.currentReminder.scheduled.unixDate = ''
     navigation.navigate('Trigger Options', {user: user})
   }
 

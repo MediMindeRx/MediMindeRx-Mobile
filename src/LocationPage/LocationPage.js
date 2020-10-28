@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
+import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
 
 import {AppLoading} from 'expo'
@@ -11,11 +12,11 @@ import {
   Text,
   View,
   TouchableOpacity,
+  KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import Header from '../Header/Header'
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
 import {LinearGradient} from 'expo-linear-gradient'
@@ -23,9 +24,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 import { TextInput } from 'react-native-gesture-handler';
 
 export default LocationPage = ({navigation, route}) => {
-  const [longitude, setLongitude] = useState('')
-  const [latitude, setLatitude] = useState('')
   const [locationName, setLocationName] = useState('')
+  const [addressName, setAddressName] = useState('')
+  const [cityName, setCityName] = useState('')
+  const [stateName, setStateName] = useState('')
   
     const {user} = route.params
 
@@ -59,20 +61,23 @@ export default LocationPage = ({navigation, route}) => {
       );
 
     const inputCheck = async () => {
-      if (!longitude && !latitude) {
+      if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
       } else {
-        user.currentReminder.location.longitude = longitude
-        user.currentReminder.location.latitude = latitude
+        user.currentReminder.location.address = `${addressName} ${cityName} ${stateName}`
+        const apiCoords = await getCoordsAPI(user.currentReminder.location.address)
+        user.currentReminder.location.longitude = apiCoords.longitude
+        user.currentReminder.location.latitude = apiCoords.latitude
         user.currentReminder.location.locationName = locationName
-        // const reminderType = {
-          // reminder.id, 
-          // currentReminder.location.longitude, 
-          // currentReminder.location.latitude, 
-          // currentReminder.location.locationName
-        // }
-      // addReminderTypeAPI(reminderType)
-      // user.reminders = await getAllReminders()
+        const formatReminderType = {
+          id: user.currentReminder.reminder.id, 
+          longitude: user.currentReminder.location.longitude, 
+          latitude: user.currentReminder.location.latitude, 
+          location_name: user.currentReminder.location.locationName,
+          address: user.currentReminder.location.address,
+        }
+        addReminderTypeAPI(formatReminderType)
+        user.reminders = await getAllReminders(user.id)
         navigation.navigate('Profile', {user: user })
       }
     }
@@ -82,11 +87,16 @@ export default LocationPage = ({navigation, route}) => {
       return <AppLoading/>
     } else {
       return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+          style={[styles.container, { backgroundColor: "#E0EAFC" }]}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          scrollEnabled={false}
+        >
           <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
           <Header />
-
+          <View style={{alignItems: "center"}}>
           <View style={styles.welcomeTexts}>
             <Text style={styles.headerText}>Add Location</Text> 
             <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
@@ -94,55 +104,34 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{height: "30%", marginLeft: "8%"}}>
+            <View style={{height: "40%", width: "100%", marginBottom: "2%"}}>
               <ScrollView>
-                <GooglePlacesAutocomplete
-                    placeholder='Enter Location'
-                    minLength={2}
-                    autoFocus={false}
-                    returnKeyType={'default'}
-                    fetchDetails={true}
-                    returnKeyType={'search'} 
-                    listViewDisplayed="true"   
-                    fetchDetails={true}
-                    listUnderlayColor={red}
-                    onPress={(data, details) => {
-                      setLocation(data, details);
-                    }}
-                    renderDescription={row => row.description}
-                    currentLocation={false}
-                    enablePoweredByContainer={true}
-                    query={{
-                      key: 'AIzaSyBQ_yHIwcbDOLeFt06d3rJ9vsm410UpBIw',
-                      language: 'en'
-                    }}
-                    styles={{
-                      container: {
-                        zIndex: 2,
-                        width: "90%",
-                      }, 
-                      textInput: {
-                        borderColor: red,
-                        borderBottomWidth: 2,
-                        color: grey,
-                        fontFamily: 'Montserrat_600SemiBold',
-                        fontSize: 16,
-                      },
-                      predefinedPlacesDescription: {
-                        color: '#1faadb'
-                      },
-                    }}
-                  />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='Nickname ("Home")'
+                  maxLength={10}
+                  onChangeText={(text) => setLocationName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='Address'
+                  maxLength={10}
+                  onChangeText={(text) => setAddressName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='City'
+                  maxLength={10}
+                  onChangeText={(text) => setCityName(text)}
+                />
+                <TextInput 
+                  style={styles.inputText} 
+                  placeholder='State'
+                  maxLength={10}
+                  onChangeText={(text) => setStateName(text)}
+                />
               </ScrollView>
-          </View>
 
-            <View style={{alignItems: "center"}}>
-              <TextInput 
-                style={styles.inputText} 
-                placeholder='Nickname ("Home")'
-                maxLength={10}
-                onChangeText={(text) => setLocationName(text)}
-              />
             </View>
 
             <View style={styles.buttonContainer}>
@@ -159,9 +148,9 @@ export default LocationPage = ({navigation, route}) => {
                 <Text style={styles.buttonText}>Save Reminder</Text>
               </TouchableOpacity>
             </View>
-
+            </View>
           </LinearGradient>
-        </View>
+        </KeyboardAvoidingView>
     )
   }
 
@@ -205,6 +194,7 @@ export default LocationPage = ({navigation, route}) => {
       borderBottomColor: red,
       width: "70%",
       paddingBottom: 5,
+      marginTop: "3%"
     },
 
 
@@ -217,7 +207,7 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      marginTop: "3%",
+      // marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },

@@ -38,25 +38,27 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const dayRender = (days) => {
-      if (days[0].includes(',')) {
-        return days[0]
-      }
-      if (days.length === 7) {
-        return "Repeat daily"
-      }
-      if (days.length === 2 && days.includes("Saturday") && days.includes("Sunday")) {
-        return "Repeat weekends"
-      }
-      if (days.length === 5 && !days.includes("Saturday") && !days.includes("Sunday")) {
-        return "Repeat weekdays"
-      } else {
-        return "Repeat" +  days.map(day => {
-          if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
-            return " " + day.charAt(0) + day.charAt(1)
-          } else {
-            return " " + day.charAt(0)
-          }
-        })
+      switch(days) {
+        case days[0].includes(', '):
+          return days[0]
+          break 
+        case days.length === 7:
+          return "Repeat daily"
+          break
+        case days.length === 2 && days.includes("Saturday") && days.includes("Sunday"):
+          return "Repeat weekends"
+          break
+        case days.length === 5 && !days.includes("Saturday") && !days.includes("Sunday"):
+          return "Repeat weekdays"
+          break
+        default:
+          return "Repeat" +  days.map(day => {
+            if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
+              return " " + day.charAt(0) + day.charAt(1)
+            } else {
+              return " " + day.charAt(0)
+            }
+          })
       }
     }
 
@@ -76,19 +78,18 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       )
 
     const deleteReminder = async (id) => {
-      const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
-      // deleteReminderAPI(id)
-      // const apiData = await getAllRemindersAPI()
-      setUserReminders(updatedReminders)
-      user.reminders = userReminders
+      deleteReminderAPI(id)
+      const apiData = await getAllRemindersAPI(user.id)
+      user.reminders = apiData.data
+      setUserReminders(user.reminders)
     }
 
     const startNotificationCountdown = async reminder => {
       
       const permissions = await Notifications.getPermissionsAsync()
-      const triggerDate = new Date(reminder.fullDate)
+      const triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
       triggerDate.setSeconds(0)
-      const notifBody = reminder.showSupplies ? reminder.supplies.join(" ") : "Don't forget your supplies!"
+      const notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -133,7 +134,9 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
         Notifications.removeNotificationSubscription(subscription)
       }
-    }
+    })
+  }
+  }
 
 
 
@@ -143,18 +146,18 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           Notifications.cancelAllScheduledNotificationsAsync()
 
           return userReminders.map(reminder => {
-
+            console.log(reminder.attributes)
             startNotificationCountdown(reminder)
 
             return (<View style={{width: "100%"}} key={reminder.id}>
               <Text style={styles.subHeaderText}>{reminder.title}</Text>
 
               {reminder.scheduled.time && reminder.scheduled.days && <Text>
-                <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text>
-                <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text>
+                <Text style={styles.bodyTextDetails}>{reminder.attributes.schedule_reminder.attributes.times} |</Text>
+                <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.schedule_reminder.attributes.days)}</Text>
               </Text>}
-              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>}
-              <Text style={styles.bodyTextDetails}>{reminder.supplies.join(" ")}</Text>
+              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.attributes.locationName} </Text>}
+              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                 {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                 </Text>
