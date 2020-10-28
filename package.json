@@ -58,8 +58,7 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/jest-native": "^3.4.3",
     "@testing-library/react-native": "^7.1.0",
-    "jest-expo": "^39.0.0",
-    "react-test-renderer": "^17.0.1"
+    "jest-expo": "^39.0.0"
   },
   "private": true,
   "name": "MediMindeRx-Mobile"
