@@ -1,22 +1,17 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import '@testing-library/jest-dom'
+import '@testing-library/jest-native/extend-expect'
 
 import LandingPage from './LandingPage'
 
-// jest.useFakeTimers()
+describe('LandingPage', async () => {
+  it('should have a greeting', async () => {
+    const { getByText } = render(<LandingPage />)
 
-describe('LandingPage', () => {
-  it('should have a greeting', () => {
-    const {
-      getByTestId,
-      findByText, 
-      queryByTestId, 
-      toJSON 
-    } = render(<LandingPage />)
-
-    const header = findByText('What\'s your name?')
+    const topGreeting = await waitFor(() => getByText('Hey there!'))
+    const bottomGreeting = await waitFor(() => getByText('What\'s your name?'))
     
-    expect(header).toBeInTheDocument()
+    expect(topGreeting).toHaveTextContent('Hey there!')
+    expect(bottomGreeting).toHaveTextContent('What\'s your name?')
   });
 });
