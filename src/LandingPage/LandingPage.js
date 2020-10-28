@@ -34,6 +34,7 @@ import {
         supplies: [], 
         id: '',
         showSupplies: false, 
+        repeating: false,
         scheduled: {
           days: [], 
           time: '', 
@@ -74,7 +75,6 @@ import {
         try {
           const apiData = await addUserAPI(userName)
           user.id = apiData.id
-          console.log('landing page', apiData, user.id)
           navigation.navigate('Create Reminder', {user: user }) 
         } catch (error) {
           console.log(apiData.message)

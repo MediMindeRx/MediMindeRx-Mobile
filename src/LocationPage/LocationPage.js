@@ -78,7 +78,6 @@ export default LocationPage = ({navigation, route}) => {
         }
         addReminderTypeAPI(reminderType)
         user.reminders = await getAllReminders(user.id)
-        user.reminders.push(user.currentReminder)
         navigation.navigate('Profile', {user: user })
       }
     }

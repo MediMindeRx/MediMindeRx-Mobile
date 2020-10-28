@@ -132,14 +132,14 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const goToOptionsPage = async () => {
     user.currentReminder.supplies = supplies.join(' ')
     if (checkAlerts() === "Reminder is ready") {
-      const apiFormat = {
+      const apiFormattedReminder = {
         "user_id": `${user.id}`,
         "title": user.currentReminder.title,
         "supplies": user.currentReminder.supplies,
         "show_supplies": `${user.currentReminder.showSupplies}`
       }
       try {
-        const apiData = await createReminderAPI(apiFormat)
+        const apiData = await createReminderAPI(apiFormattedReminder)
         user.currentReminder.id = apiData.reminder_id
         console.log(user.currentReminder.id)
         navigation.navigate('Trigger Options', {user:user})
