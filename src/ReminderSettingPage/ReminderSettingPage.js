@@ -12,7 +12,7 @@ import {
     Switch
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import {createReminderAPI} from '../apiCalls/apiCalls'
 
 // ui
 import {lightBlue, white, red, grey} from '../ui/colors'
@@ -132,17 +132,24 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const goToOptionsPage = async () => {
     user.currentReminder.supplies = supplies.join(' ')
     if (checkAlerts() === "Reminder is ready") {
-      setTitle('')
-      setSupply('')
-      setSupplies([])
-      setShowSupplies(false)
-      // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
-      // const response = await createReminderAPI(apiReminder)
-      // if (response.status === "success" ) {
-        //  user.currentReminder.id = apiData.data.reminder_id
-      navigation.navigate('Trigger Options', {user:user})
-        
-      // }
+      const apiFormat = {
+        "user_id": `${user.id}`,
+        "title": user.currentReminder.title,
+        "supplies": user.currentReminder.supplies,
+        "show_supplies": `${user.currentReminder.showSupplies}`
+      }
+      try {
+        const apiData = await createReminderAPI(apiFormat)
+        user.currentReminder.id = apiData.reminder_id
+        console.log(user.currentReminder.id)
+        navigation.navigate('Trigger Options', {user:user})
+        setTitle('')
+        setSupply('')
+        setSupplies([])
+        setShowSupplies(false)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 

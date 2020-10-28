@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
+import {addReminderTypeAPI, getLocationCoords} from '../apiCalls/apiCalls'
 
 
 import {AppLoading} from 'expo'
@@ -14,7 +15,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Alert,
-  KeyboardAvoidingViewBase
 } from 'react-native';
 import Header from '../Header/Header'
 // ui
@@ -63,20 +63,23 @@ export default LocationPage = ({navigation, route}) => {
       );
 
     const inputCheck = async () => {
-      if (!longitude && !latitude) {
+      if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
       } else {
-        user.currentReminder.location.longitude = longitude
-        user.currentReminder.location.latitude = latitude
+        user.currentReminder.location.address = `${addressName} ${cityName} ${stateName}`
+        const apiCoords = await getLocationCoords(user.currentReminder.location.address)
+        user.currentReminder.location.longitude = apiCoords.longitude
+        user.currentReminder.location.latitude = apiCoords.latitude
         user.currentReminder.location.locationName = locationName
-        // const reminderType = {
-          // reminder.id, 
-          // currentReminder.location.longitude, 
-          // currentReminder.location.latitude, 
-          // currentReminder.location.locationName
-        // }
-      // addReminderTypeAPI(reminderType)
-      // user.reminders = await getAllReminders()
+        const reminderType = {
+          id: reminder.id, 
+          longitude: user.currentReminder.location.longitude, 
+          latitude: user.currentReminder.location.latitude, 
+          location_name: user.currentReminder.location.locationName,
+          address: user.currentReminder.location.address
+        }
+        addReminderTypeAPI(reminderType)
+        user.reminders = await getAllReminders()
         user.reminders.push(user.currentReminder)
         navigation.navigate('Profile', {user: user })
       }

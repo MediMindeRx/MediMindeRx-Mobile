@@ -49,7 +49,7 @@ export const createReminderAPI = async (reminder) => {
       },
       body: JSON.stringify(reminder)
     })
-    return response
+    return response.json()
   } catch (error) {
     return error
   }
@@ -64,7 +64,7 @@ export const addReminderTypeAPI = async (reminder) => {
       },
       body: JSON.stringify(reminder)
     })
-    return response
+    return response.json()
   } catch (err) {
     return err
   }
@@ -77,6 +77,7 @@ const getLocationCoords = async (address) => {
         "Authorization": "prj_test_pk_c0e695398d2087846001855a18c471cabb8af286"
       }
     })
+    return response.json()
   } catch (error) {
     return
   }

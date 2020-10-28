@@ -26,24 +26,24 @@ import {
     const [locationPermission, askForLPermission] = Permissions.usePermissions(Permissions.LOCATION, { ask: true })
 
     let user = {
-      name: null, 
-      id: 1,
+      name: '', 
+      id: '',
       reminders: [], 
       currentReminder: {
         title: '', 
         supplies: [], 
-        id: Date.now(),
+        id: '',
         showSupplies: false, 
         scheduled: {
           days: [], 
           time: '', 
-          unixDate: null,
+          unixDate: '',
         }, 
         location: { 
-          lat: null,
-          long: null,
-          locationName: null,
-          address: null,
+          lat: '',
+          long: '',
+          locationName: '',
+          address: '',
         }
       }
     }
@@ -71,12 +71,13 @@ import {
     const goToCreateReminder = async () => {
       if (user.name) {
         const userName = {"name": user.name}
-        const apiData = await addUserAPI(userName)
-        if (apiData.ok === true) {
-          user.id = apiData.user_id
+        try {
+          const apiData = await addUserAPI(userName)
+          user.id = apiData.id
+          console.log('landing page', apiData, user.id)
           navigation.navigate('Create Reminder', {user: user }) 
-        } else {
-          console.log(apiData)
+        } catch (error) {
+          console.log(apiData.message)
         }
       } else {
         alertUserName()

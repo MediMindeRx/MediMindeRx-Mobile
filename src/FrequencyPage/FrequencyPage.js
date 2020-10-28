@@ -14,7 +14,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import {AppLoading} from 'expo';
-// import {getAllRemindersAPI, addReminderAPI} from '../apiCalls/apiCalls'
+import {getAllRemindersAPI, deleteReminderAPI} from '../apiCalls/apiCalls'
 
 //ui
 import {LinearGradient} from 'expo-linear-gradient'
@@ -146,7 +146,6 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
 
   const inputCheck = () => {
-    console.log(user.currentReminder.scheduled.days.length)
     if (!user.currentReminder.scheduled.time) {
       formatTime(time)
     } 
@@ -158,18 +157,18 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    // const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
-    // const reminderType = {
-    //   reminder_id: reminder.id,
-    //   scheduled: {
-    //     time: user.currentReminder.scheduled.time,
-    //     days: serverFormatDays,
-    //     full_date: user.currentReminder.scheduled.unixDate     
-    //   }    
-    // } 
-    // addReminderTypeAPI(reminderType)
-    // const updatedReminders = await getAllRemindersAPI()
-    // user.reminders = updatedReminders.join(' ')
+    const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
+    const reminderType = {
+      reminder_id: reminder.id,
+      scheduled: {
+        time: user.currentReminder.scheduled.time,
+        days: serverFormatDays,
+        full_date: user.currentReminder.scheduled.unixDate     
+      }    
+    } 
+    addReminderTypeAPI(reminderType)
+    const updatedReminders = await getAllRemindersAPI()
+    user.reminders = updatedReminders.join(' ')
     user.reminders.push(user.currentReminder) // will be removed once API is working
     user.currentReminder = {
       title: '', 
