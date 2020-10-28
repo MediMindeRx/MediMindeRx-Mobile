@@ -169,15 +169,14 @@ export default FrequencyPage = ({ navigation, route }) => {
     addReminderTypeAPI(reminderType)
     const updatedReminders = await getAllRemindersAPI()
     user.reminders = updatedReminders.join(' ')
-    user.reminders.push(user.currentReminder) // will be removed once API is working
     user.currentReminder = {
       title: '', 
       supplies: '', 
-      showSupplies: false,  
+      showSupplies: false, 
+      id: Date.now(), 
       scheduled: {
         days: [], 
         time: '', 
-        id: Date.now(), 
         fullDate: null
       },
       location: {
