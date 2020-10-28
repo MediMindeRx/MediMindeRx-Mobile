@@ -1,8 +1,8 @@
 const apiURL = 'https://mediminderx-api.herokuapp.com/api/v1'
 
-export const getAllRemindersAPI = async () => {
+export const getAllRemindersAPI = async (userID) => {
   try {
-    const response = await fetch(`${apiURL}/Reminder`)
+    const response = await fetch(`${apiURL}/users/${userID}/reminders`)
     const data = response.json()
     return data 
   } catch (err) {

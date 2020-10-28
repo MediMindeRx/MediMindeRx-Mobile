@@ -157,7 +157,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
                 <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text>
                 <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text>
               </Text>}
-              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>}
+              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName} </Text>}
               <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                 {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
