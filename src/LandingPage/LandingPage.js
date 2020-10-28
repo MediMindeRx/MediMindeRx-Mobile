@@ -98,7 +98,7 @@ import {
           <Header />
 
           <View style={styles.welcomeTexts}>
-            <Text style={styles.welcomeText}>Hey there!</Text> 
+            <Text style={styles.welcomeText} testID="greeting-top">Hey there!</Text> 
             <Text style={styles.welcomeText}>What's your name?</Text>
           </View>
 
