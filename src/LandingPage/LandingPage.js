@@ -74,7 +74,7 @@ import {
         const userName = {"name": user.name}
         try {
           const apiData = await addUserAPI(userName)
-          user.id = apiData.id
+          user.id = apiData.data.id
           navigation.navigate('Create Reminder', {user: user }) 
         } catch (error) {
           console.log(apiData.message)

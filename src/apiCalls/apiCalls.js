@@ -55,7 +55,7 @@ export const createReminderAPI = async (reminder) => {
   }
 }
 
-export const addReminderAPI = async (reminder) => {
+export const addReminderTypeAPI = async (reminder) => {
   const path = reminder.address !== '' ? "schedules" : "locations"
   try {
     const response = await fetch(`${apiURL}/${path}`, {
