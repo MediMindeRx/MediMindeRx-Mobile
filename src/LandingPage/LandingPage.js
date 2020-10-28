@@ -42,7 +42,8 @@ import {
         location: { 
           lat: null,
           long: null,
-          locationName: null 
+          locationName: null,
+          address: null,
         }
       }
     }
@@ -69,14 +70,14 @@ import {
 
     const goToCreateReminder = async () => {
       if (user.name) {
-        // const userName = {"name": user.name}
-        // const apiData = await addUserAPI(userName)
-        // if (apiData.status === 'success') {
-        //   user.id = apiData.data.user_id
+        const userName = {"name": user.name}
+        const apiData = await addUserAPI(userName)
+        if (apiData.ok === true) {
+          user.id = apiData.user_id
           navigation.navigate('Create Reminder', {user: user }) 
-        // } else {
-        //   console.log(apiData)
-        // }
+        } else {
+          console.log(apiData)
+        }
       } else {
         alertUserName()
       }

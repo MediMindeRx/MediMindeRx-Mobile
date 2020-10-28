@@ -88,7 +88,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       const permissions = await Notifications.getPermissionsAsync()
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
-      const notifBody = reminder.showSupplies ? reminder.supplies.join(" ") : "Don't forget your supplies!"
+      const notifBody = reminder.showSupplies ? reminder.supplies : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -135,6 +135,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       }
     })
   }
+  }
 
 
 
@@ -155,7 +156,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
                 <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text>
               </Text>}
               {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName}</Text>}
-              <Text style={styles.bodyTextDetails}>{reminder.supplies.join(" ")}</Text>
+              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
                 {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                 </Text>
@@ -264,4 +265,4 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       shadowRadius: 3,
     },
 
-})}
+})

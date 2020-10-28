@@ -54,7 +54,8 @@ export default ReminderSettingPage = ({ navigation, route }) => {
   const suppliesJSX = () => {
     if (supplies.length > 0) {
       return supplies.map(supply => {
-        return(<View style={styles.supplyItem} key={supply}>
+        if (supply !== '') {
+          return(<View style={styles.supplyItem} key={supply}>
                 <Text style={[styles.showSuppliesText, {fontSize: 16}]}>{supply}</Text>
                 <TouchableOpacity 
                     style={styles.deleteSupplyButton}
@@ -63,6 +64,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
                     <Text style={[styles.buttonText, {fontSize: 14}]}>X</Text>
                   </TouchableOpacity>  
               </View>)
+        }
       })
     } 
   }
@@ -132,7 +134,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
     if (checkAlerts() === "Reminder is ready") {
       setTitle('')
       setSupply('')
-      setSupplies('')
+      setSupplies([])
       setShowSupplies(false)
       // const apiReminder = {user.id, current.reminder.title, currentReminder.supplies, currentReminder.showSupplies}
       // const response = await createReminderAPI(apiReminder)
@@ -158,10 +160,10 @@ export default ReminderSettingPage = ({ navigation, route }) => {
         contentContainerStyle={styles.container}
         scrollEnabled={false}
       >
-
     
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
+
         <View style={{ alignItems:'center'}}>
           <Text style={styles.sectionHeaderText}>Let's set up a reminder, {user.name}.</Text>
 

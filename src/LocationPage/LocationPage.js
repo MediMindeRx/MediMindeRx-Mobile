@@ -11,8 +11,10 @@ import {
   Text,
   View,
   TouchableOpacity,
+  KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
+  KeyboardAvoidingViewBase
 } from 'react-native';
 import Header from '../Header/Header'
 // ui
@@ -85,11 +87,16 @@ export default LocationPage = ({navigation, route}) => {
       return <AppLoading/>
     } else {
       return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+          style={[styles.container, { backgroundColor: "#E0EAFC" }]}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          scrollEnabled={false}
+        >
           <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
           <Header />
-
+          <View style={{alignItems: "center"}}>
           <View style={styles.welcomeTexts}>
             <Text style={styles.headerText}>Add Location</Text> 
             <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
@@ -97,7 +104,7 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{alignItems: "center"}}>
+            <View style={{height: "40%", width: "100%", marginBottom: "2%"}}>
               <ScrollView>
                 <TextInput 
                   style={styles.inputText} 
@@ -141,9 +148,9 @@ export default LocationPage = ({navigation, route}) => {
                 <Text style={styles.buttonText}>Save Reminder</Text>
               </TouchableOpacity>
             </View>
-
+            </View>
           </LinearGradient>
-        </View>
+        </KeyboardAvoidingView>
     )
   }
 
@@ -200,7 +207,7 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      marginTop: "3%",
+      // marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },

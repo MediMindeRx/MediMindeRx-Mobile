@@ -1,4 +1,4 @@
-const apiURL = 'http://127.0.0.1/5000/api'
+const apiURL = 'https://mediminderx-api.herokuapp.com/api/v1'
 
 export const getAllRemindersAPI = async () => {
   try {
@@ -12,11 +12,10 @@ export const getAllRemindersAPI = async () => {
 
 export const deleteReminderAPI = async (reminderID) => {
   try {
-    const response = await fetch(`${apiURL}/Reminder`, {
+    const response = await fetch(`${apiURL}/reminders`, {
       method: 'DELETE',
       headers: {
-          "Accept": "application/json",
-          "Content-Type": 'multipart/form-data'
+          "Content-Type": 'application/json'
         },
         body: JSON.stringify(reminderID)
     })
@@ -28,15 +27,14 @@ export const deleteReminderAPI = async (reminderID) => {
 
 export const addUserAPI = async (userName) => {
   try {
-    const response = await fetch(`${apiURL}/User`, {
+    const response = await fetch(`${apiURL}/users`, {
       method: "POST",
-       headers: {
-          "Accept": "application/json",
-          "Content-Type": 'application/json'
-        },
+      headers: {
+          "Content-Type": "application/json"
+      },
       body: JSON.stringify(userName)
     })
-    return response
+    return response.json()
   } catch (error) {
     return error
   }
@@ -44,7 +42,7 @@ export const addUserAPI = async (userName) => {
 
 export const createReminderAPI = async (reminder) => {
   try {
-    const response = await fetch(`${apiURL}/Reminder`, {
+    const response = await fetch(`${apiURL}/reminders`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -71,3 +69,15 @@ export const addReminderTypeAPI = async (reminder) => {
     return err
   }
 }
+
+const getLocationCoords = async (address) => {
+  try {
+    const response = await fetch(`https://api.radar.io/v1/geocode/forward?query=${address}`, {
+      headers: {
+        "Authorization": "prj_test_pk_c0e695398d2087846001855a18c471cabb8af286"
+      }
+    })
+  } catch (error) {
+    return
+  }
+}  

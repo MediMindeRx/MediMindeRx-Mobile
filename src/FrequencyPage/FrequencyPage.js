@@ -142,10 +142,11 @@ export default FrequencyPage = ({ navigation, route }) => {
 
   const singleDateChange = (event, date) => {
     const singleDateFormat = moment(date).format('LL')
-    user.currentReminder.days.push(singleDateFormat)
+    user.currentReminder.scheduled.days.push(singleDateFormat)
   }
 
   const inputCheck = () => {
+    console.log(user.currentReminder.scheduled.days.length)
     if (!user.currentReminder.scheduled.time) {
       formatTime(time)
     } 
@@ -157,15 +158,15 @@ export default FrequencyPage = ({ navigation, route }) => {
   }
   
   const saveData = async () => {
-    const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
-    const reminderType = {
-      reminder_id: reminder.id,
-      scheduled: {
-        time: user.currentReminder.scheduled.time,
-        days: serverFormatDays,
-        full_date: user.currentReminder.scheduled.unixDate     
-      }    
-    } 
+    // const serverFormatDays = user.currentReminder.scheduled.days.join(' ')
+    // const reminderType = {
+    //   reminder_id: reminder.id,
+    //   scheduled: {
+    //     time: user.currentReminder.scheduled.time,
+    //     days: serverFormatDays,
+    //     full_date: user.currentReminder.scheduled.unixDate     
+    //   }    
+    // } 
     // addReminderTypeAPI(reminderType)
     // const updatedReminders = await getAllRemindersAPI()
     // user.reminders = updatedReminders.join(' ')
@@ -179,6 +180,12 @@ export default FrequencyPage = ({ navigation, route }) => {
         time: '', 
         id: Date.now(), 
         fullDate: null
+      },
+      location: {
+        locationName: '',
+        longitude: '',
+        latitude: '',
+        address:""
       }
     }
     navigation.navigate('Profile', {user: user})
