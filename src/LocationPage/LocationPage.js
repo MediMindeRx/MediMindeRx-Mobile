@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
-import {addReminderTypeAPI, getLocationCoords} from '../apiCalls/apiCalls'
+import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
 
 import {AppLoading} from 'expo'
@@ -24,8 +24,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 import { TextInput } from 'react-native-gesture-handler';
 
 export default LocationPage = ({navigation, route}) => {
-  const [longitude, setLongitude] = useState('')
-  const [latitude, setLatitude] = useState('')
   const [locationName, setLocationName] = useState('')
   const [addressName, setAddressName] = useState('')
   const [cityName, setCityName] = useState('')
@@ -67,12 +65,12 @@ export default LocationPage = ({navigation, route}) => {
         alertMissingLocation()
       } else {
         user.currentReminder.location.address = `${addressName} ${cityName} ${stateName}`
-        const apiCoords = await getLocationCoords(user.currentReminder.location.address)
+        const apiCoords = await getCoordsAPI(user.currentReminder.location.address)
         user.currentReminder.location.longitude = apiCoords.longitude
         user.currentReminder.location.latitude = apiCoords.latitude
         user.currentReminder.location.locationName = locationName
         const reminderType = {
-          id: reminder.id, 
+          id: user.currentReminder.reminder.id, 
           longitude: user.currentReminder.location.longitude, 
           latitude: user.currentReminder.location.latitude, 
           location_name: user.currentReminder.location.locationName,

@@ -55,7 +55,7 @@ export const createReminderAPI = async (reminder) => {
   }
 }
 
-export const addReminderLocationAPI = async (reminder) => {
+export const addReminderAPI = async (reminder) => {
   const path = reminder.address !== '' ? "schedules" : "locations"
   try {
     const response = await fetch(`${apiURL}/${path}`, {
@@ -71,7 +71,7 @@ export const addReminderLocationAPI = async (reminder) => {
   }
 }
 
-export const getLocationCoords = async (address) => {
+export const getCoordsAPI = async (address) => {
   try {
     const response = await fetch(`https://api.radar.io/v1/geocode/forward?query=${address}`, {
       headers: {
