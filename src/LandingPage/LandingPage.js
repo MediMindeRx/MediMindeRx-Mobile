@@ -34,11 +34,11 @@ import {
         supplies: [], 
         id: '',
         showSupplies: false, 
-        repeating: false,
         scheduled: {
           days: [], 
           time: '', 
           unixDate: '',
+          repeating: false,
         }, 
         location: { 
           lat: '',

@@ -69,14 +69,14 @@ export default LocationPage = ({navigation, route}) => {
         user.currentReminder.location.longitude = apiCoords.longitude
         user.currentReminder.location.latitude = apiCoords.latitude
         user.currentReminder.location.locationName = locationName
-        const reminderType = {
+        const formatReminderType = {
           id: user.currentReminder.reminder.id, 
           longitude: user.currentReminder.location.longitude, 
           latitude: user.currentReminder.location.latitude, 
           location_name: user.currentReminder.location.locationName,
-          address: user.currentReminder.location.address
+          address: user.currentReminder.location.address,
         }
-        addReminderTypeAPI(reminderType)
+        addReminderTypeAPI(formatReminderType)
         user.reminders = await getAllReminders(user.id)
         navigation.navigate('Profile', {user: user })
       }

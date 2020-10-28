@@ -78,11 +78,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       )
 
     const deleteReminder = async (id) => {
-      const updatedReminders = user.reminders.filter(reminder => reminder.id !== id)
-      // deleteReminderAPI(id)
-      // const apiData = await getAllRemindersAPI()
-      setUserReminders(updatedReminders)
-      user.reminders = userReminders
+      deleteReminderAPI(id)
+      const apiData = await getAllRemindersAPI(user.id)
+      user.reminders = apiData.data
+      setUserReminders(user.reminders)
     }
 
     const startNotificationCountdown = async reminder => {
@@ -90,7 +89,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       const permissions = await Notifications.getPermissionsAsync()
       const triggerDate = new Date(reminder.fullDate)
       triggerDate.setSeconds(0)
-      const notifBody = reminder.showSupplies ? reminder.supplies : "Don't forget your supplies!"
+      const notifBody = reminder.showSupplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -110,7 +109,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           Notifications.scheduleNotificationAsync({
             content: {
               title: reminder.title,
-              body: reminder.supplies
+              body: reminder.supplies.join(' ')
             },
             trigger: {
               seconds: 60 * 60 * 24,
@@ -126,7 +125,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           Notifications.scheduleNotificationAsync({
             content: {
               title: reminder.title,
-              body: reminder.supplies
+              body: reminder.supplies.join(' ')
             },
             trigger: {
               seconds: 60 * 60 * 24 * 7,
@@ -154,7 +153,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
               <Text style={styles.subHeaderText}>{reminder.title}</Text>
 
               {reminder.scheduled.time && reminder.scheduled.days && <Text>
-                <Text style={styles.bodyTextDetails}>{reminder.scheduled.time} |</Text>
+                <Text style={styles.bodyTextDetails}>{reminder.scheduled.times} |</Text>
                 <Text style={styles.bodyTextDetails}> {dayRender(reminder.scheduled.days)}</Text>
               </Text>}
               {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.location.locationName} </Text>}
