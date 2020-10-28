@@ -56,7 +56,7 @@ export const createReminderAPI = async (reminder) => {
 }
 
 export const addReminderTypeAPI = async (reminder) => {
-  const path = reminder.address !== '' ? "schedules" : "locations"
+  const path = reminder.address ? "locations" : "schedules"
   try {
     const response = await fetch(`${apiURL}/${path}`, {
       method: 'POST',
@@ -65,6 +65,7 @@ export const addReminderTypeAPI = async (reminder) => {
       },
       body: JSON.stringify(reminder)
     })
+    console.log(response.json())
     return response.json()
   } catch (err) {
     return err

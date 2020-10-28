@@ -146,7 +146,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           Notifications.cancelAllScheduledNotificationsAsync()
 
           return userReminders.map(reminder => {
-
+            console.log(reminder.attributes)
             startNotificationCountdown(reminder)
 
             return (<View style={{width: "100%"}} key={reminder.id}>
