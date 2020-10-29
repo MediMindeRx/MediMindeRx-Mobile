@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import { Constants } from 'expo-constants'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
 
@@ -87,25 +88,25 @@ export default LocationPage = ({navigation, route}) => {
       return <AppLoading/>
     } else {
       return (
-        <KeyboardAvoidingView
-          style={[styles.container, { backgroundColor: "#E0EAFC" }]}
+        <KeyboardAwareScrollView
           resetScrollToCoords={{ x: 0, y: 0 }}
           contentContainerStyle={styles.container}
           scrollEnabled={false}
+          behavior='height'
+          enabled
         >
           <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
           <Header />
           <View style={{alignItems: "center"}}>
-          <View style={styles.welcomeTexts}>
-            <Text style={styles.headerText}>Add Location</Text> 
-            <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
-            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the house! Did you remember your insulin?"</Text>
-            <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
-          </View>
+            <View style={styles.welcomeTexts}>
+              <Text style={styles.headerText}>Add Location</Text> 
+              <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
+              <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the house! Did you remember your insulin?"</Text>
+              <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
+            </View>
         
             <View style={styles.inputContainer}>
-              {/* <ScrollView> */}
                 <TextInput 
                   style={styles.inputText} 
                   placeholder='Nickname ("Home")'
@@ -130,9 +131,7 @@ export default LocationPage = ({navigation, route}) => {
                   maxLength={10}
                   onChangeText={(text) => setStateName(text)}
                 />
-              {/* </ScrollView> */}
             </View>
-
             <View style={styles.buttonContainer}>
               <TouchableOpacity 
                 style={styles.buttonStyle}
@@ -149,16 +148,14 @@ export default LocationPage = ({navigation, route}) => {
             </View>
             </View>
           </LinearGradient>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     )
   }
-
 }
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-end',
       alignItems: "center"
     },
 
@@ -204,7 +201,6 @@ export default LocationPage = ({navigation, route}) => {
       marginTop: "3%"
     },
 
-
     buttonText: {
       color: white,
       fontFamily: "Montserrat_700Bold",
@@ -214,7 +210,7 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      // marginTop: "3%",
+      marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },

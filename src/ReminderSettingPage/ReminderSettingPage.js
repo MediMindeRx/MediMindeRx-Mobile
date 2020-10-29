@@ -169,55 +169,56 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       >
     
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
+          
         <Header />
 
         <View style={{ alignItems:'center'}}>
           <Text style={styles.sectionHeaderText}>Let's set up a reminder, {user.name}.</Text>
 
-        <View style={{height: "60%", width: "85%", marginBottom: "2%"}}>
-          <ScrollView>
-  
-          <View style={styles.inputField}>
-            <Text style={styles.subheaderText}>What should it be called?</Text>
-            <TextInput 
-                style={styles.inputText} 
-                value={title} 
-                onChangeText={(text) => handleTitleChange(text)} 
-                maxLength={25} 
-                placeholder='Enter its name here'/>
-          </View>
+          <View style={{height: "60%", width: "85%", marginBottom: "2%"}}>
 
-          <View style={[styles.inputField, {marginTop: "5%"}]}>
-            <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
-          
-            <View style={{flexDirection: "row", justifyContent:"space-evenly", alignItems: "center"}}>
-              <TextInput 
-                  style={[styles.inputText, {width: "80%"}]} 
-                  value={supply} 
-                  onChangeText={(text) => setSupply(text)} 
-                  maxLength={15} 
-                  placeholder='Add item here'/>
+            <ScrollView>
+              <View style={styles.inputField}>
+                <Text style={styles.subheaderText}>What should it be called?</Text>
+                <TextInput 
+                  style={styles.inputText} 
+                  value={title} 
+                  onChangeText={(text) => handleTitleChange(text)} 
+                  maxLength={25} 
+                  placeholder='Enter its name here'
+                />
+              </View>
+              <View style={[styles.inputField, {marginTop: "5%"}]}>
+                <Text style={styles.subheaderText}>What medication or supplies will you need?</Text>
+                <View style={{flexDirection: "row", justifyContent:"space-evenly", alignItems: "center"}}>
+                  <TextInput 
+                    style={[styles.inputText, {width: "80%"}]} 
+                    value={supply} 
+                    onChangeText={(text) => setSupply(text)} 
+                    maxLength={15} 
+                    placeholder='Add item here'
+                  />
                   <TouchableOpacity 
                     style={styles.addButtonStyle}
                     onPress={addSupply}
                   >
                     <Text style={[styles.buttonText, {fontSize: 16}]}>Add</Text>
                   </TouchableOpacity>             
+                </View>
+              </View>
+              {supplies.length !== 0 ? (
+                <View style={styles.supplyBox}>
+                  {suppliesJSX()}
+                </View>
+              ) : null}
+            </ScrollView>
+
+            <View style={styles.supplyToggle}>
+              <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
+              <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
             </View>
+
           </View>
-            {supplies.length !== 0 ? 
-              (<View style={styles.supplyBox}>
-                {suppliesJSX()}
-              </View>) : null}
-
-
-          </ScrollView>
-
-          <View style={styles.supplyToggle}>
-            <Text style={styles.showSuppliesText}>Show supplies on notification?</Text>
-            <Switch trackColor={{false: white, true: red}} value={showSupplies} onValueChange={toggleSupplies}/>
-          </View>
-        </View>
 
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity 
@@ -228,7 +229,7 @@ export default ReminderSettingPage = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         </View>
-        </LinearGradient>
+      </LinearGradient>
       </KeyboardAwareScrollView>
     )
   }
