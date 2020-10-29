@@ -115,7 +115,7 @@ export default LocationPage = ({navigation, route}) => {
                 <TextInput 
                   style={styles.inputText} 
                   placeholder='Address'
-                  maxLength={10}
+                  maxLength={50}
                   onChangeText={(text) => setAddressName(text)}
                 />
                 <TextInput 
