@@ -104,7 +104,7 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{height: "40%", marginBottom: "2%", marginTop: '10%'}}>
+            <View style={{height: "40%", marginBottom: "2%", marginTop: '5%'}}>
               <ScrollView style={{width: 275}}>
                 <TextInput 
                   style={styles.inputText} 
@@ -167,8 +167,8 @@ export default LocationPage = ({navigation, route}) => {
     },
 
     welcomeTexts: {
-      marginLeft: "10%",
-      marginRight: "9%",
+      marginLeft: "13%",
+      marginRight: "13%",
       marginBottom: "3%"
     },
     
@@ -183,6 +183,7 @@ export default LocationPage = ({navigation, route}) => {
       color: lightBlue,
       fontSize: 18,
       fontFamily: "Montserrat_700Bold",
+      marginTop: 10
     },
 
     inputText: {
