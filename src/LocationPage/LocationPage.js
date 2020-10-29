@@ -68,17 +68,24 @@ export default LocationPage = ({navigation, route}) => {
       if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
       } else {
-        user.currentReminder.location.address = formatAddress(`${addressName} ${cityName} ${stateName}`)
-        console.log(user.currentReminder.location.address)
-        const apiCoords = await getCoordsAPI(user.currentReminder.location.address)
-        user.currentReminder.location.longitude = apiCoords.longitude
-        user.currentReminder.location.latitude = apiCoords.latitude
+        // format the user address and make call to radar.io with it
+        const addressList = await getCoordsAPI(`${addressName} ${cityName} ${stateName}`)
+        const currentAddress = addressList.addresses[0]
+        
+        // take the response and assign it currentReminder info
+        user.currentReminder.location.address = currentAddress.addressLabel
+        user.currentReminder.location.long = currentAddress.longitude
+        user.currentReminder.location.lat = currentAddress.latitude
         user.currentReminder.location.locationName = locationName
+
+        console.log(user.currentReminder.location)
+        // setLocation(apiCoords.geometry.coordinates)
+
         const formatReminderType = {
-          // comment this back in when the API's taking POSTs for reminders
+          // comment the id back in when the API's taking POSTs for reminders
           // id: user.currentReminder.reminder.id, 
-          longitude: user.currentReminder.location.longitude, 
-          latitude: user.currentReminder.location.latitude, 
+          longitude: user.currentReminder.location.long, 
+          latitude: user.currentReminder.location.lat, 
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
