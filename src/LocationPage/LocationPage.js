@@ -98,7 +98,9 @@ export default LocationPage = ({navigation, route}) => {
           <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
 
           <Header />
+
           <View style={{alignItems: "center"}}>
+            
             <View style={styles.welcomeTexts}>
               <Text style={styles.headerText}>Add Location</Text> 
               <Text style={[styles.bodyText, {marginTop: "5%"}]}>Examples: </Text>
@@ -132,6 +134,7 @@ export default LocationPage = ({navigation, route}) => {
                   onChangeText={(text) => setStateName(text)}
                 />
             </View>
+
             <View style={styles.buttonContainer}>
               <TouchableOpacity 
                 style={styles.buttonStyle}
