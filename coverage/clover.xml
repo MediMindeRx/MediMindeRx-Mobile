@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1603843751022" clover="3.2.0">
-  <project timestamp="1603843751022" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1603994329064" clover="3.2.0">
+  <project timestamp="1603994329065" name="All files">
+    <metrics statements="24" coveredstatements="13" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="3" elements="35" coveredelements="18" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
+    <file name="LandingPage.js" path="/Users/benmcclung/Documents/mod4/MediMindeRx-Mobile/src/LandingPage/LandingPage.js">
+      <metrics statements="24" coveredstatements="13" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="3"/>
+      <line num="25" count="8" type="stmt"/>
+      <line num="26" count="8" type="stmt"/>
+      <line num="28" count="8" type="stmt"/>
+      <line num="52" count="8" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+      <line num="56" count="8" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="63" count="0" type="stmt"/>
+      <line num="66" count="0" type="stmt"/>
+      <line num="72" count="8" type="stmt"/>
+      <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="75" count="0" type="stmt"/>
+      <line num="76" count="0" type="stmt"/>
+      <line num="77" count="0" type="stmt"/>
+      <line num="78" count="0" type="stmt"/>
+      <line num="80" count="0" type="stmt"/>
+      <line num="83" count="0" type="stmt"/>
+      <line num="87" count="8" type="stmt"/>
+      <line num="91" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="92" count="4" type="stmt"/>
+      <line num="94" count="4" type="stmt"/>
+      <line num="110" count="2" type="stmt"/>
+      <line num="126" count="1" type="stmt"/>
+    </file>
   </project>
 </coverage>
