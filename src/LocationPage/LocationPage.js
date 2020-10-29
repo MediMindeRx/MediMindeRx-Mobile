@@ -6,7 +6,7 @@ import * as TaskManager from 'expo-task-manager'
 import * as Location from 'expo-location'
 import { Constants } from 'expo-constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
+import {addReminderTypeAPI, getCoordsAPI, getAllRemindersAPI} from '../apiCalls/apiCalls'
 
 import {AppLoading} from 'expo'
 import {
@@ -108,16 +108,18 @@ export default LocationPage = ({navigation, route}) => {
 
         const formatReminderType = {
           // comment the id back in when the APIs taking POSTs for reminders
-          reminder_id: `${user.currentReminder.reminder.id}`, 
-          longitude: user.currentReminder.location.long, 
-          latitude: user.currentReminder.location.lat, 
+          reminder_id: `${user.currentReminder.id}`, 
+          longitude: `${user.currentReminder.location.long}`, 
+          latitude: `${user.currentReminder.location.lat}`, 
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
 
         try {
           await addReminderTypeAPI(formatReminderType)
-          user.reminders = await getAllReminders(user.id).data
+          const allReminders =  await getAllRemindersAPI(user.id)
+          user.reminders = allReminders.data
+          console.log(user.reminders)
           navigation.navigate('Profile', {user: user })
         } catch (error) {
           console.error(error)

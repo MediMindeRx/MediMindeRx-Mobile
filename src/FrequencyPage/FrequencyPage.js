@@ -173,6 +173,7 @@ export default FrequencyPage = ({ navigation, route }) => {
     try {
       await addReminderTypeAPI(formatReminderType)
       const updatedReminders = await getAllRemindersAPI(user.id)
+
       user.reminders = updatedReminders.data
       user.currentReminder = {
         title: '', 
