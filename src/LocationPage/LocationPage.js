@@ -45,6 +45,10 @@ export default LocationPage = ({navigation, route}) => {
       setLatitude(locLatitude)
     }
 
+    const formatAddress = address => {
+      return address.toLowerCase().split(' ').join('+')
+    }
+
     const alertMissingLocation = () =>
       Alert.alert(
         "Where should the reminder fire?",
@@ -64,19 +68,21 @@ export default LocationPage = ({navigation, route}) => {
       if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
       } else {
-        user.currentReminder.location.address = `${addressName} ${cityName} ${stateName}`
+        user.currentReminder.location.address = formatAddress(`${addressName} ${cityName} ${stateName}`)
+        console.log(user.currentReminder.location.address)
         const apiCoords = await getCoordsAPI(user.currentReminder.location.address)
         user.currentReminder.location.longitude = apiCoords.longitude
         user.currentReminder.location.latitude = apiCoords.latitude
         user.currentReminder.location.locationName = locationName
         const formatReminderType = {
-          id: user.currentReminder.reminder.id, 
+          // comment this back in when the API's taking POSTs for reminders
+          // id: user.currentReminder.reminder.id, 
           longitude: user.currentReminder.location.longitude, 
           latitude: user.currentReminder.location.latitude, 
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
-        addReminderTypeAPI(formatReminderType)
+        // addReminderTypeAPI(formatReminderType)
         user.reminders = await getAllReminders(user.id)
         navigation.navigate('Profile', {user: user })
       }
