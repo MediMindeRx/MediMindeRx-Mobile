@@ -73,10 +73,6 @@ export default LocationPage = ({navigation, route}) => {
       setLatitude(locLatitude)
     }
 
-    const formatAddress = address => {
-      return address.toLowerCase().split(' ').join('+')
-    }
-
     const alertMissingLocation = () =>
       Alert.alert(
         "Where should the reminder fire?",
