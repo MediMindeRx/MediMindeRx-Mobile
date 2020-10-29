@@ -144,22 +144,21 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         if (userReminders.length > 0) {
           // cancel all previously set notifications to remove duplicates
           Notifications.cancelAllScheduledNotificationsAsync()
-
           return userReminders.map(reminder => {
             console.log(reminder.attributes)
             startNotificationCountdown(reminder)
 
             return (<View style={{width: "100%"}} key={reminder.id}>
-              <Text style={styles.subHeaderText}>{reminder.title}</Text>
+              <Text style={styles.subHeaderText}>{reminder.attributes.title}</Text>
 
               {reminder.scheduled.time && reminder.scheduled.days && <Text>
                 <Text style={styles.bodyTextDetails}>{reminder.attributes.schedule_reminder.attributes.times} |</Text>
                 <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.schedule_reminder.attributes.days)}</Text>
               </Text>}
               {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.attributes.locationName} </Text>}
-              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
+              <Text style={styles.bodyTextDetails}>{reminder.attributes.supplies}</Text>
               <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
-                {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+                {reminder.attributes.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
                 </Text>
               <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
                 <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>

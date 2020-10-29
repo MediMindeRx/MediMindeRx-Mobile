@@ -108,14 +108,15 @@ export default LocationPage = ({navigation, route}) => {
 
         const formatReminderType = {
           // comment the id back in when the APIs taking POSTs for reminders
-          // id: user.currentReminder.reminder.id, 
+          reminder_id: `${user.currentReminder.reminder.id}`, 
           longitude: user.currentReminder.location.long, 
           latitude: user.currentReminder.location.lat, 
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
-        // addReminderTypeAPI(formatReminderType)
-        user.reminders = await getAllReminders(user.id)
+        console.log(formatReminderType)
+        await addReminderTypeAPI(formatReminderType)
+        user.reminders = await getAllReminders(user.id).data
         navigation.navigate('Profile', {user: user })
       }
     }
@@ -142,7 +143,7 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{height: "40%", marginBottom: "2%", marginTop: '5%'}}>
+            <View style={{height: "40%", marginTop: '5%'}}>
               <ScrollView style={{width: 275}}>
                 <TextInput 
                   style={styles.inputText} 
@@ -159,13 +160,13 @@ export default LocationPage = ({navigation, route}) => {
                 <TextInput 
                   style={styles.inputText} 
                   placeholder='City'
-                  maxLength={10}
+                  maxLength={15}
                   onChangeText={(text) => setCityName(text)}
                 />
                 <TextInput 
                   style={styles.inputText} 
                   placeholder='State'
-                  maxLength={10}
+                  maxLength={15}
                   onChangeText={(text) => setStateName(text)}
                 />
               </ScrollView>
@@ -245,7 +246,6 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      // marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },

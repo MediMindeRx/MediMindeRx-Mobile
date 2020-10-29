@@ -166,14 +166,14 @@ export default FrequencyPage = ({ navigation, route }) => {
       "reminder_id": `${user.currentReminder.id}`,
       "times": user.currentReminder.scheduled.time,
       "days": serverFormatDays,
-      "unix_time": `${user.currentReminder.scheduled.unixDate}`,
+      "unix_time": user.currentReminder.scheduled.unixDate.toString(),
       "repeating": `${user.currentReminder.scheduled.repeating}`     
     } 
     try {
+
       await addReminderTypeAPI(formatReminderType)
       const updatedReminders = await getAllRemindersAPI(user.id)
-      console.log(updatedReminders.data)
-      user.reminders = updatedReminders
+      user.reminders = updatedReminders.data
       user.currentReminder = {
         title: '', 
         supplies: '', 
