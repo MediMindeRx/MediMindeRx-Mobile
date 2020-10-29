@@ -169,8 +169,8 @@ export default FrequencyPage = ({ navigation, route }) => {
       "unix_time": user.currentReminder.scheduled.unixDate.toString(),
       "repeating": `${user.currentReminder.scheduled.repeating}`     
     } 
+    
     try {
-
       await addReminderTypeAPI(formatReminderType)
       const updatedReminders = await getAllRemindersAPI(user.id)
       user.reminders = updatedReminders.data

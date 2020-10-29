@@ -104,7 +104,6 @@ export default LocationPage = ({navigation, route}) => {
         reminderLocation.lat = currentAddress.latitude
         reminderLocation.locationName = locationName
 
-        // setLocation(apiCoords.geometry.coordinates)
         startTracking()
 
         const formatReminderType = {
@@ -115,13 +114,16 @@ export default LocationPage = ({navigation, route}) => {
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
-        console.log(formatReminderType)
-        await addReminderTypeAPI(formatReminderType)
-        user.reminders = await getAllReminders(user.id).data
-        navigation.navigate('Profile', {user: user })
+
+        try {
+          await addReminderTypeAPI(formatReminderType)
+          user.reminders = await getAllReminders(user.id).data
+          navigation.navigate('Profile', {user: user })
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
-
 
     if (!fontsLoaded) {
       return <AppLoading/>
