@@ -80,8 +80,7 @@ export default LocationPage = ({navigation, route}) => {
         reminderLocation.long = currentAddress.longitude
         reminderLocation.lat = currentAddress.latitude
         reminderLocation.locationName = locationName
-
-        console.log(reminderLocation)
+        
         // setLocation(apiCoords.geometry.coordinates)
 
         const formatReminderType = {
