@@ -6,7 +6,31 @@ import ProfilePage from './ProfilePage'
 
 describe('LandingPage', async () => {
   it('should have a greeting', async () => {
-    const route = {}
+    const route = {params: {
+      name: '',
+      id: '',
+      reminders: [],
+      currentReminder: {
+        title: '',
+        supplies: [],
+        id: '',
+        showSupplies: false,
+        scheduled: {
+          days: [],
+          time: '',
+          unixDate: '',
+          repeating: false,
+        },
+        location: {
+          lat: '',
+          long: '',
+          locationName: '',
+          address: '',
+        }
+      }
+    }
+  }
+  const navigation = {};
     const { getByText } = render(<ProfilePage />)
 
     const reminders = await waitFor(() => getByText("Let's schedule some reminders."))
