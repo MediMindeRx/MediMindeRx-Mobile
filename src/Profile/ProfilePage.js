@@ -143,6 +143,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
   }
 
   const remindersJSX = () => {
+    console.log(userReminders)
       if (userReminders.length > 0) {
         Notifications.cancelAllScheduledNotificationsAsync()
         return userReminders.map(reminder => {
