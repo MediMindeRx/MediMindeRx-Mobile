@@ -78,10 +78,14 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
       )
 
     const deleteReminder = async (id) => {
-      deleteReminderAPI(id)
-      const apiData = await getAllRemindersAPI(user.id)
-      user.reminders = apiData.data
-      setUserReminders(user.reminders)
+      try {
+        deleteReminderAPI(id)
+        const apiData = await getAllRemindersAPI(user.id)
+        user.reminders = apiData.data
+        setUserReminders(user.reminders)
+      } catch (error) {
+        console.error(error)
+      }
     }
 
     const startNotificationCountdown = async reminder => {
@@ -138,40 +142,36 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
   }
   }
 
+  const remindersJSX = () => {
+      if (userReminders.length > 0) {
+        Notifications.cancelAllScheduledNotificationsAsync()
+        return userReminders.map(reminder => {
 
+          startNotificationCountdown(reminder)
 
-    const remindersJSX = () => {
-        if (userReminders.length > 0) {
-          // cancel all previously set notifications to remove duplicates
-          Notifications.cancelAllScheduledNotificationsAsync()
+          return (<View style={{width: "100%"}} key={reminder.id}>
+            <Text style={styles.subHeaderText}>{reminder.attributes.title}</Text>
 
-          return userReminders.map(reminder => {
-            console.log(reminder.attributes)
-            startNotificationCountdown(reminder)
+            {reminder.scheduled.time && reminder.scheduled.days && <Text>
+              <Text style={styles.bodyTextDetails}>{reminder.attributes.schedule_reminder.attributes.times} |</Text>
+              <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.schedule_reminder.attributes.days)}</Text>
+            </Text>}
+            {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.attributes.locationName} </Text>}
+            <Text style={styles.bodyTextDetails}>{reminder.attributes.supplies}</Text>
+            <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
+              {reminder.attributes.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+              </Text>
+            <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
+              <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
+            </TouchableOpacity>
+            <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
+          </View>)
 
-            return (<View style={{width: "100%"}} key={reminder.id}>
-              <Text style={styles.subHeaderText}>{reminder.title}</Text>
-
-              {reminder.scheduled.time && reminder.scheduled.days && <Text>
-                <Text style={styles.bodyTextDetails}>{reminder.attributes.schedule_reminder.attributes.times} |</Text>
-                <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.schedule_reminder.attributes.days)}</Text>
-              </Text>}
-              {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.attributes.locationName} </Text>}
-              <Text style={styles.bodyTextDetails}>{reminder.supplies}</Text>
-              <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
-                {reminder.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
-                </Text>
-              <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
-                <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
-              </TouchableOpacity>
-              <View style={{borderBottomColor: red, borderBottomWidth: 1, marginTop: "3%"}}/>
-            </View>)
-
-          })
-        } else {
-          return null
-        }
+        })
+      } else {
+        return null
       }
+    }
 
     if (!fontsLoaded) {
       return <AppLoading/>

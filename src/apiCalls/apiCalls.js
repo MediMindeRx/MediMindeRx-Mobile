@@ -65,7 +65,6 @@ export const addReminderTypeAPI = async (reminder) => {
       },
       body: JSON.stringify(reminder)
     })
-    console.log(response.json())
     return response.json()
   } catch (err) {
     return err

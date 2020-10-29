@@ -36,8 +36,8 @@ import {
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
-      marginTop: "7%",
-      marginBottom: "5%"
+      marginTop: "10%",
+      marginBottom: "8%"
     }, 
     bodyText: {
       color: lightBlue,
