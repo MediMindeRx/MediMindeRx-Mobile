@@ -241,7 +241,7 @@ export default LocationPage = ({navigation, route}) => {
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,
       borderBottomColor: red,
-      width: "100%",
+      width: "75%",
       paddingBottom: 5,
       marginTop: "3%"
     },

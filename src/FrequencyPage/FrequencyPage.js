@@ -188,7 +188,7 @@ export default FrequencyPage = ({ navigation, route }) => {
           locationName: '',
           long: '',
           lat: '',
-          address:""
+          address: ""
         }
       }
       navigation.navigate('Profile', {user: user})
