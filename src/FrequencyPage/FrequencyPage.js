@@ -186,8 +186,8 @@ export default FrequencyPage = ({ navigation, route }) => {
         },
         location: {
           locationName: '',
-          longitude: '',
-          latitude: '',
+          long: '',
+          lat: '',
           address:""
         }
       }

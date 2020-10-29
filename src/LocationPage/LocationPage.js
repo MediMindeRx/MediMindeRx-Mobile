@@ -31,6 +31,8 @@ export default LocationPage = ({navigation, route}) => {
   
     const {user} = route.params
 
+    console.log(user)
+
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
       Montserrat_600SemiBold,
@@ -68,17 +70,18 @@ export default LocationPage = ({navigation, route}) => {
       if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
       } else {
+        const reminderLocation = user.currentReminder.location
         // format the user address and make call to radar.io with it
         const addressList = await getCoordsAPI(`${addressName} ${cityName} ${stateName}`)
         const currentAddress = addressList.addresses[0]
         
         // take the response and assign it currentReminder info
-        user.currentReminder.location.address = currentAddress.addressLabel
-        user.currentReminder.location.long = currentAddress.longitude
-        user.currentReminder.location.lat = currentAddress.latitude
-        user.currentReminder.location.locationName = locationName
+        reminderLocation.address = currentAddress.addressLabel
+        reminderLocation.long = currentAddress.longitude
+        reminderLocation.lat = currentAddress.latitude
+        reminderLocation.locationName = locationName
 
-        console.log(user.currentReminder.location)
+        console.log(reminderLocation)
         // setLocation(apiCoords.geometry.coordinates)
 
         const formatReminderType = {
