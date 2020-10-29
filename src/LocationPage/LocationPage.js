@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
 import * as TaskManager from 'expo-task-manager'
+import * as Location from 'expo-location'
 import { Constants } from 'expo-constants'
 import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
