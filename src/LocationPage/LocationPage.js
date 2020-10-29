@@ -104,8 +104,8 @@ export default LocationPage = ({navigation, route}) => {
             <Text style={[styles.bodyText, {fontFamily: "Montserrat_400Regular_Italic"}]}>"You've left the trailhead parking lot. Did you grab your inhaler?"</Text>
           </View>
         
-            <View style={{height: "40%", width: "100%", marginBottom: "2%"}}>
-              <ScrollView>
+            <View style={styles.inputContainer}>
+              {/* <ScrollView> */}
                 <TextInput 
                   style={styles.inputText} 
                   placeholder='Nickname ("Home")'
@@ -130,8 +130,7 @@ export default LocationPage = ({navigation, route}) => {
                   maxLength={10}
                   onChangeText={(text) => setStateName(text)}
                 />
-              </ScrollView>
-
+              {/* </ScrollView> */}
             </View>
 
             <View style={styles.buttonContainer}>
@@ -159,7 +158,7 @@ export default LocationPage = ({navigation, route}) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
       alignItems: "center"
     },
 
@@ -184,6 +183,14 @@ export default LocationPage = ({navigation, route}) => {
       color: lightBlue,
       fontSize: 18,
       fontFamily: "Montserrat_700Bold",
+    },
+
+    inputContainer: {
+      height: "40%", 
+      width: "100%", 
+      marginBottom: "2%", 
+      justifyContent: 'center', 
+      alignItems: 'center'
     },
 
     inputText: {
