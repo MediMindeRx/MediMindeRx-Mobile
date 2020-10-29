@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications'
+import * as TaskManager from 'expo-task-manager'
 import { Constants } from 'expo-constants'
 import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
@@ -80,7 +81,7 @@ export default LocationPage = ({navigation, route}) => {
         reminderLocation.long = currentAddress.longitude
         reminderLocation.lat = currentAddress.latitude
         reminderLocation.locationName = locationName
-        
+
         // setLocation(apiCoords.geometry.coordinates)
 
         const formatReminderType = {
