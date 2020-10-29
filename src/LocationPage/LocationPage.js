@@ -7,7 +7,6 @@ import * as Location from 'expo-location'
 import { Constants } from 'expo-constants'
 import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
 
-
 import {AppLoading} from 'expo'
 import {
   StyleSheet,
@@ -25,15 +24,30 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular_Italic} from '@expo-google-fonts/montserrat'
 import { TextInput } from 'react-native-gesture-handler';
 
+// following documentation syntax, not sure if declaring it like this is necessary
+const TRACK_LOCATION = 'background-location-task'
+
 export default LocationPage = ({navigation, route}) => {
   const [locationName, setLocationName] = useState('')
   const [addressName, setAddressName] = useState('')
   const [cityName, setCityName] = useState('')
   const [stateName, setStateName] = useState('')
+
+    // define the function for taking in location data in background
+    TaskManager.defineTask(TRACK_LOCATION, ({ data, err }) => {
+      if (error) {
+        console.log(error)
+        return
+      }
+      if (data) {
+        const { locations } = data
+        console.log(locations)
+      }
+    })
+
+    // 
   
     const {user} = route.params
-
-    console.log(user)
 
     const [fontsLoaded] = useFonts({
       Montserrat_700Bold, 
