@@ -15,15 +15,38 @@ describe('LandingPage', async () => {
     expect(bottomGreeting).toHaveTextContent('What\'s your name?')
   });
 
-  it('should have an input field', async () => {
-    const { findByPlaceholderText } = render(<LandingPage />)
+  it('should have an input field and a button', async () => {
+    const { findByPlaceholderText, findByText } = render(<LandingPage />)
 
     const input = await waitFor(() => findByPlaceholderText('Name'))
+    const button = await waitFor(() => findByText('Create Reminder'))
 
-    expect(input).toHaveTextContent("");
+    expect(input).toBeEmpty("");
+    expect(button).toHaveTextContent("Create Reminder")
   })
 
   it('input field should be changeable', async () => {
-    
+    const { getByPlaceholderText } = render(<LandingPage />)
+
+    const input = await waitFor(() => getByPlaceholderText('Name'))
+
+    fireEvent.changeText(input, "Samuel")
+
+    expect(input).toHaveTextContent("Samuel")
+  })
+
+  it('input field should be reset after button press', async () => {
+    const { getByText, getByPlaceholderText } = render(<LandingPage />)
+
+    const input = await waitFor(() => getByPlaceholderText('Name'))
+    const button = await waitFor(() => getByText("Create Reminder"))
+
+    fireEvent.changeText(input, "Samuel")
+
+    expect(input).toHaveTextContent("Samuel")
+
+    fireEvent.click(button)
+
+    expect(input).toHaveTextContent("")
   })
 });
