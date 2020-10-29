@@ -49,7 +49,7 @@ export default LocationPage = ({navigation, route}) => {
     const startTracking = async () => {
       const permissions = await Notifications.getPermissionsAsync()
 
-      if (permissions === 'granted') {
+      if (permissions.granted) {
         await Location.startLocationUpdatesAsync(TRACK_LOCATION, {
           // again, just following documentation here for the time being
           accuracy: Location.Accuracy.Balanced
@@ -107,7 +107,7 @@ export default LocationPage = ({navigation, route}) => {
         startTracking()
 
         const formatReminderType = {
-          // comment the id back in when the API's taking POSTs for reminders
+          // comment the id back in when the APIs taking POSTs for reminders
           // id: user.currentReminder.reminder.id, 
           longitude: user.currentReminder.location.long, 
           latitude: user.currentReminder.location.lat, 
