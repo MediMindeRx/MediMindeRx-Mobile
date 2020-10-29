@@ -141,7 +141,6 @@ export default ReminderSettingPage = ({ navigation, route }) => {
       try {
         const apiData = await createReminderAPI(apiFormattedReminder)
         user.currentReminder.id = apiData.data.id
-        console.log(user.currentReminder.id)
         navigation.navigate('Trigger Options', {user:user})
         setTitle('')
         setSupply('')
