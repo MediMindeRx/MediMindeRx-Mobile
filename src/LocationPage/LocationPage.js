@@ -65,14 +65,7 @@ export default LocationPage = ({navigation, route}) => {
       Montserrat_600SemiBold,
       Montserrat_400Regular_Italic,
     })
-
-    const setLocation = (data, details) => {
-      // do something with data and details
-      const locLongitude = data.longitude
-      const locLatitude = data.latitude
-      setLongitude(locLongitude)
-      setLatitude(locLatitude)
-    }
+ 
 
     const alertMissingLocation = () =>
       Alert.alert(
@@ -94,11 +87,9 @@ export default LocationPage = ({navigation, route}) => {
         alertMissingLocation()
       } else {
         const reminderLocation = user.currentReminder.location
-        // format the user address and make call to radar.io with it
         const addressList = await getCoordsAPI(`${addressName} ${cityName} ${stateName}`)
         const currentAddress = addressList.addresses[0]
         
-        // take the response and assign it currentReminder info
         reminderLocation.address = currentAddress.addressLabel
         reminderLocation.long = currentAddress.longitude
         reminderLocation.lat = currentAddress.latitude
@@ -245,7 +236,7 @@ export default LocationPage = ({navigation, route}) => {
       borderBottomColor: red,
       width: "100%",
       paddingBottom: 5,
-      marginTop: "3%"
+      marginTop: "7%"
     },
 
     buttonText: {
@@ -257,7 +248,7 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      // marginTop: "3%",
+      marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },
