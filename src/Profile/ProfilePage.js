@@ -78,9 +78,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const deleteReminder = async (id) => {
       try {
-        deleteReminderAPI(id.toString())
+        deleteReminderAPI({"id":`${id}`})
         const apiData = await getAllRemindersAPI(user.id)
-
         user.reminders = apiData.data
         setUserReminders(user.reminders)
       } catch (error) {
