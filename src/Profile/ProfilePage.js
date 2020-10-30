@@ -38,20 +38,19 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const dayRender = (days) => {
-      const daysArray = [days]
-      console.log(daysArray[0].includes(','))
-
-      switch(daysArray) {
-        case daysArray[0].includes(','):
-          console.log('lol')
-          return daysArray[0]
-        case daysArray.length === 7:
+      const daysArray = days.split(' ')
+      console.log(daysArray)
+        if (daysArray[1].includes(',')) {
+          return daysArray.map(day => {
+            return day + " "
+          })
+        }  if (daysArray.length === 7) {
           return "Repeat daily"
-        case daysArray.length === 2 && daysArray.includes("Saturday") && daysArray.includes("Sunday"):
-          return "Repeat weekends"
-        case daysArray.length === 5 && !daysArray.includes("Saturday") && !daysArray.includes("Sunday"):
+        } if ( daysArray.length === 2 && daysArray.includes("Saturday") && daysArray.includes("Sunday")) {
+         return "Repeat weekends"
+       } if (daysArray.length === 5 && !daysArray.includes("Saturday") && !daysArray.includes("Sunday")) {
           return "Repeat weekdays"
-        default:
+        } else {
           return "Repeat" +  daysArray.map(day => {
             if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
               return " " + day.charAt(0) + day.charAt(1)
@@ -59,7 +58,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
               return " " + day.charAt(0)
             }
           })
-      }
+        }
     }
 
     const alertDelete = (id) =>
@@ -79,8 +78,9 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const deleteReminder = async (id) => {
       try {
-        deleteReminderAPI(id)
+        deleteReminderAPI(id.toString())
         const apiData = await getAllRemindersAPI(user.id)
+
         user.reminders = apiData.data
         setUserReminders(user.reminders)
       } catch (error) {
@@ -154,10 +154,10 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
             <Text style={styles.subHeaderText}>{reminder.attributes.title}</Text>
 
             {reminder.attributes.scheduled_reminder && reminder.attributes.scheduled_reminder.data.attributes.times && reminder.attributes.scheduled_reminder.data.attributes.days && <Text>
-              <Text style={styles.bodyTextDetails}>{reminder.attributes.scheduled_reminder.data.attributes.times}|</Text>
+              <Text style={styles.bodyTextDetails}>{reminder.attributes.scheduled_reminder.data.attributes.times} |</Text>
               <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.scheduled_reminder.data.attributes.days)}</Text>
             </Text>}
-            {reminder.attributes.location_reminder && reminder.attributes.location_reminder.data.attributes.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.data.attributes.locationName} </Text>}
+            {reminder.attributes.location_reminder && reminder.attributes.location_reminder.data.attributes.location_name && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.data.attributes.location_name} </Text>}
             <Text style={styles.bodyTextDetails}>{reminder.attributes.supplies}</Text>
             <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
               {reminder.attributes.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}

@@ -243,7 +243,7 @@ export default LocationPage = ({navigation, route}) => {
       fontFamily: "Montserrat_700Bold",
       borderBottomWidth: 2,
       borderBottomColor: red,
-      width: "100%",
+      width: "90%",
       paddingBottom: 5,
       marginTop: "3%"
     },
@@ -257,7 +257,7 @@ export default LocationPage = ({navigation, route}) => {
 
     buttonContainer: {
       alignItems: "center",
-      marginTop: "3%",
+      // marginTop: "3%",
       flexDirection: "row",
       justifyContent: "center",
     },
