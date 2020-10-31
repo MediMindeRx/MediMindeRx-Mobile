@@ -6,7 +6,7 @@ import * as TaskManager from 'expo-task-manager'
 import * as Location from 'expo-location'
 import { Constants } from 'expo-constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {addReminderTypeAPI, getCoordsAPI} from '../apiCalls/apiCalls'
+import {addReminderTypeAPI, getCoordsAPI, getAllRemindersAPI} from '../apiCalls/apiCalls'
 
 import {AppLoading} from 'expo'
 import {
@@ -65,14 +65,7 @@ export default LocationPage = ({navigation, route}) => {
       Montserrat_600SemiBold,
       Montserrat_400Regular_Italic,
     })
-
-    const setLocation = (data, details) => {
-      // do something with data and details
-      const locLongitude = data.longitude
-      const locLatitude = data.latitude
-      setLongitude(locLongitude)
-      setLatitude(locLatitude)
-    }
+ 
 
     const alertMissingLocation = () =>
       Alert.alert(
@@ -94,11 +87,9 @@ export default LocationPage = ({navigation, route}) => {
         alertMissingLocation()
       } else {
         const reminderLocation = user.currentReminder.location
-        // format the user address and make call to radar.io with it
         const addressList = await getCoordsAPI(`${addressName} ${cityName} ${stateName}`)
         const currentAddress = addressList.addresses[0]
         
-        // take the response and assign it currentReminder info
         reminderLocation.address = currentAddress.addressLabel
         reminderLocation.long = currentAddress.longitude
         reminderLocation.lat = currentAddress.latitude
@@ -108,16 +99,18 @@ export default LocationPage = ({navigation, route}) => {
 
         const formatReminderType = {
           // comment the id back in when the APIs taking POSTs for reminders
-          reminder_id: `${user.currentReminder.reminder.id}`, 
-          longitude: user.currentReminder.location.long, 
-          latitude: user.currentReminder.location.lat, 
+          reminder_id: `${user.currentReminder.id}`, 
+          longitude: `${user.currentReminder.location.long}`, 
+          latitude: `${user.currentReminder.location.lat}`, 
           location_name: user.currentReminder.location.locationName,
           address: user.currentReminder.location.address,
         }
 
         try {
           await addReminderTypeAPI(formatReminderType)
-          user.reminders = await getAllReminders(user.id).data
+          const allReminders =  await getAllRemindersAPI(user.id)
+          user.reminders = allReminders.data
+          console.log(user.reminders)
           navigation.navigate('Profile', {user: user })
         } catch (error) {
           console.error(error)
@@ -228,8 +221,8 @@ export default LocationPage = ({navigation, route}) => {
     },
 
     inputContainer: {
-      height: "40%", 
-      width: "100%", 
+      height: "35%", 
+      width: "80%", 
       marginBottom: "2%", 
       justifyContent: 'center', 
       alignItems: 'center'
@@ -243,7 +236,7 @@ export default LocationPage = ({navigation, route}) => {
       borderBottomColor: red,
       width: "100%",
       paddingBottom: 5,
-      marginTop: "3%"
+      marginTop: "7%"
     },
 
     buttonText: {

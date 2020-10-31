@@ -91,7 +91,6 @@ export default TriggerOptions = ({navigation, route}) => {
       color: lightBlue,
       fontSize: 26,
       fontFamily: "Montserrat_700Bold",
-      marginTop: "2%"
     },
 
     bodyText: {

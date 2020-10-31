@@ -38,28 +38,27 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const dayRender = (days) => {
-      switch(days) {
-        case days[0].includes(', '):
-          return days[0]
-          break 
-        case days.length === 7:
+      const daysArray = days.split(' ')
+      console.log(daysArray)
+        if (daysArray[1].includes(',')) {
+          return daysArray.map(day => {
+            return day + " "
+          })
+        }  if (daysArray.length === 7) {
           return "Repeat daily"
-          break
-        case days.length === 2 && days.includes("Saturday") && days.includes("Sunday"):
-          return "Repeat weekends"
-          break
-        case days.length === 5 && !days.includes("Saturday") && !days.includes("Sunday"):
+        } if ( daysArray.length === 2 && daysArray.includes("Saturday") && daysArray.includes("Sunday")) {
+         return "Repeat weekends"
+       } if (daysArray.length === 5 && !daysArray.includes("Saturday") && !daysArray.includes("Sunday")) {
           return "Repeat weekdays"
-          break
-        default:
-          return "Repeat" +  days.map(day => {
+        } else {
+          return "Repeat" +  daysArray.map(day => {
             if (day === "Tuesday" || day === "Thursday" || day === "Sunday" || day === "Saturday") {
               return " " + day.charAt(0) + day.charAt(1)
             } else {
               return " " + day.charAt(0)
             }
           })
-      }
+        }
     }
 
     const alertDelete = (id) =>
@@ -79,7 +78,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const deleteReminder = async (id) => {
       try {
-        deleteReminderAPI(id)
+        deleteReminderAPI({"id":`${id}`})
         const apiData = await getAllRemindersAPI(user.id)
         user.reminders = apiData.data
         setUserReminders(user.reminders)
@@ -144,6 +143,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
   const remindersJSX = () => {
       if (userReminders.length > 0) {
+        console.log(userReminders)
         Notifications.cancelAllScheduledNotificationsAsync()
         return userReminders.map(reminder => {
 
@@ -152,11 +152,11 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
           return (<View style={{width: "100%"}} key={reminder.id}>
             <Text style={styles.subHeaderText}>{reminder.attributes.title}</Text>
 
-            {reminder.scheduled.time && reminder.scheduled.days && <Text>
-              <Text style={styles.bodyTextDetails}>{reminder.attributes.schedule_reminder.attributes.times} |</Text>
-              <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.schedule_reminder.attributes.days)}</Text>
+            {reminder.attributes.scheduled_reminder && reminder.attributes.scheduled_reminder.data.attributes.times && reminder.attributes.scheduled_reminder.data.attributes.days && <Text>
+              <Text style={styles.bodyTextDetails}>{reminder.attributes.scheduled_reminder.data.attributes.times} |</Text>
+              <Text style={styles.bodyTextDetails}> {dayRender(reminder.attributes.scheduled_reminder.data.attributes.days)}</Text>
             </Text>}
-            {reminder.location.locationName && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.attributes.locationName} </Text>}
+            {reminder.attributes.location_reminder && reminder.attributes.location_reminder.data.attributes.location_name && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.data.attributes.location_name} </Text>}
             <Text style={styles.bodyTextDetails}>{reminder.attributes.supplies}</Text>
             <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
               {reminder.attributes.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
