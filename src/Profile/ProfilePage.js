@@ -88,12 +88,13 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
+      console.log(reminder)
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
       let notifBody
 
       if (reminder.attributes.scheduled_reminder) {
-        triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
+        triggerDate = new Date(reminder.attributes.scheduled_reminder.attributes.unix_time)
         triggerDate.setSeconds(0)
       } else {
         triggerDate = { seconds: 10 }
