@@ -26,19 +26,19 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 import { TextInput } from 'react-native-gesture-handler';
 
 // following documentation syntax, not sure if declaring it like this is necessary
-const TRACK_LOCATION = 'background-location-task'
+// const TRACK_LOCATION = 'background-location-task'
 
 // define the function for taking in location data in background
-TaskManager.defineTask(TRACK_LOCATION, ({ data, err }) => {
-  if (err) {
-    console.log(error)
-    return
-  }
-  if (data) {
-    const { locations } = data
-    console.log(locations)
-  }
-})
+// TaskManager.defineTask(TRACK_LOCATION, ({ data, err }) => {
+//   if (err) {
+//     console.log(error)
+//     return
+//   }
+//   if (data) {
+//     const { locations } = data
+//     console.log(locations)
+//   }
+// })
 
 export default LocationPage = ({navigation, route}) => {
   const [locationName, setLocationName] = useState('')
@@ -47,16 +47,16 @@ export default LocationPage = ({navigation, route}) => {
   const [stateName, setStateName] = useState('')
 
   // set up callback for actually starting above defined task
-    const startTracking = async () => {
-      const permissions = await Notifications.getPermissionsAsync()
+    // const startTracking = async () => {
+    //   const permissions = await Notifications.getPermissionsAsync()
 
-      if (permissions.granted) {
-        await Location.startLocationUpdatesAsync(TRACK_LOCATION, {
-          // again, just following documentation here for the time being
-          accuracy: Location.Accuracy.Balanced
-        })
-      }
-    }
+    //   if (permissions.granted) {
+    //     await Location.startLocationUpdatesAsync(TRACK_LOCATION, {
+    //       // again, just following documentation here for the time being
+    //       accuracy: Location.Accuracy.Balanced
+    //     })
+    //   }
+    // }
   
     const {user} = route.params
 
@@ -95,7 +95,7 @@ export default LocationPage = ({navigation, route}) => {
         reminderLocation.lat = currentAddress.latitude
         reminderLocation.locationName = locationName
 
-        startTracking()
+        // startTracking()
 
         const formatReminderType = {
           // comment the id back in when the APIs taking POSTs for reminders
