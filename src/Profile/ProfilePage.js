@@ -90,6 +90,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     const startNotificationCountdown = async reminder => {
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
+      let notifBody
 
       if (reminder.attributes.scheduled_reminder) {
         triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
@@ -98,7 +99,11 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         triggerDate = { seconds: 10 }
       }
 
-      const notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
+      if (reminder.scheduled_reminder) {
+        notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
+      } else {
+        notifBody = `You've left ${reminder.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
+      }
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
