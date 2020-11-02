@@ -47,8 +47,8 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         }  if (daysArray.length === 7) {
           return "Repeat daily"
         } if ( daysArray.length === 2 && daysArray.includes("Saturday") && daysArray.includes("Sunday")) {
-         return "Repeat weekends"
-       } if (daysArray.length === 5 && !daysArray.includes("Saturday") && !daysArray.includes("Sunday")) {
+          return "Repeat weekends"
+        } if (daysArray.length === 5 && !daysArray.includes("Saturday") && !daysArray.includes("Sunday")) {
           return "Repeat weekdays"
         } else {
           return "Repeat" +  daysArray.map(day => {
@@ -88,10 +88,17 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
-      
+      console.log(reminder)
       const permissions = await Notifications.getPermissionsAsync()
-      const triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
-      triggerDate.setSeconds(0)
+      let triggerDate
+
+      if (reminder.attributes.scheduled_reminder !== null) {
+        triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
+        triggerDate.setSeconds(0)
+      } else {
+        triggerDate = { seconds: 10 }
+      }
+
       const notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
 
       if (permissions.granted) {
@@ -106,45 +113,46 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
       }
 
-      if (reminder.days.length === 7) {
-        const subscription = Notifications.addNotificationReceivedListener( async notification => {
-          // Notifications.cancelAllScheduledNotificationsAsync()
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: reminder.title,
-              body: reminder.supplies
-            },
-            trigger: {
-              seconds: 60 * 60 * 24,
-              repeats: true
-            }
+      if (reminder.attributes.scheduled_reminder !== null) {
+        const subscription = reminder.days.length === 7 ?
+          Notifications.addNotificationReceivedListener( async notification => {
+            // Notifications.cancelAllScheduledNotificationsAsync()
+            Notifications.scheduleNotificationAsync({
+              content: {
+                title: reminder.title,
+                body: reminder.supplies
+              },
+              trigger: {
+                seconds: 60 * 60 * 24,
+                repeats: true
+              }
+          })
+          Notifications.removeNotificationSubscription(subscription)
         })
-        Notifications.removeNotificationSubscription(subscription)
+        : Notifications.addNotificationReceivedListener( async notification => {
+          if (notification.title === reminder.title) {
+            // Notifications.cancelAllScheduledNotificationsAsync()
+            Notifications.scheduleNotificationAsync({
+              content: {
+                title: reminder.title,
+                body: reminder.supplies
+              },
+              trigger: {
+                seconds: 60 * 60 * 24 * 7,
+                repeats: true
+              }
+          })
+          Notifications.removeNotificationSubscription(subscription)
+        }
       })
-    } else {
-      const subscription = Notifications.addNotificationReceivedListener( async notification => {
-        if (notification.title === reminder.title) {
-          // Notifications.cancelAllScheduledNotificationsAsync()
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: reminder.title,
-              body: reminder.supplies
-            },
-            trigger: {
-              seconds: 60 * 60 * 24 * 7,
-              repeats: true
-            }
-        })
-        Notifications.removeNotificationSubscription(subscription)
-      }
-    })
-  }
+    }
   }
 
   const remindersJSX = () => {
       if (userReminders.length > 0) {
-        console.log(userReminders)
+
         Notifications.cancelAllScheduledNotificationsAsync()
+
         return userReminders.map(reminder => {
 
           startNotificationCountdown(reminder)
