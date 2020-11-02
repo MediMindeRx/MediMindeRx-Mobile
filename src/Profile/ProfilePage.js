@@ -87,23 +87,21 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
-      console.log('start notification countdown', reminder.data.attributes.scheduled_reminder)
+      console.log(reminder)
+      console.log(reminder.attributes)
+      console.log('start notification countdown', reminder.attributes.scheduled_reminder)
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
       let notifBody
 
-      if (reminder.data.attributes.scheduled_reminder) {
+      if (reminder.attributes.scheduled_reminder) {
         notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
-        triggerDate = new Date(reminder.data.attributes.scheduled_reminder.attributes.unix_time)
+        triggerDate = new Date(parseInt(reminder.attributes.scheduled_reminder.data.attributes.unix_time))
         triggerDate.setSeconds(0)
       } else {
-        notifBody = `You've left ${reminder.data.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
+        notifBody = `You've left ${reminder.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
         triggerDate = { seconds: 10 }
       }
-
-      // if (reminder.attributes.scheduled_reminder) {
-      // } else {
-      // }
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')
@@ -190,6 +188,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     } else {
       return (
       <View style={styles.container}>
+
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
