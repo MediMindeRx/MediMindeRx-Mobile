@@ -39,7 +39,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const dayRender = (days) => {
       const daysArray = days.split(' ')
-      console.log(daysArray)
         if (daysArray[1].includes(',')) {
           return daysArray.map(day => {
             return day + " "
@@ -88,23 +87,23 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
-      console.log(reminder)
+      console.log('start notification countdown', reminder.data.attributes.scheduled_reminder)
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
       let notifBody
 
-      if (reminder.attributes.scheduled_reminder) {
-        triggerDate = new Date(reminder.attributes.scheduled_reminder.attributes.unix_time)
+      if (reminder.data.attributes.scheduled_reminder) {
+        notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
+        triggerDate = new Date(reminder.data.attributes.scheduled_reminder.attributes.unix_time)
         triggerDate.setSeconds(0)
       } else {
+        notifBody = `You've left ${reminder.data.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
         triggerDate = { seconds: 10 }
       }
 
-      if (reminder.scheduled_reminder) {
-        notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
-      } else {
-        notifBody = `You've left ${reminder.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
-      }
+      // if (reminder.attributes.scheduled_reminder) {
+      // } else {
+      // }
 
       if (permissions.granted) {
         console.log('Notification permissions granted.')

@@ -110,7 +110,6 @@ export default LocationPage = ({navigation, route}) => {
           await addReminderTypeAPI(formatReminderType)
           const allReminders =  await getAllRemindersAPI(user.id)
           user.reminders = allReminders.data
-          console.log(user.reminders)
           navigation.navigate('Profile', {user: user })
         } catch (error) {
           console.error(error)
