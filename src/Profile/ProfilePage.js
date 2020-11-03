@@ -39,7 +39,6 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const dayRender = (days) => {
       const daysArray = days.split(' ')
-      console.log(daysArray)
         if (daysArray[1].includes(',')) {
           return daysArray.map(day => {
             return day + " "
@@ -88,21 +87,18 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     }
 
     const startNotificationCountdown = async reminder => {
+      console.log(reminder)
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
       let notifBody
 
       if (reminder.attributes.scheduled_reminder) {
-        triggerDate = new Date(reminder.attributes.schedule_reminder.attributes.unix_time)
+        notifBody = reminder.attributes.show_supplies ? `Supplies Reminder: ${reminder.attributes.supplies}` : "Don't forget your supplies!"
+        triggerDate = new Date(parseInt(reminder.attributes.scheduled_reminder.data.attributes.unix_time))
         triggerDate.setSeconds(0)
       } else {
+        notifBody = `You've left ${reminder.attributes.location_reminder.data.attributes.location_name}, did you forget your ${reminder.attributes.supplies}?`
         triggerDate = { seconds: 10 }
-      }
-
-      if (reminder.scheduled_reminder) {
-        notifBody = reminder.show_supplies ? reminder.supplies.join(' ') : "Don't forget your supplies!"
-      } else {
-        notifBody = `You've left ${reminder.attributes.location_reminder.data.attributes.location_name}, did you forget your epipen?`
       }
 
       if (permissions.granted) {
@@ -117,7 +113,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
       }
 
-      if (reminder.attributes.scheduled_reminder) {
+      if (reminder.attributes.scheduled_reminder && typeof reminder.days === 'array') {
         const subscription = reminder.days.length === 7 ?
           Notifications.addNotificationReceivedListener( async notification => {
             // Notifications.cancelAllScheduledNotificationsAsync()
@@ -171,7 +167,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
             {reminder.attributes.location_reminder && reminder.attributes.location_reminder.data.attributes.location_name && <Text style={styles.bodyTextDetails}>Fires when leaving {reminder.attributes.location_reminder.data.attributes.location_name} </Text>}
             <Text style={styles.bodyTextDetails}>{reminder.attributes.supplies}</Text>
             <Text style={[styles.bodyTextDetails, {fontSize: 14, fontFamily: "Montserrat_400Regular_Italic"}]}>
-              {reminder.attributes.showSupplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
+              {reminder.attributes.show_supplies ? "Supplies shown in notification" : "Supplies not shown in notification"}
               </Text>
             <TouchableOpacity style={[styles.buttonStyle, {width: "25%", padding: 5, marginTop: "2%"}]}>
               <Text style={[styles.buttonText, {fontSize: 14}]} onPress={() => alertDelete(reminder.id)}>Delete</Text>
@@ -190,6 +186,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
     } else {
       return (
       <View style={styles.container}>
+
         <LinearGradient colors={[white, white, "#E0EAFC"]} style={styles.linearGradient} >
         <Header />
 
