@@ -88,8 +88,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
 
     const startNotificationCountdown = async reminder => {
       console.log(reminder)
-      console.log(reminder.attributes)
-      console.log('start notification countdown', reminder.attributes.scheduled_reminder)
+
       const permissions = await Notifications.getPermissionsAsync()
       let triggerDate
       let notifBody
@@ -115,7 +114,7 @@ import {useFonts, Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regu
         })
       }
 
-      if (reminder.attributes.scheduled_reminder) {
+      if (reminder.attributes.scheduled_reminder && typeof reminder.days === 'array') {
         const subscription = reminder.days.length === 7 ?
           Notifications.addNotificationReceivedListener( async notification => {
             // Notifications.cancelAllScheduledNotificationsAsync()
