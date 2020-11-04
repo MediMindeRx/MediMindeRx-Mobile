@@ -1,7 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+
 
 # MediMindeRx Mobile
   
@@ -12,7 +9,7 @@
 [Ben McClung](https://github.com/AurumValian) <br/>
 
 ## Abstract
-Never forget your medical supplies again! This mobile app serves to track reminders for medical supplies and notify the user at a given time. 
+Never forget your medical supplies again! This mobile app serves to track reminders for medical supplies and notify the user at a given time or when leaving a location. 
 
 ## Set up 
 Follow the steps below to get this project up and running on your local environment:
@@ -39,14 +36,4 @@ Browse the app.
 ### Future Extentensions
 - Add user log-in
 - One user can keep track of their family's med reminders in color-coded organization
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
-[contributors-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
-[forks-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/network/members
-[stars-shield]: https://img.shields.io/github/stars/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
-[stars-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/stargazers
-[issues-shield]: https://img.shields.io/github/issues/MediMindeRx/MediMindeRx-Mobile.svg?style=flat-square
-[issues-url]: https://github.com/MediMindeRx/MediMindeRx-Mobile/issues
+- Contact emergency services from app
