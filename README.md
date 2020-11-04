@@ -11,7 +11,7 @@
 ## Abstract
 Never forget your medical supplies again! This mobile app serves to track reminders for medical supplies and notify the user at a given time or when leaving a location. 
 
-## Set up 
+### Set up 
 Follow the steps below to get this project up and running on your local environment:
 
 ### Prerequisites
@@ -28,7 +28,7 @@ In the window that opens up in your browser, click run on IOS simulator <br/>
 Or download the Expo App from the apple store on your phone. If you are connected to the same network, you can scan the QR code to get started or open the Expo and select the Project. <br/>
 Browse the app.
 
-## Tech Stack 
+### Tech Stack 
 - React Native
 - React Hooks
 - React Native Push Notifications
