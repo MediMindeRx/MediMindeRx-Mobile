@@ -82,6 +82,21 @@ export default LocationPage = ({navigation, route}) => {
         { cancelable: false }
       );
 
+    const alertInvalidLocation = () =>
+      Alert.alert(
+        "Invalid location",
+        "Please double check the address that you've put in.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+
     const inputCheck = async () => {
       if (!addressName || !cityName || !stateName) {
         alertMissingLocation()
@@ -89,6 +104,11 @@ export default LocationPage = ({navigation, route}) => {
         const reminderLocation = user.currentReminder.location
         const addressList = await getCoordsAPI(`${addressName} ${cityName} ${stateName}`)
         const currentAddress = addressList.addresses[0]
+
+        if (!currentAddress) {
+          alertInvalidLocation()
+          return
+        }
         
         reminderLocation.address = currentAddress.addressLabel
         reminderLocation.long = currentAddress.longitude
@@ -98,7 +118,6 @@ export default LocationPage = ({navigation, route}) => {
         // startTracking()
 
         const formatReminderType = {
-          // comment the id back in when the APIs taking POSTs for reminders
           reminder_id: `${user.currentReminder.id}`, 
           longitude: `${user.currentReminder.location.long}`, 
           latitude: `${user.currentReminder.location.lat}`, 
