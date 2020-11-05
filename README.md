@@ -31,9 +31,10 @@ Browse the app.
 ### Tech Stack 
 - React Native
 - React Hooks
-- React Native Push Notifications
+- Expo
 
 ### Future Extentensions
 - Add user log-in
 - One user can keep track of their family's med reminders in color-coded organization
 - Contact emergency services from app
+- Ability to edit reminders after they're saved
